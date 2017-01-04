@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		65C91790BC409EA6B7E6317F /* Pods_FlickPic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10FF24D0C5AC1276BFC5E9E1 /* Pods_FlickPic.framework */; };
+		ED0A833F1E1687D400A5D141 /* FlickViewAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0A833E1E1687D400A5D141 /* FlickViewAnimator.swift */; };
+		ED0A83451E1695D300A5D141 /* EffectlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED0A83441E1695D300A5D141 /* EffectlayerView.xib */; };
+		ED0A83471E1695EE00A5D141 /* EffectlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0A83461E1695EE00A5D141 /* EffectlayerView.swift */; };
+		EF79FD911D157AAC002CA4BA /* FlickView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF79FD901D157AAC002CA4BA /* FlickView.xib */; };
+		EF79FD931D157BFE002CA4BA /* FlickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF79FD921D157BFE002CA4BA /* FlickView.swift */; };
 		EFFC84671D15453600E30A3E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFC84661D15453600E30A3E /* AppDelegate.swift */; };
 		EFFC84691D15453600E30A3E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFC84681D15453600E30A3E /* ViewController.swift */; };
 		EFFC846C1D15453600E30A3E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EFFC846A1D15453600E30A3E /* Main.storyboard */; };
@@ -14,6 +20,11 @@
 		EFFC84711D15453600E30A3E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EFFC846F1D15453600E30A3E /* LaunchScreen.storyboard */; };
 		EFFC847C1D15453600E30A3E /* FlickPicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFC847B1D15453600E30A3E /* FlickPicTests.swift */; };
 		EFFC84871D15453600E30A3E /* FlickPicUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFC84861D15453600E30A3E /* FlickPicUITests.swift */; };
+		EFFC84991D15460700E30A3E /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFFC84951D15460700E30A3E /* Fabric.framework */; };
+		EFFC849A1D15460700E30A3E /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFFC84961D15460700E30A3E /* TwitterKit.framework */; };
+		EFFC849B1D15460700E30A3E /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EFFC84971D15460700E30A3E /* TwitterKitResources.bundle */; };
+		EFFC849C1D15460700E30A3E /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFFC84981D15460700E30A3E /* TwitterCore.framework */; };
+		EFFC849E1D154D8F00E30A3E /* FlickViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFC849D1D154D8F00E30A3E /* FlickViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +45,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		10FF24D0C5AC1276BFC5E9E1 /* Pods_FlickPic.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlickPic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C14F22A760FA65F8943EACA /* Pods-FlickPic.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlickPic.release.xcconfig"; path = "Pods/Target Support Files/Pods-FlickPic/Pods-FlickPic.release.xcconfig"; sourceTree = "<group>"; };
+		C01F9D56E71EC1D2CD38801D /* Pods-FlickPic.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlickPic.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FlickPic/Pods-FlickPic.debug.xcconfig"; sourceTree = "<group>"; };
+		ED0A833E1E1687D400A5D141 /* FlickViewAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickViewAnimator.swift; sourceTree = "<group>"; };
+		ED0A83441E1695D300A5D141 /* EffectlayerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EffectlayerView.xib; sourceTree = "<group>"; };
+		ED0A83461E1695EE00A5D141 /* EffectlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EffectlayerView.swift; sourceTree = "<group>"; };
+		EF79FD901D157AAC002CA4BA /* FlickView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlickView.xib; sourceTree = "<group>"; };
+		EF79FD921D157BFE002CA4BA /* FlickView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickView.swift; sourceTree = "<group>"; };
 		EFFC84631D15453600E30A3E /* FlickPic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlickPic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFFC84661D15453600E30A3E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EFFC84681D15453600E30A3E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -47,6 +66,11 @@
 		EFFC84821D15453600E30A3E /* FlickPicUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlickPicUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFFC84861D15453600E30A3E /* FlickPicUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickPicUITests.swift; sourceTree = "<group>"; };
 		EFFC84881D15453600E30A3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EFFC84951D15460700E30A3E /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		EFFC84961D15460700E30A3E /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = "<group>"; };
+		EFFC84971D15460700E30A3E /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TwitterKitResources.bundle; path = TwitterKit.framework/Versions/A/Resources/TwitterKitResources.bundle; sourceTree = "<group>"; };
+		EFFC84981D15460700E30A3E /* TwitterCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterCore.framework; sourceTree = "<group>"; };
+		EFFC849D1D154D8F00E30A3E /* FlickViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +78,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EFFC84991D15460700E30A3E /* Fabric.framework in Frameworks */,
+				EFFC849C1D15460700E30A3E /* TwitterCore.framework in Frameworks */,
+				EFFC849A1D15460700E30A3E /* TwitterKit.framework in Frameworks */,
+				65C91790BC409EA6B7E6317F /* Pods_FlickPic.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,6 +102,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8A0D62199F9F4E93E61100F6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EFFC84951D15460700E30A3E /* Fabric.framework */,
+				EFFC84961D15460700E30A3E /* TwitterKit.framework */,
+				EFFC84971D15460700E30A3E /* TwitterKitResources.bundle */,
+				EFFC84981D15460700E30A3E /* TwitterCore.framework */,
+				10FF24D0C5AC1276BFC5E9E1 /* Pods_FlickPic.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B962FE5C83CAD16F60E622DF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C01F9D56E71EC1D2CD38801D /* Pods-FlickPic.debug.xcconfig */,
+				6C14F22A760FA65F8943EACA /* Pods-FlickPic.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		EFFC845A1D15453600E30A3E = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +130,8 @@
 				EFFC847A1D15453600E30A3E /* FlickPicTests */,
 				EFFC84851D15453600E30A3E /* FlickPicUITests */,
 				EFFC84641D15453600E30A3E /* Products */,
+				B962FE5C83CAD16F60E622DF /* Pods */,
+				8A0D62199F9F4E93E61100F6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,7 +150,13 @@
 			children = (
 				EFFC84661D15453600E30A3E /* AppDelegate.swift */,
 				EFFC84681D15453600E30A3E /* ViewController.swift */,
+				EFFC849D1D154D8F00E30A3E /* FlickViewController.swift */,
+				ED0A83441E1695D300A5D141 /* EffectlayerView.xib */,
+				ED0A83461E1695EE00A5D141 /* EffectlayerView.swift */,
+				EF79FD921D157BFE002CA4BA /* FlickView.swift */,
 				EFFC846A1D15453600E30A3E /* Main.storyboard */,
+				EF79FD901D157AAC002CA4BA /* FlickView.xib */,
+				ED0A833E1E1687D400A5D141 /* FlickViewAnimator.swift */,
 				EFFC846D1D15453600E30A3E /* Assets.xcassets */,
 				EFFC846F1D15453600E30A3E /* LaunchScreen.storyboard */,
 				EFFC84721D15453600E30A3E /* Info.plist */,
@@ -132,9 +189,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EFFC848B1D15453600E30A3E /* Build configuration list for PBXNativeTarget "FlickPic" */;
 			buildPhases = (
+				658878F021F31E8EA0688BAD /* [CP] Check Pods Manifest.lock */,
 				EFFC845F1D15453600E30A3E /* Sources */,
 				EFFC84601D15453600E30A3E /* Frameworks */,
 				EFFC84611D15453600E30A3E /* Resources */,
+				EFFC84941D1545AF00E30A3E /* ShellScript */,
+				1BDA83DAFC25F25A578D4E81 /* [CP] Embed Pods Frameworks */,
+				A8C17556B25278D026DC3229 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -193,13 +254,17 @@
 				TargetAttributes = {
 					EFFC84621D15453600E30A3E = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 84ZS9U8SU6;
+						LastSwiftMigration = 0820;
 					};
 					EFFC84761D15453600E30A3E = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0820;
 						TestTargetID = EFFC84621D15453600E30A3E;
 					};
 					EFFC84811D15453600E30A3E = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0820;
 						TestTargetID = EFFC84621D15453600E30A3E;
 					};
 				};
@@ -229,7 +294,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF79FD911D157AAC002CA4BA /* FlickView.xib in Resources */,
+				EFFC849B1D15460700E30A3E /* TwitterKitResources.bundle in Resources */,
 				EFFC84711D15453600E30A3E /* LaunchScreen.storyboard in Resources */,
+				ED0A83451E1695D300A5D141 /* EffectlayerView.xib in Resources */,
 				EFFC846E1D15453600E30A3E /* Assets.xcassets in Resources */,
 				EFFC846C1D15453600E30A3E /* Main.storyboard in Resources */,
 			);
@@ -251,13 +319,78 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1BDA83DAFC25F25A578D4E81 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FlickPic/Pods-FlickPic-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		658878F021F31E8EA0688BAD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		A8C17556B25278D026DC3229 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FlickPic/Pods-FlickPic-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EFFC84941D1545AF00E30A3E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run 739668da00508549d1363b1d11c136dc82591ee9 703a69e2fcb2ffb4b2e6617ba0485bde5d32b10b67fd62ab4c329aabbd2213cb";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		EFFC845F1D15453600E30A3E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				EFFC84691D15453600E30A3E /* ViewController.swift in Sources */,
+				EF79FD931D157BFE002CA4BA /* FlickView.swift in Sources */,
+				EFFC849E1D154D8F00E30A3E /* FlickViewController.swift in Sources */,
+				ED0A83471E1695EE00A5D141 /* EffectlayerView.swift in Sources */,
 				EFFC84671D15453600E30A3E /* AppDelegate.swift in Sources */,
+				ED0A833F1E1687D400A5D141 /* FlickViewAnimator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,23 +530,43 @@
 		};
 		EFFC848C1D15453600E30A3E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C01F9D56E71EC1D2CD38801D /* Pods-FlickPic.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 84ZS9U8SU6;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = FlickPic/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.eddiecc.FlickPic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		EFFC848D1D15453600E30A3E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6C14F22A760FA65F8943EACA /* Pods-FlickPic.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 84ZS9U8SU6;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = FlickPic/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.eddiecc.FlickPic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -425,6 +578,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.eddiecc.FlickPicTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FlickPic.app/FlickPic";
 			};
 			name = Debug;
@@ -437,6 +591,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.eddiecc.FlickPicTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FlickPic.app/FlickPic";
 			};
 			name = Release;
@@ -448,6 +603,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.eddiecc.FlickPicUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = FlickPic;
 			};
 			name = Debug;
@@ -459,6 +615,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.eddiecc.FlickPicUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = FlickPic;
 			};
 			name = Release;
@@ -482,6 +639,7 @@
 				EFFC848D1D15453600E30A3E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EFFC848E1D15453600E30A3E /* Build configuration list for PBXNativeTarget "FlickPicTests" */ = {
 			isa = XCConfigurationList;
@@ -490,6 +648,7 @@
 				EFFC84901D15453600E30A3E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EFFC84911D15453600E30A3E /* Build configuration list for PBXNativeTarget "FlickPicUITests" */ = {
 			isa = XCConfigurationList;
@@ -498,6 +657,7 @@
 				EFFC84931D15453600E30A3E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
