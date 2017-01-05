@@ -17,7 +17,7 @@ import IDMPhotoBrowser
 
 private let frameAnimationSpringBounciness: CGFloat = 9
 private let frameAnimationSpringSpeed: CGFloat = 16
-private let kolodaCountOfVisibleCards = 2
+private let kolodaCountOfVisibleCards = 5
 private let kolodaAlphaValueSemiTransparent: CGFloat = 0.1
 
 class FlickViewController: UIViewController {
@@ -27,6 +27,11 @@ class FlickViewController: UIViewController {
     var images = [String]()
     var imagesArray = [Int: UIImage]()
     var ItemsArray = [[String: String?]]()
+    var currentRakutenItem = [String: String?]()
+    var numberOfCards: Int = 100
+
+    var nextQuery = ""
+    var rakutenNextPage = 1
     
     @IBOutlet weak var targetTextLabel: UILabel!
     @IBOutlet weak var kolodaView: KolodaView!
@@ -68,32 +73,38 @@ class FlickViewController: UIViewController {
 
     func getTwitterMedia() {
         let url = "https://api.twitter.com/1.1/search/tweets.json"
-        let params = [
+        var params = [
             "q": searchText + " filter:images -filter:retweets -filter:faves",
             "lang": "ja",
-            "count": "100",
+            "count": "20",
             ]
-        
         if let userID = Twitter.sharedInstance().sessionStore.session()?.userID {
             print(userID)
             let client = TWTRAPIClient(userID: userID)
-            let request = client.urlRequest(withMethod: "GET", url: url, parameters: params, error: nil)
+            var request = client.urlRequest(withMethod: "GET", url: url, parameters: params, error: nil)
+            if nextQuery != "" {
+                request = client.urlRequest(withMethod: "GET", url: url + nextQuery, parameters: nil, error: nil)
+            }
             client.sendTwitterRequest(request, completion: {
                 response, data, error in
                 if let error = error {
                     print(error)
                 } else {
                     print("response", response)
-                    print("data", data)
                     let json = JSON(data: data!)
-                    let metadata = json["search_metadata"]["next_results"].string
-                    print("metadata", metadata)
+                    print("json", json)
+                    if let nextResults = json["search_metadata"]["next_results"].string {
+                        self.nextQuery = nextResults
+                    }
+                    print("nextQuery", self.nextQuery)
                     for tweet in json["statuses"].array! {
                         if let imageURL = tweet["entities"]["media"][0]["media_url"].string {
                             self.images.append(imageURL)
                         }
                     }
-                    self.kolodaView.reloadData()
+                    print("imagesデータロードデビュー", self.images)
+//                    self.kolodaView.reloadData()
+                    self.kolodaView.resetCurrentCardIndex()
                 }
             })
         }
@@ -188,12 +199,10 @@ extension FlickViewController: KolodaViewDelegate {
             switch (index + 1) % 8 {
             case 0 :
                 print("go to Rauten")
-                let num = (index + 1) / 8 - 1
-                if ItemsArray[num].isEmpty == false{
-                    let shopURL = ItemsArray[num]["itemUrl"]!!
-                    UIApplication.shared.openURL(URL(string: shopURL)!)
+                if let rakutenUrl = currentRakutenItem["itemUrl"]{
+                    UIApplication.shared.openURL(URL(string: rakutenUrl!)!)
                 }else {
-                    print("ショップURLがない")
+                    print("URLがない(ありえない)")
                 }
             default :
                 print("save Image")
@@ -225,8 +234,20 @@ extension FlickViewController: KolodaViewDelegate {
 
 extension FlickViewController: KolodaViewDataSource {
 
+    public func kolodaNumberOfCards(_ koloda: KolodaView) -> Int {
+        numberOfCards = images.count
+        print("カードのカウント", numberOfCards)
+        return numberOfCards
+    }
+
+    //カードが現れた時（あとカード３枚になったら裏側でリロード開始）
     public func koloda(_ koloda: KolodaView, didShowCardAt index: Int) {
-        
+        if index == numberOfCards - 1 {
+            print("カードがない時多分")
+            print("imagesのカウント", images.count)
+            getTwitterMedia()
+
+        }
     }
 
     //カードのデータの読み込み
@@ -239,17 +260,15 @@ extension FlickViewController: KolodaViewDataSource {
         switch (index + 1) % 8 {
         case 0:
             let num = (index + 1) / 8 - 1
-            if ItemsArray[num].isEmpty == false{
-                callString = ItemsArray[num]["mediumImageUrls"]!!
+            print("ItemsArray.count", ItemsArray.count)
+            if ItemsArray.count != 0 {
+                currentRakutenItem = ItemsArray[num]
+                callString = currentRakutenItem["mediumImageUrls"]!!
+                ItemsArray.remove(at: num)
             }else {
-                print("楽天から取ってきたデータがもうない")
-                //とりあえずの手段
-                if let imageString = images.first {
-                    callString = imageString
-                    images.removeFirst()
-                }else {
-                    print("imagesがない、次の画像データゲット")
-                }
+                print("楽天データがなくなった")
+                callString = images.first!
+                images.removeFirst()
             }
             let view = FlickView.init(frame: CGRect.zero)
             view.layer.cornerRadius = 5.0
@@ -259,24 +278,35 @@ extension FlickViewController: KolodaViewDataSource {
             req.responseData { (response) in
                 if let data = response.result.value {
                     DispatchQueue.main.async {
+                        if let itemName = self.currentRakutenItem["itemName"]{
+                            view.titleLabel.text = itemName!
+                        }
+                        if let price = self.currentRakutenItem["itemPrice"]{
+                            if let price = price {
+                                view.priceLabel.text = "¥" + price
+                            }
+                        }
                         view.originalImage = UIImage(data: data)
-                        if let itemName = self.ItemsArray[num]["itemName"]{
-                            view.titleLabel.text = itemName
-                        }
-                        if let price = self.ItemsArray[num]["itemPrice"]{
-                            view.priceLabel.text = price
-                        }
                         view.imageView.image = view.originalImage!
+                        self.imagesArray[index] = UIImage(data: data)
 //                        view.imageView.image = self.cropThumbnailImage(view.originalImage!, w: Int(view.originalImage!.size.width), h: Int(view.originalImage!.size.height))
-                        self.imagesArray[index] = view.originalImage!
+
+//                        //UIImageViewの生成
+//                        let imageView = UIImageView(image: UIImage(data: data))
+//                        //UIImageViewのサイズを自動的にimageのサイズに合わせる
+//                        imageView.contentMode = UIViewContentMode.center
+//                        view.addSubview(imageView)
+//                        self.imagesArray[index] = imageView.image
                     }
                 }
             }
             return view
         default:
             if let imageString = images.first {
+                print("imagesから1つ消去前 : ", images)
                 callString = imageString
                 images.removeFirst()
+                print("imagesから1つ消去後 : ", images)
             }else {
                 print("imagesがない、次の画像データゲット")
             }
@@ -293,7 +323,6 @@ extension FlickViewController: KolodaViewDataSource {
                         view.priceLabel.text = ""
                         view.imageView.image = self.cropThumbnailImage(view.originalImage!, w: Int(view.imageView.frame.width), h: Int(view.imageView.frame.height))
                         self.imagesArray[index] = view.originalImage!
-//                        self.imagesArray.append(view.originalImage!)
                         print("imagesArray", self.imagesArray)
                     }
                 }
@@ -302,23 +331,20 @@ extension FlickViewController: KolodaViewDataSource {
         }
     }
 
-    public func kolodaNumberOfCards(_ koloda: KolodaView) -> Int {
-        return Int(images.count)
-    }
-
     func koloda(_ koloda: KolodaView, viewForCardOverlayAt index: Int) -> OverlayView? {
         return Bundle.main.loadNibNamed("EffectlayerView", owner: self, options: nil)?[0] as? OverlayView
     }
 }
 
+
+//楽天API関連
 extension FlickViewController {
 
     func setRakutenData(itemsJson : JSON) {
         itemsJson.forEach({ (_ , itemJson) in
             let article: [String: String?] = [
-                "item" : itemJson["Item"]["itemName"].string,
                 "itemName": itemJson["Item"]["itemName"].string,
-                "itemPrice": itemJson["Item"]["itemPrice"].string,
+                "itemPrice": String(describing: itemJson["Item"]["itemPrice"].int!),
                 "itemUrl": itemJson["Item"]["itemUrl"].string,
                 "mediumImageUrls": itemJson["Item"]["mediumImageUrls"][0]["imageUrl"].string
             ]
@@ -329,14 +355,13 @@ extension FlickViewController {
 
     func callRakutenAPI() {
 
-        let parms1 = ["keyword" : searchText, "minAffiliateRate" : 5.0] as [String : Any]
-        let parms2 = ["keyword" : searchText] as [String : Any]
-
-
+        let rakutenUrl = "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20140222?format=json&field=0&sort=standard&hits=30&applicationId=1098197859526591121"
+        let parms1 = ["keyword" : searchText, "affiliateId" : "156ea7d0.ed98f7f9.156ea7d1.cd28bb8c", "imageFlag" : 1, "minAffiliateRate" : 5.0, "page" : rakutenNextPage] as [String : Any]
+        let parms2 = ["keyword" : searchText, "affiliateId" : "156ea7d0.ed98f7f9.156ea7d1.cd28bb8c", "imageFlag" : 1, "page" : rakutenNextPage] as [String : Any]
         //アフィリ５%以上の商品
-        let req1 = request("https://app.rakuten.co.jp/services/api/IchibaItem/Search/20140222?format=json&field=0&sort=standard&hits=30&applicationId=1098197859526591121", method: HTTPMethod.get, parameters: parms1, encoding: URLEncoding(destination: .methodDependent), headers: nil)
+        let req1 = request(rakutenUrl, method: HTTPMethod.get, parameters: parms1, encoding: URLEncoding(destination: .methodDependent), headers: nil)
         //アフィリエイト制限無し
-        let req2 = request("https://app.rakuten.co.jp/services/api/IchibaItem/Search/20140222?format=json&field=0&sort=standard&hits=30&applicationId=1098197859526591121", method: HTTPMethod.get, parameters: parms2, encoding: URLEncoding(destination: .methodDependent), headers: nil)
+        let req2 = request(rakutenUrl, method: HTTPMethod.get, parameters: parms2, encoding: URLEncoding(destination: .methodDependent), headers: nil)
 
         req1.responseJSON { (response) in
             if let object = response.result.value {
@@ -358,6 +383,7 @@ extension FlickViewController {
                 }
                 print("itemsJson : ", itemsJson)
                 self.setRakutenData(itemsJson: itemsJson)
+                self.rakutenNextPage += 1
             }
         }
     }

@@ -119,14 +119,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kgq-oB-apF" customClass="KolodaView" customModule="Koloda">
                                 <rect key="frame" x="10" y="47" width="355" height="620"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="Kgq-oB-apF" secondAttribute="height" multiplier="8:9" id="Joc-5c-Ko1"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="Joc-5c-Ko1"/>
-                                    </mask>
-                                </variation>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7rs-5d-zdE">
                                 <rect key="frame" x="50" y="519" width="91" height="48"/>

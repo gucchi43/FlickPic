@@ -13,7 +13,7 @@
             <connections>
                 <outlet property="contentView" destination="iN0-l3-epB" id="cYB-D8-byh"/>
                 <outlet property="imageView" destination="nhp-2x-9h0" id="iaU-2u-GMH"/>
-                <outlet property="priceLabel" destination="6d9-YN-2GI" id="dnk-Ii-Bdl"/>
+                <outlet property="priceLabel" destination="6d9-YN-2GI" id="nsI-ft-1oW"/>
                 <outlet property="titleLabel" destination="txI-aD-KKW" id="T5P-qz-n27"/>
             </connections>
         </placeholder>
@@ -26,29 +26,29 @@
                     <rect key="frame" x="0.0" y="66" width="421" height="499"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="プライス" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6d9-YN-2GI">
-                    <rect key="frame" x="8" y="37" width="405" height="21"/>
+                    <rect key="frame" x="8" y="37" width="69.5" height="21"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="タイトル" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="txI-aD-KKW">
-                    <rect key="frame" x="8" y="8" width="70" height="21"/>
+                    <rect key="frame" x="8" y="8" width="405" height="21"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="nhp-2x-9h0" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="7Xj-Hv-KOz"/>
                 <constraint firstItem="nhp-2x-9h0" firstAttribute="top" secondItem="6d9-YN-2GI" secondAttribute="bottom" constant="8" id="8fk-n7-4l4"/>
+                <constraint firstAttribute="trailing" secondItem="txI-aD-KKW" secondAttribute="trailing" constant="8" id="9mF-3w-QDf"/>
                 <constraint firstAttribute="bottom" secondItem="nhp-2x-9h0" secondAttribute="bottom" id="AHO-Uq-v7y"/>
                 <constraint firstItem="txI-aD-KKW" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="Joy-CN-V0O"/>
                 <constraint firstAttribute="trailing" secondItem="nhp-2x-9h0" secondAttribute="trailing" id="SNZ-il-UH6"/>
                 <constraint firstItem="6d9-YN-2GI" firstAttribute="top" secondItem="txI-aD-KKW" secondAttribute="bottom" constant="8" id="Z3B-sl-dGI"/>
                 <constraint firstItem="txI-aD-KKW" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="glC-yK-eLM"/>
                 <constraint firstItem="6d9-YN-2GI" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="pIR-vg-Aqq"/>
-                <constraint firstAttribute="trailing" secondItem="6d9-YN-2GI" secondAttribute="trailing" constant="8" id="vPB-eL-MJQ"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
