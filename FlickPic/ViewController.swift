@@ -31,8 +31,35 @@ class ViewController: UIViewController, UITextFieldDelegate {
         return true
     }
 
+    func twitterLink() {
+        Twitter.sharedInstance().logIn {
+            (session, error) -> Void in
+            if (session != nil) {
+                print("signed in user name \(session?.userName)");
+                self.performSegue(withIdentifier: "showFlickViewController", sender: self)
+            } else {
+                print("Error：\(error?.localizedDescription)");
+            }
+        }
+
+//        if Twitter.sharedInstance().sessionStore.session() != nil {
+//            self.performSegue(withIdentifier: "showFlickViewController", sender: self)
+//        }else {
+//            Twitter.sharedInstance().logIn {
+//                (session, error) -> Void in
+//                if (session != nil) {
+//                    print("signed in user name \(session?.userName)");
+//                    self.performSegue(withIdentifier: "showFlickViewController", sender: self)
+//                } else {
+//                    print("Error：\(error?.localizedDescription)");
+//                }
+//            }
+//
+//        }
+    }
+
     @IBAction func tapSearchButton(_ sender: Any) {
-        self.performSegue(withIdentifier: "showFlickViewController", sender: self)
+        twitterLink()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

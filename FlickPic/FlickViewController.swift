@@ -76,30 +76,48 @@ class FlickViewController: UIViewController {
         var params = [
             "q": searchText + " filter:images -filter:retweets -filter:faves",
             "lang": "ja",
-            "count": "20",
+            "count": "100",
             ]
         if let userID = Twitter.sharedInstance().sessionStore.session()?.userID {
             print(userID)
             let client = TWTRAPIClient(userID: userID)
             var request = client.urlRequest(withMethod: "GET", url: url, parameters: params, error: nil)
             if nextQuery != "" {
-                request = client.urlRequest(withMethod: "GET", url: url + nextQuery, parameters: nil, error: nil)
+                if nextQuery == "nothing" {
+                    print("もう画像は見つからない")
+                }else {
+                    request = client.urlRequest(withMethod: "GET", url: url + nextQuery, parameters: nil, error: nil)
+                }
             }
             client.sendTwitterRequest(request, completion: {
                 response, data, error in
                 if let error = error {
                     print(error)
                 } else {
-                    print("response", response)
                     let json = JSON(data: data!)
                     print("json", json)
                     if let nextResults = json["search_metadata"]["next_results"].string {
+                        print("nextResults", nextResults)
                         self.nextQuery = nextResults
+                    }else {
+                        self.nextQuery = "nothing"
                     }
                     print("nextQuery", self.nextQuery)
                     for tweet in json["statuses"].array! {
-                        if let imageURL = tweet["entities"]["media"][0]["media_url"].string {
-                            self.images.append(imageURL)
+                        print("取ってきたツイートのカウント", json["statuses"].array!.count)
+                        if let extendedEntities = tweet["extended_entities"]["media"].array {
+                            for mediaInfo in extendedEntities {
+                                if let imageUrl = mediaInfo["media_url"].string {
+                                    self.images.append(imageUrl)
+                                }
+                            }
+                        }else {
+                            if let imageURL = tweet["entities"]["media"][0]["media_url"].string {
+                                print("imageURL", imageURL)
+                                print("images追加前", self.images)
+                                self.images.append(imageURL)
+                                print("images追加後", self.images)
+                            }
                         }
                     }
                     print("imagesデータロードデビュー", self.images)
@@ -159,8 +177,6 @@ extension FlickViewController: KolodaViewDelegate {
             print("商品表示")
             let num = (index + 1) / 8 - 1
             if ItemsArray[num].isEmpty == false{
-//                let shopURL = ItemsArray[num]["itemUrl"]!!
-//                UIApplication.shared.openURL(URL(string: shopURL)!)
                 let image = imagesArray[index]
                 let photo = IDMPhoto(image: image)
                 let browser = IDMPhotoBrowser(photos: [photo as Any!], animatedFrom: koloda)
@@ -170,13 +186,10 @@ extension FlickViewController: KolodaViewDelegate {
             }
         default :            
             print("画像")
-//            let image = imagesArray.first
             let image = imagesArray[index]
             let photo = IDMPhoto(image: image)
             let browser = IDMPhotoBrowser(photos: [photo as Any!], animatedFrom: koloda)
             self.present(browser!, animated: true, completion: nil)
-//            let photo = IDMPhoto(url: NSURL(fileURLWithPath: images[index]) as URL!)
-//            UIApplication.shared.openURL(URL(string: images[Int(index)])!)
         }
     }
 
@@ -212,6 +225,13 @@ extension FlickViewController: KolodaViewDelegate {
         print("imagesArray消去前", imagesArray)
         removeGarbageImageArray(index: index)
         print("imagesArray消去後", imagesArray)
+
+        //次のカードがなくなったので次のデータをロード
+        if index == numberOfCards - 1 {
+            print("カードがない時多分")
+            print("imagesのカウント", images.count)
+            getTwitterMedia()
+        }
     }
 
     public func savedImage(index: Int) {
@@ -240,14 +260,15 @@ extension FlickViewController: KolodaViewDataSource {
         return numberOfCards
     }
 
-    //カードが現れた時（あとカード３枚になったら裏側でリロード開始）
+    //カードが現れた時
+    //（あとカード３枚になったら裏側でリロード開始）
     public func koloda(_ koloda: KolodaView, didShowCardAt index: Int) {
-        if index == numberOfCards - 1 {
-            print("カードがない時多分")
-            print("imagesのカウント", images.count)
-            getTwitterMedia()
-
-        }
+//        if index == numberOfCards - 1 {
+//            print("カードがない時多分")
+//            print("imagesのカウント", images.count)
+//            getTwitterMedia()
+//
+//        }
     }
 
     //カードのデータの読み込み
