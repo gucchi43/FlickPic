@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Colours
 import TwitterKit
 
 class ViewController: UIViewController, UITextFieldDelegate {
@@ -16,12 +17,24 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         textFiled.delegate = self
-        textFiled.borderStyle = UITextBorderStyle.init(rawValue: 2)!
+        textFiled.layer.borderColor = UIColor.clear.cgColor
+
+        textFiled.addBorderBottom(height: 1.0, color: ColorManager.sharedSingleton.accsentColor())
+
         // Do any additional setup after loading the view, typically from a nib
     }
 
     func loadSearchText() {
         let text = textFiled.text
+    }
+
+    //MARK: キーボードが出ている状態で、キーボード以外をタップしたらキーボードを閉じる
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        //非表示にする。
+        if(textFiled.isFirstResponder){
+            textFiled.resignFirstResponder()
+        }
+
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

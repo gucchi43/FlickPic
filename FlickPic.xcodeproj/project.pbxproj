@@ -11,6 +11,7 @@
 		ED0A833F1E1687D400A5D141 /* FlickViewAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0A833E1E1687D400A5D141 /* FlickViewAnimator.swift */; };
 		ED0A83451E1695D300A5D141 /* EffectlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED0A83441E1695D300A5D141 /* EffectlayerView.xib */; };
 		ED0A83471E1695EE00A5D141 /* EffectlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0A83461E1695EE00A5D141 /* EffectlayerView.swift */; };
+		ED8A69121E239B260015C6B4 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8A69111E239B260015C6B4 /* Extension.swift */; };
 		EDC97F831E1F89EF00F9D71D /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC97F821E1F89EE00F9D71D /* ColorManager.swift */; };
 		EF79FD911D157AAC002CA4BA /* FlickView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF79FD901D157AAC002CA4BA /* FlickView.xib */; };
 		EF79FD931D157BFE002CA4BA /* FlickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF79FD921D157BFE002CA4BA /* FlickView.swift */; };
@@ -52,6 +53,7 @@
 		ED0A833E1E1687D400A5D141 /* FlickViewAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickViewAnimator.swift; sourceTree = "<group>"; };
 		ED0A83441E1695D300A5D141 /* EffectlayerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EffectlayerView.xib; sourceTree = "<group>"; };
 		ED0A83461E1695EE00A5D141 /* EffectlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EffectlayerView.swift; sourceTree = "<group>"; };
+		ED8A69111E239B260015C6B4 /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		EDC97F821E1F89EE00F9D71D /* ColorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
 		EF79FD901D157AAC002CA4BA /* FlickView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlickView.xib; sourceTree = "<group>"; };
 		EF79FD921D157BFE002CA4BA /* FlickView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickView.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				EFFC846D1D15453600E30A3E /* Assets.xcassets */,
 				EFFC846F1D15453600E30A3E /* LaunchScreen.storyboard */,
 				EFFC84721D15453600E30A3E /* Info.plist */,
+				ED8A69111E239B260015C6B4 /* Extension.swift */,
 			);
 			path = FlickPic;
 			sourceTree = "<group>";
@@ -395,6 +398,7 @@
 				ED0A83471E1695EE00A5D141 /* EffectlayerView.swift in Sources */,
 				EFFC84671D15453600E30A3E /* AppDelegate.swift in Sources */,
 				ED0A833F1E1687D400A5D141 /* FlickViewAnimator.swift in Sources */,
+				ED8A69121E239B260015C6B4 /* Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

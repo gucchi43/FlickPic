@@ -28,17 +28,17 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="プライス" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6d9-YN-2GI">
                     <rect key="frame" x="8" y="37" width="69.5" height="21"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="textColor" red="0.95294117649999999" green="0.1215686275" blue="0.70588235290000001" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="タイトル" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="txI-aD-KKW">
                     <rect key="frame" x="8" y="8" width="405" height="21"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="textColor" red="0.95294117649999999" green="0.1215686275" blue="0.70588235290000001" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="nhp-2x-9h0" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="7Xj-Hv-KOz"/>
                 <constraint firstItem="nhp-2x-9h0" firstAttribute="top" secondItem="6d9-YN-2GI" secondAttribute="bottom" constant="8" id="8fk-n7-4l4"/>
