@@ -24,10 +24,6 @@
 		EFFC84711D15453600E30A3E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EFFC846F1D15453600E30A3E /* LaunchScreen.storyboard */; };
 		EFFC847C1D15453600E30A3E /* FlickPicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFC847B1D15453600E30A3E /* FlickPicTests.swift */; };
 		EFFC84871D15453600E30A3E /* FlickPicUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFC84861D15453600E30A3E /* FlickPicUITests.swift */; };
-		EFFC84991D15460700E30A3E /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFFC84951D15460700E30A3E /* Fabric.framework */; };
-		EFFC849A1D15460700E30A3E /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFFC84961D15460700E30A3E /* TwitterKit.framework */; };
-		EFFC849B1D15460700E30A3E /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EFFC84971D15460700E30A3E /* TwitterKitResources.bundle */; };
-		EFFC849C1D15460700E30A3E /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFFC84981D15460700E30A3E /* TwitterCore.framework */; };
 		EFFC849E1D154D8F00E30A3E /* FlickViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFC849D1D154D8F00E30A3E /* FlickViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -74,10 +70,6 @@
 		EFFC84821D15453600E30A3E /* FlickPicUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlickPicUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFFC84861D15453600E30A3E /* FlickPicUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickPicUITests.swift; sourceTree = "<group>"; };
 		EFFC84881D15453600E30A3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EFFC84951D15460700E30A3E /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
-		EFFC84961D15460700E30A3E /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = "<group>"; };
-		EFFC84971D15460700E30A3E /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TwitterKitResources.bundle; path = TwitterKit.framework/Versions/A/Resources/TwitterKitResources.bundle; sourceTree = "<group>"; };
-		EFFC84981D15460700E30A3E /* TwitterCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterCore.framework; sourceTree = "<group>"; };
 		EFFC849D1D154D8F00E30A3E /* FlickViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -86,9 +78,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EFFC84991D15460700E30A3E /* Fabric.framework in Frameworks */,
-				EFFC849C1D15460700E30A3E /* TwitterCore.framework in Frameworks */,
-				EFFC849A1D15460700E30A3E /* TwitterKit.framework in Frameworks */,
 				65C91790BC409EA6B7E6317F /* Pods_FlickPic.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -113,10 +102,6 @@
 		8A0D62199F9F4E93E61100F6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EFFC84951D15460700E30A3E /* Fabric.framework */,
-				EFFC84961D15460700E30A3E /* TwitterKit.framework */,
-				EFFC84971D15460700E30A3E /* TwitterKitResources.bundle */,
-				EFFC84981D15460700E30A3E /* TwitterCore.framework */,
 				10FF24D0C5AC1276BFC5E9E1 /* Pods_FlickPic.framework */,
 			);
 			name = Frameworks;
@@ -347,7 +332,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EF79FD911D157AAC002CA4BA /* FlickView.xib in Resources */,
-				EFFC849B1D15460700E30A3E /* TwitterKitResources.bundle in Resources */,
 				EFFC84711D15453600E30A3E /* LaunchScreen.storyboard in Resources */,
 				ED0A83451E1695D300A5D141 /* EffectlayerView.xib in Resources */,
 				EFFC846E1D15453600E30A3E /* Assets.xcassets in Resources */,
@@ -429,7 +413,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Fabric.framework/run 739668da00508549d1363b1d11c136dc82591ee9 703a69e2fcb2ffb4b2e6617ba0485bde5d32b10b67fd62ab4c329aabbd2213cb";
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" ec62d35d0015bc60b374384a4991ee3316538e74 aa24872d7a2760b27c0cdd2434421b127640c6c7490b706db95f3d8178ef4cdf";
 		};
 /* End PBXShellScriptBuildPhase section */
 

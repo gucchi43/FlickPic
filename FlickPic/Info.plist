@@ -25,7 +25,7 @@
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
-		<string>739668da00508549d1363b1d11c136dc82591ee9</string>
+		<string>ec62d35d0015bc60b374384a4991ee3316538e74</string>
 		<key>Kits</key>
 		<array>
 			<dict>
@@ -38,6 +38,12 @@
 				</dict>
 				<key>KitName</key>
 				<string>Twitter</string>
+			</dict>
+			<dict>
+				<key>KitInfo</key>
+				<dict/>
+				<key>KitName</key>
+				<string>Crashlytics</string>
 			</dict>
 		</array>
 	</dict>

@@ -34,7 +34,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         if(textFiled.isFirstResponder){
             textFiled.resignFirstResponder()
         }
-
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -54,21 +53,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 print("Error：\(error?.localizedDescription)");
             }
         }
-
-//        if Twitter.sharedInstance().sessionStore.session() != nil {
-//            self.performSegue(withIdentifier: "showFlickViewController", sender: self)
-//        }else {
-//            Twitter.sharedInstance().logIn {
-//                (session, error) -> Void in
-//                if (session != nil) {
-//                    print("signed in user name \(session?.userName)");
-//                    self.performSegue(withIdentifier: "showFlickViewController", sender: self)
-//                } else {
-//                    print("Error：\(error?.localizedDescription)");
-//                }
-//            }
-//
-//        }
     }
 
     @IBAction func tapSearchButton(_ sender: Any) {
