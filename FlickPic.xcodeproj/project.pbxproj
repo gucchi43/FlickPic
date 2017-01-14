@@ -11,7 +11,9 @@
 		ED0A833F1E1687D400A5D141 /* FlickViewAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0A833E1E1687D400A5D141 /* FlickViewAnimator.swift */; };
 		ED0A83451E1695D300A5D141 /* EffectlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED0A83441E1695D300A5D141 /* EffectlayerView.xib */; };
 		ED0A83471E1695EE00A5D141 /* EffectlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0A83461E1695EE00A5D141 /* EffectlayerView.swift */; };
+		ED6ADA171E2646BC00800373 /* RakutenFlickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6ADA161E2646BC00800373 /* RakutenFlickView.swift */; };
 		ED8A69121E239B260015C6B4 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8A69111E239B260015C6B4 /* Extension.swift */; };
+		ED8A69141E24EF780015C6B4 /* RakutenFlickView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED8A69131E24EF780015C6B4 /* RakutenFlickView.xib */; };
 		EDC97F831E1F89EF00F9D71D /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC97F821E1F89EE00F9D71D /* ColorManager.swift */; };
 		EF79FD911D157AAC002CA4BA /* FlickView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF79FD901D157AAC002CA4BA /* FlickView.xib */; };
 		EF79FD931D157BFE002CA4BA /* FlickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF79FD921D157BFE002CA4BA /* FlickView.swift */; };
@@ -53,7 +55,9 @@
 		ED0A833E1E1687D400A5D141 /* FlickViewAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickViewAnimator.swift; sourceTree = "<group>"; };
 		ED0A83441E1695D300A5D141 /* EffectlayerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EffectlayerView.xib; sourceTree = "<group>"; };
 		ED0A83461E1695EE00A5D141 /* EffectlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EffectlayerView.swift; sourceTree = "<group>"; };
+		ED6ADA161E2646BC00800373 /* RakutenFlickView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RakutenFlickView.swift; sourceTree = "<group>"; };
 		ED8A69111E239B260015C6B4 /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		ED8A69131E24EF780015C6B4 /* RakutenFlickView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RakutenFlickView.xib; sourceTree = "<group>"; };
 		EDC97F821E1F89EE00F9D71D /* ColorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
 		EF79FD901D157AAC002CA4BA /* FlickView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlickView.xib; sourceTree = "<group>"; };
 		EF79FD921D157BFE002CA4BA /* FlickView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickView.swift; sourceTree = "<group>"; };
@@ -127,6 +131,53 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		ED6ADA181E29306F00800373 /* FlickView */ = {
+			isa = PBXGroup;
+			children = (
+				EF79FD921D157BFE002CA4BA /* FlickView.swift */,
+				EF79FD901D157AAC002CA4BA /* FlickView.xib */,
+			);
+			name = FlickView;
+			sourceTree = "<group>";
+		};
+		ED6ADA191E29308800800373 /* RakutenFlickView */ = {
+			isa = PBXGroup;
+			children = (
+				ED8A69131E24EF780015C6B4 /* RakutenFlickView.xib */,
+				ED6ADA161E2646BC00800373 /* RakutenFlickView.swift */,
+			);
+			name = RakutenFlickView;
+			sourceTree = "<group>";
+		};
+		ED6ADA1A1E2930B200800373 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				ED8A69111E239B260015C6B4 /* Extension.swift */,
+				EDC97F821E1F89EE00F9D71D /* ColorManager.swift */,
+			);
+			name = Manager;
+			sourceTree = "<group>";
+		};
+		ED6ADA1B1E2930CF00800373 /* FlickEffect */ = {
+			isa = PBXGroup;
+			children = (
+				ED0A83441E1695D300A5D141 /* EffectlayerView.xib */,
+				ED0A83461E1695EE00A5D141 /* EffectlayerView.swift */,
+				ED0A833E1E1687D400A5D141 /* FlickViewAnimator.swift */,
+			);
+			name = FlickEffect;
+			sourceTree = "<group>";
+		};
+		ED6ADA1C1E2930F900800373 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				EFFC849D1D154D8F00E30A3E /* FlickViewController.swift */,
+				EFFC846A1D15453600E30A3E /* Main.storyboard */,
+				EFFC84681D15453600E30A3E /* ViewController.swift */,
+			);
+			name = Main;
+			sourceTree = "<group>";
+		};
 		EFFC845A1D15453600E30A3E = {
 			isa = PBXGroup;
 			children = (
@@ -153,19 +204,14 @@
 			isa = PBXGroup;
 			children = (
 				EFFC84661D15453600E30A3E /* AppDelegate.swift */,
-				EFFC84681D15453600E30A3E /* ViewController.swift */,
-				EFFC849D1D154D8F00E30A3E /* FlickViewController.swift */,
-				ED0A83441E1695D300A5D141 /* EffectlayerView.xib */,
-				ED0A83461E1695EE00A5D141 /* EffectlayerView.swift */,
-				EF79FD921D157BFE002CA4BA /* FlickView.swift */,
-				EFFC846A1D15453600E30A3E /* Main.storyboard */,
-				EF79FD901D157AAC002CA4BA /* FlickView.xib */,
-				ED0A833E1E1687D400A5D141 /* FlickViewAnimator.swift */,
-				EDC97F821E1F89EE00F9D71D /* ColorManager.swift */,
+				ED6ADA1C1E2930F900800373 /* Main */,
+				ED6ADA181E29306F00800373 /* FlickView */,
+				ED6ADA191E29308800800373 /* RakutenFlickView */,
+				ED6ADA1B1E2930CF00800373 /* FlickEffect */,
+				ED6ADA1A1E2930B200800373 /* Manager */,
 				EFFC846D1D15453600E30A3E /* Assets.xcassets */,
 				EFFC846F1D15453600E30A3E /* LaunchScreen.storyboard */,
 				EFFC84721D15453600E30A3E /* Info.plist */,
-				ED8A69111E239B260015C6B4 /* Extension.swift */,
 			);
 			path = FlickPic;
 			sourceTree = "<group>";
@@ -305,6 +351,7 @@
 				EFFC84711D15453600E30A3E /* LaunchScreen.storyboard in Resources */,
 				ED0A83451E1695D300A5D141 /* EffectlayerView.xib in Resources */,
 				EFFC846E1D15453600E30A3E /* Assets.xcassets in Resources */,
+				ED8A69141E24EF780015C6B4 /* RakutenFlickView.xib in Resources */,
 				EFFC846C1D15453600E30A3E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -398,6 +445,7 @@
 				ED0A83471E1695EE00A5D141 /* EffectlayerView.swift in Sources */,
 				EFFC84671D15453600E30A3E /* AppDelegate.swift in Sources */,
 				ED0A833F1E1687D400A5D141 /* FlickViewAnimator.swift in Sources */,
+				ED6ADA171E2646BC00800373 /* RakutenFlickView.swift in Sources */,
 				ED8A69121E239B260015C6B4 /* Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -22,6 +22,11 @@ final class ColorManager {
         return UIColor.init(fromHexString: "F31FB4")
         //        return UIColor.init(hexString: "cd37a5", withAlpha: 1.0)
     }
+    //楽天の色（濁った赤）
+    func rakutenColor() -> UIColor {
+        return UIColor.init(fromHexString: "BE0000")
+        //        return UIColor.init(hexString: "cd37a5", withAlpha: 1.0)
+    }
     //既存のよくあるボタンの水色のやつ
     func defaultButtonColor() -> UIColor { //skyBuleColor
         return UIColor(red: 19/255.0, green:144/255.0, blue:255/255.0, alpha:1.0)

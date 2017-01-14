@@ -8,6 +8,7 @@ target 'FlickPic' do
     pod 'Colours'
     pod 'IDMPhotoBrowser'
     pod 'Koloda'
+    pod 'SVProgressHUD'
    # pod 'Koloda', :git => 'https://github.com/Yalantis/Koloda', :branch => 'swift-3'
 
 
