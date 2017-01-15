@@ -24,10 +24,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         // Do any additional setup after loading the view, typically from a nib
     }
 
-    func loadSearchText() {
-        let text = textFiled.text
-    }
-
     //MARK: キーボードが出ている状態で、キーボード以外をタップしたらキーボードを閉じる
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         //非表示にする。
