@@ -20,8 +20,46 @@ class ViewController: UIViewController, UITextFieldDelegate {
         textFiled.layer.borderColor = UIColor.clear.cgColor
 
         textFiled.addBorderBottom(height: 1.0, color: ColorManager.sharedSingleton.accsentColor())
+    }
 
-        // Do any additional setup after loading the view, typically from a nib
+    override func viewDidAppear(_ animated: Bool) {
+        print("call : viewDidAppear")
+        firstAlert()
+    }
+
+    func alertExplain() {
+        let alert = UIAlertController(
+            title: "👼はじめにちょっと使い方👼",
+            message: "探してる画像のキーワードを入れて、ムシメガネボタンをタップしてね🔍画像が出てくるから、いらなかったら👈にスワイプ！欲しかったら👉にスワイプ！👉にスワイプした画像は保存できてるよ✌️",
+            preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "りょ", style: UIAlertActionStyle.default, handler: { (UIAlertAction) in
+            self.alertTerms()
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+
+    func alertTerms() {
+        let alert = UIAlertController(
+            title: "👽ついでにすこし注意書き👽",
+            message: "検索ワードによっては、ちょっとエッチ💋だったり、少し怖い画像💀がでてくるかもしれないよ。もしそんなことがあってもびっくりしないで、冷静に👈にスワイプしてね。あ、もしほしかったら👉にスワイプしていいんだからねっ❤️",
+            preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "りょ", style: UIAlertActionStyle.default, handler: { (UIAlertAction) in
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+
+    func firstAlert() {
+        //初回起動判定
+        let ud = UserDefaults.standard
+        if ud.bool(forKey: "firstLaunch") {
+            // 初回起動時の処理
+            print("初回起動")
+            self.alertExplain()
+            // 2回目以降の起動では「firstLaunch」のkeyをfalseに
+            ud.set(false, forKey: "firstLaunch")
+        }else {
+            print("初回起動じゃない")
+        }
     }
 
     //MARK: キーボードが出ている状態で、キーボード以外をタップしたらキーボードを閉じる
