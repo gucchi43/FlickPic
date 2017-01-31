@@ -90,7 +90,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
 
     @IBAction func tapSearchButton(_ sender: Any) {
-        twitterLink()
+        if textFiled.text?.isEmpty == true {
+            let alert = UIAlertController(
+                title: "🕴キーワードがからっぽだよ🕴",
+                message: "探してる画像のキーワードを入力してね🖍",
+                preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "りょ", style: UIAlertActionStyle.default, handler: { (UIAlertAction) in
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }else {
+            self.twitterLink()
+        }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
