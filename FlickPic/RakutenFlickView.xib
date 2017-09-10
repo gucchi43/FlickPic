@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -28,6 +28,10 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="C55-JR-1bH">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                 </imageView>
+                <view alpha="0.84999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sgq-IP-EJK">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pmt-NJ-gd2">
                     <rect key="frame" x="133" y="60" width="108" height="180"/>
                     <constraints>
@@ -62,8 +66,10 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="qUN-H8-aFF" firstAttribute="top" secondItem="3Hl-nr-iRh" secondAttribute="bottom" constant="8" id="0xi-NV-Rex"/>
+                <constraint firstItem="sgq-IP-EJK" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="AGw-VX-038"/>
                 <constraint firstAttribute="trailing" secondItem="C55-JR-1bH" secondAttribute="trailing" id="BcU-gB-s1B"/>
                 <constraint firstItem="3Hl-nr-iRh" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="30" id="E6L-lj-LEb"/>
+                <constraint firstItem="sgq-IP-EJK" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Gvh-s8-uHg"/>
                 <constraint firstItem="pmt-NJ-gd2" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="60" id="Lih-YY-QPP"/>
                 <constraint firstItem="C55-JR-1bH" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Nkm-SR-Tyn"/>
                 <constraint firstAttribute="bottom" secondItem="C55-JR-1bH" secondAttribute="bottom" id="SGv-R8-SWC"/>
@@ -71,7 +77,9 @@
                 <constraint firstItem="FMD-x6-ECb" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="30" id="Tkw-oZ-rm5"/>
                 <constraint firstItem="sDc-B8-nb1" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="30" id="V0Z-Az-epe"/>
                 <constraint firstItem="3Hl-nr-iRh" firstAttribute="top" secondItem="FMD-x6-ECb" secondAttribute="bottom" constant="8" id="b6d-bp-lBM"/>
+                <constraint firstAttribute="trailing" secondItem="sgq-IP-EJK" secondAttribute="trailing" id="fMi-i5-8yT"/>
                 <constraint firstAttribute="trailing" secondItem="3Hl-nr-iRh" secondAttribute="trailing" constant="30" id="h0F-Lm-A9z"/>
+                <constraint firstAttribute="bottom" secondItem="sgq-IP-EJK" secondAttribute="bottom" id="inZ-eD-mjM"/>
                 <constraint firstItem="C55-JR-1bH" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="lvX-vw-RU4"/>
                 <constraint firstItem="FMD-x6-ECb" firstAttribute="top" secondItem="sDc-B8-nb1" secondAttribute="bottom" constant="8" id="rWb-yH-BvM"/>
                 <constraint firstItem="pmt-NJ-gd2" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="roU-g0-dTj"/>

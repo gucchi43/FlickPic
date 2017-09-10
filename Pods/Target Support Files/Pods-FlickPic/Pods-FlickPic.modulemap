@@ -1,0 +1,6 @@
+framework module Pods_FlickPic {
+  umbrella header "Pods-FlickPic-umbrella.h"
+
+  export *
+  module * { export * }
+}

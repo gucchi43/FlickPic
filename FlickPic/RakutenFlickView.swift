@@ -40,9 +40,14 @@ class RakutenFlickView: UIView {
 
     fileprivate func commonInit() {
         Bundle.main.loadNibNamed("RakutenFlickView", owner: self, options: nil)
+        captionTextView.isEditable = false
         guard let content = contentView else { return }
         content.frame = self.bounds
         content.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        self.contentView.bringSubview(toFront: imageView)
+        self.contentView.bringSubview(toFront: captionTextView)
+        self.contentView.bringSubview(toFront: titleLabel)
+        self.contentView.bringSubview(toFront: priceLabel)
         self.addSubview(content)
     }
     

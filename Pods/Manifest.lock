@@ -1,0 +1,56 @@
+PODS:
+  - Alamofire (4.5.0)
+  - Colours (5.13.0):
+    - Colours/ObjC (= 5.13.0)
+  - Colours/ObjC (5.13.0)
+  - Crashlytics (3.8.4):
+    - Fabric (~> 1.6.3)
+  - DACircularProgress (2.3.1)
+  - Fabric (1.6.11)
+  - IDMPhotoBrowser (1.11.3):
+    - DACircularProgress
+    - pop
+    - SDWebImage (= 4.0.0)
+  - Koloda (4.1):
+    - pop (~> 1.0)
+  - pop (1.0.9)
+  - SDWebImage (4.0.0):
+    - SDWebImage/Core (= 4.0.0)
+  - SDWebImage/Core (4.0.0)
+  - SVProgressHUD (2.1.2)
+  - SwiftyJSON (3.1.4)
+  - TwitterCore (2.8.0):
+    - Fabric
+  - TwitterKit (2.8.1):
+    - TwitterCore (>= 2.8)
+
+DEPENDENCIES:
+  - Alamofire
+  - Colours
+  - Crashlytics
+  - Fabric
+  - IDMPhotoBrowser
+  - Koloda
+  - SVProgressHUD
+  - SwiftyJSON
+  - TwitterCore
+  - TwitterKit
+
+SPEC CHECKSUMS:
+  Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
+  Colours: f24220c38f13deac88612667e9b4a7fb96b871d4
+  Crashlytics: 79e236942ca1e7fc641df1feb9a275360a78ab6a
+  DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
+  Fabric: 5911403591946b8228ab1c51d98f1d7137e863c6
+  IDMPhotoBrowser: b96159fe4adb991a844068eb17dab9c0b7d7e51a
+  Koloda: 6c4fa3ce9a68776a8ef973311e53fdda432799a8
+  pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
+  SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
+  SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
+  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
+  TwitterCore: e959987be23c767004d29eb7fab8d85d8585a2e5
+  TwitterKit: 3b6044a7320340326a4098f3e37aa1dbaeb94942
+
+PODFILE CHECKSUM: d38f4e10dc6ba80942dc1d67831bafec2a5a3acf
+
+COCOAPODS: 1.2.1

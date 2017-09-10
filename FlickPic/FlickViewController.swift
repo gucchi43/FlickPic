@@ -22,15 +22,15 @@ private let kolodaCountOfVisibleCards = 5
 private let kolodaAlphaValueSemiTransparent: CGFloat = 0.1
 
 class FlickViewController: UIViewController {
-
+    
     var searchText = ""
-
+    
     var images = [String]()
     var imagesArray = [Int: UIImage]()
     var ItemsArray = [[String: String?]]()
     var currentRakutenItem = [String: String?]()
     var numberOfCards: Int = 100
-
+    
     var nextQuery = ""
     var rakutenNextPage = 1
     var imageExistFlag = true
@@ -39,7 +39,14 @@ class FlickViewController: UIViewController {
     @IBOutlet weak var kolodaView: KolodaView!
     @IBOutlet weak var leftButton: UIButton!
     @IBOutlet weak var rightButton: UIButton!
-
+    
+    enum queryPattern {
+        case first
+        case other
+        case empty
+    }
+    
+    var nowQuery: queryPattern = queryPattern.first
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,12 +57,14 @@ class FlickViewController: UIViewController {
         leftButton.tintColor = UIColor.warning()
         rightButton.tintColor = UIColor.success()
         targetTextLabel.text = searchText
-
+        
         getTwitterMedia()
         callRakutenAPI()
         imageExistFlag = true
+        
+        self.nowQuery = queryPattern.first
     }
-
+    
     @IBAction func tappedLeftButton(_ sender: AnyObject) {
         kolodaView.swipe(SwipeResultDirection.left)
     }
@@ -63,87 +72,93 @@ class FlickViewController: UIViewController {
     @IBAction func tappedRightButton(_ sender: AnyObject) {
         kolodaView.swipe(SwipeResultDirection.right)
     }
-
+    
     @IBAction func tapReloadData(_ sender: Any) {
         getTwitterMedia()
         callRakutenAPI()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
-
+    
+    
     func getTwitterMedia(){
+        switch nowQuery {
+        case .first:
+            print("first")
+            self.loadingQuery()
+        case .other:
+            print("other")
+            self.loadingQuery()
+        case .empty:
+            print("empty")
+            sorryAlert()
+        }
+    }
+    
+    func loadingQuery() {
         let url = "https://api.twitter.com/1.1/search/tweets.json"
         var params = [
             "q": searchText + " filter:images -filter:retweets -filter:faves",
+//            "q": searchText + " filter:images",
             "lang": "ja",
             "count": "100",
             ]
-
         if let userID = Twitter.sharedInstance().sessionStore.session()?.userID {
             print(userID)
             let client = TWTRAPIClient(userID: userID)
-            var request = client.urlRequest(withMethod: "GET", url: url, parameters: params, error: nil)
-            if nextQuery != "" {
-                if nextQuery == "nothing" {
-                    print("もう画像は見つからない")
-                    imageExistFlag = false
-                }else {
-                    request = client.urlRequest(withMethod: "GET", url: url + nextQuery, parameters: nil, error: nil)
+            var request = client.urlRequest(withMethod: "GET", url: url + nextQuery, parameters: params, error: nil)
+            SVProgressHUD.show()
+            client.sendTwitterRequest(request, completion: {
+                response, data, error in
+                if let error = error {
+                    print(error)
+                } else {
+                    let json = JSON(data: data!)
+                    //Twitterの次回の検索があるか
+                    if let nextResults = json["search_metadata"]["next_results"].string {
+                        print("nextResults", nextResults)
+                        self.nextQuery = nextResults
+                        self.nowQuery = queryPattern.other
+                    }else {
+                        self.nextQuery = ""
+                        self.nowQuery = queryPattern.empty
+                    }
+                    print("nextQuery", self.nextQuery)
+                    self.setImages(json: json)
+                    print("imagesデータロードデビュー", self.images)
+                    SVProgressHUD.dismiss()
+                    self.kolodaView.resetCurrentCardIndex()
+                }
+            })
+        }
+    }
+    
+    func setImages(json: JSON) {
+        for tweet in json["statuses"].array! {
+            print("取ってきたツイートのカウント", json["statuses"].array!.count)
+            if let extendedEntities = tweet["extended_entities"]["media"].array {
+                for mediaInfo in extendedEntities {
+                    if let imageUrl = mediaInfo["media_url"].string {
+                        self.images.append(imageUrl)
+                    }
+                }
+            }else {
+                if let imageURL = tweet["entities"]["media"][0]["media_url"].string {
+                    self.images.append(imageURL)
                 }
             }
-
-            if imageExistFlag == true {
-                SVProgressHUD.show()
-                client.sendTwitterRequest(request, completion: {
-                    response, data, error in
-                    if let error = error {
-                        print(error)
-                    } else {
-                        let json = JSON(data: data!)
-                        print("json", json)
-                        if let nextResults = json["search_metadata"]["next_results"].string {
-                            print("nextResults", nextResults)
-                            self.nextQuery = nextResults
-                        }else {
-                            self.nextQuery = "nothing"
-                        }
-                        print("nextQuery", self.nextQuery)
-                        for tweet in json["statuses"].array! {
-                            print("取ってきたツイートのカウント", json["statuses"].array!.count)
-                            if let extendedEntities = tweet["extended_entities"]["media"].array {
-                                for mediaInfo in extendedEntities {
-                                    if let imageUrl = mediaInfo["media_url"].string {
-                                        self.images.append(imageUrl)
-                                    }
-                                }
-                            }else {
-                                if let imageURL = tweet["entities"]["media"][0]["media_url"].string {
-                                    print("imageURL", imageURL)
-                                    print("images追加前", self.images)
-                                    self.images.append(imageURL)
-                                    print("images追加後", self.images)
-                                }
-                            }
-                        }
-                        print("imagesデータロードデビュー", self.images)
-                        //                    self.kolodaView.reloadData()
-                        SVProgressHUD.dismiss()
-                        self.kolodaView.resetCurrentCardIndex()
-                    }
-                })
-            }else {
-                //読み込むデータがなくなった時
-                    let alert = UIAlertController(
-                        title: "もうないみたい...",
-                        message: "ごめんね！これ以上は出てこなかったよ",
-                        preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default))
-                    self.present(alert, animated: true, completion: nil)
-            }
         }
+    }
+    
+    func sorryAlert() {
+        let alert = UIAlertController(
+            title: "もうないみたい...",
+            message: "ごめんね！これ以上は出てこなかったよ",
+            preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(alert, animated: true, completion: nil)
     }
     
     func cropThumbnailImage(_ image :UIImage, w:Int, h:Int) ->UIImage {
@@ -202,7 +217,7 @@ extension FlickViewController: KolodaViewDelegate {
             }else {
                 print("ショップURLがない")
             }
-        default :            
+        default :
             print("画像")
             let image = imagesArray[index]
             let photo = IDMPhoto(image: image)
@@ -210,7 +225,7 @@ extension FlickViewController: KolodaViewDelegate {
             self.present(browser!, animated: true, completion: nil)
         }
     }
-
+    
     //カードをスワイプしてると必ず通る(スワイプを途中で辞めても)
     public func koloda(_ koloda: KolodaView, shouldSwipeCardAt index: Int, in direction: SwipeResultDirection) -> Bool {
         if direction == SwipeResultDirection.left {
@@ -220,7 +235,7 @@ extension FlickViewController: KolodaViewDelegate {
         }
         return true
     }
-
+    
     //カードをスワイプし終わった時
     public func koloda(_ koloda: KolodaView, didSwipeCardAt index: Int, in direction: SwipeResultDirection) {
         if direction == SwipeResultDirection.left {
@@ -240,30 +255,19 @@ extension FlickViewController: KolodaViewDelegate {
                 savedImage(index: Int(index))
             }
         }
-        print("imagesArray消去前", imagesArray)
         removeGarbageImageArray(index: index)
-        print("imagesArray消去後", imagesArray)
-
-        //次のカードがなくなったので次のデータをロード
-        if index == numberOfCards - 1 {
-            if imageExistFlag == true {
-                print("カードがない時多分")
-                print("imagesのカウント", images.count)
-                getTwitterMedia()
-            }
-        }
     }
-
+    
     public func savedImage(index: Int) {
         print("saved image.")
         UIImageWriteToSavedPhotosAlbum(imagesArray[index]!, self, nil, nil)
     }
-
+    
     func removeGarbageImageArray(index : Int) {
         print("imagesArrayのいらないとこ消す")
         imagesArray.removeValue(forKey: index)
     }
-
+    
     func koloda(kolodaBackgroundCardAnimation koloda: KolodaView) -> POPPropertyAnimation? {
         let animation = POPSpringAnimation(propertyNamed: kPOPViewFrame)
         animation?.springBounciness = frameAnimationSpringBounciness
@@ -273,46 +277,54 @@ extension FlickViewController: KolodaViewDelegate {
 }
 
 extension FlickViewController: KolodaViewDataSource {
-
+    func kolodaSpeedThatCardShouldDrag(_ koloda: KolodaView) -> DragSpeed {
+        return .moderate
+    }
+    
+    func kolodaDidRunOutOfCards(_ koloda: KolodaView) {
+        print("kolodaDidRunOutOfCards")
+        getTwitterMedia()
+        callRakutenAPI()
+    }
+    
     public func kolodaNumberOfCards(_ koloda: KolodaView) -> Int {
         numberOfCards = images.count
         print("カードのカウント", numberOfCards)
         return numberOfCards
     }
-
-    //カードが現れた時
+    
+    //新しいカードが現れた時
     //（あとカード３枚になったら裏側でリロード開始）
     public func koloda(_ koloda: KolodaView, didShowCardAt index: Int) {
-//        if index == numberOfCards - 1 {
-//            print("カードがない時多分")
-//            print("imagesのカウント", images.count)
-//            getTwitterMedia()
-//
-//        }
+        //        if index == numberOfCards - 1 {
+        //            print("カードがない時多分")
+        //            print("imagesのカウント", images.count)
+        //            getTwitterMedia()
+        //
+        //        }
     }
-
+    
     //カードのデータの読み込み
     public func koloda(_ koloda: KolodaView, viewForCardAt index: Int) -> UIView {
-
+        
         print("index", index)
         var i = arc4random_uniform(4)
         //７回に一回楽天商品
         var callString = ""
         switch (index + 1) % 8 {
-        case 0:
-            let num = (index + 1) / 8 - 1
+        case 0: //楽天商品表示
             print("ItemsArray.count", ItemsArray.count)
-            if ItemsArray.count != 0 {
-                currentRakutenItem = ItemsArray[num]
+            if ItemsArray.first?.isEmpty == false {
+                currentRakutenItem = ItemsArray.first!
                 callString = currentRakutenItem["mediumImageUrls"]!!
-                ItemsArray.remove(at: num)
+                ItemsArray.removeFirst()
             }else {
                 print("楽天データがなくなった")
                 callString = images.first!
                 images.removeFirst()
             }
             let view = RakutenFlickView.init(frame: CGRect.zero)
-//            let view = FlickView.init(frame: CGRect.zero)
+            //            let view = FlickView.init(frame: CGRect.zero)
             view.layer.cornerRadius = 5.0
             view.layer.masksToBounds = true
             //非同期で変換
@@ -335,11 +347,11 @@ extension FlickViewController: KolodaViewDataSource {
                         }
                         view.originalImage = UIImage(data: data)
                         view.backImageView.image = view.originalImage!
-
-                        let blurEffect = UIBlurEffect(style: .extraLight)
-                        var visualEffectView = UIVisualEffectView(effect: blurEffect)
-                        visualEffectView.frame = view.backImageView.frame
-                        view.backImageView.addSubview(visualEffectView)
+//                        let blurEffect = UIBlurEffect(style: .extraLight)
+//                        var visualEffectView = UIVisualEffectView(effect: blurEffect)
+//                        let flickView = FlickView.init(frame: CGRect.zero)
+//                        visualEffectView.frame = flickView.frame
+//                        view.backImageView.addSubview(visualEffectView)
                         view.imageView.image = view.originalImage!
                         self.imagesArray[index] = UIImage(data: data)
                         view.imageView.image = self.cropThumbnailImage(view.originalImage!, w: Int(view.originalImage!.size.width), h: Int(view.originalImage!.size.height))
@@ -347,7 +359,7 @@ extension FlickViewController: KolodaViewDataSource {
                 }
             }
             return view
-        default:
+        default: //画像表示
             if let imageString = images.first {
                 print("imagesから1つ消去前 : ", images)
                 callString = imageString
@@ -368,13 +380,14 @@ extension FlickViewController: KolodaViewDataSource {
                         view.imageView.image = self.cropThumbnailImage(view.originalImage!, w: Int(view.imageView.frame.width), h: Int(view.imageView.frame.height))
                         self.imagesArray[index] = view.originalImage!
                         print("imagesArray", self.imagesArray)
+                        print("imagesArray count", self.imagesArray.count)
                     }
                 }
             }
             return view
         }
     }
-
+    
     func koloda(_ koloda: KolodaView, viewForCardOverlayAt index: Int) -> OverlayView? {
         return Bundle.main.loadNibNamed("EffectlayerView", owner: self, options: nil)?[0] as? OverlayView
     }
@@ -383,7 +396,7 @@ extension FlickViewController: KolodaViewDataSource {
 
 //楽天API関連
 extension FlickViewController {
-
+    
     func setRakutenData(itemsJson : JSON) {
         itemsJson.forEach({ (_ , itemJson) in
             let article: [String: String?] = [
@@ -397,9 +410,9 @@ extension FlickViewController {
             print("ItemsArray : ", self.ItemsArray)
         })
     }
-
+    
     func callRakutenAPI() {
-
+        
         let rakutenUrl = "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20140222?format=json&field=0&sort=standard&hits=30&applicationId=1098197859526591121"
         let parms1 = ["keyword" : searchText, "affiliateId" : "156ea7d0.ed98f7f9.156ea7d1.cd28bb8c", "imageFlag" : 1, "minAffiliateRate" : 5.0, "page" : rakutenNextPage] as [String : Any]
         let parms2 = ["keyword" : searchText, "affiliateId" : "156ea7d0.ed98f7f9.156ea7d1.cd28bb8c", "imageFlag" : 1, "page" : rakutenNextPage] as [String : Any]
@@ -407,12 +420,12 @@ extension FlickViewController {
         let req1 = request(rakutenUrl, method: HTTPMethod.get, parameters: parms1, encoding: URLEncoding(destination: .methodDependent), headers: nil)
         //アフィリエイト制限無し
         let req2 = request(rakutenUrl, method: HTTPMethod.get, parameters: parms2, encoding: URLEncoding(destination: .methodDependent), headers: nil)
-
+        
         req1.responseJSON { (response) in
             if let object = response.result.value {
                 let json = JSON(object)
                 let itemsJson = json["Items"]
-                if itemsJson.count == 0 {
+                if itemsJson.count < 14 {
                     req2.responseJSON { (response) in
                         if response.result.isSuccess == true {
                             if let object = response.result.value {
@@ -426,7 +439,6 @@ extension FlickViewController {
                         }
                     }
                 }
-                print("itemsJson : ", itemsJson)
                 self.setRakutenData(itemsJson: itemsJson)
                 self.rakutenNextPage += 1
             }
