@@ -26,7 +26,7 @@ class RakutenFlickView: UIView {
     @IBOutlet weak var captionTextView: UITextView!
 
 
-    var originalImage: UIImage?
+    @objc var originalImage: UIImage?
 
     override init(frame: CGRect) { // for using CustomView in code
         super.init(frame: frame)

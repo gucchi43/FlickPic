@@ -19,7 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        Fabric.with([Crashlytics.self, Twitter.self])
+//        Fabric.with([Crashlytics.self, Twitter.self])
+        Fabric.with([Crashlytics.self])
+        Twitter.sharedInstance().start(withConsumerKey:"r8ELYQHWuQRJl42Is8NmJGbG0", consumerSecret:"N5i9un4GBvjiZbowRZKs0q0oauT5EKQ7Hi2kitYADj4LVMaknx")
 
         // NSUserDefaults のインスタンス取得
         let ud = UserDefaults.standard
@@ -27,6 +29,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let dic = ["firstLaunch": true]
         ud.register(defaults: dic)
 
+        return true
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        if Twitter.sharedInstance().application(app, open: url, options: options) {
+            return true
+        }
         return true
     }
 

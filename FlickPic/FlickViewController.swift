@@ -23,17 +23,17 @@ private let kolodaAlphaValueSemiTransparent: CGFloat = 0.1
 
 class FlickViewController: UIViewController {
     
-    var searchText = ""
+    @objc var searchText = ""
     
-    var images = [String]()
-    var imagesArray = [Int: UIImage]()
+    @objc var images = [String]()
+    @objc var imagesArray = [Int: UIImage]()
     var ItemsArray = [[String: String?]]()
     var currentRakutenItem = [String: String?]()
-    var numberOfCards: Int = 100
+    @objc var numberOfCards: Int = 100
     
-    var nextQuery = ""
-    var rakutenNextPage = 1
-    var imageExistFlag = true
+    @objc var nextQuery = ""
+    @objc var rakutenNextPage = 1
+    @objc var imageExistFlag = true
     
     @IBOutlet weak var targetTextLabel: UILabel!
     @IBOutlet weak var kolodaView: KolodaView!
@@ -83,7 +83,7 @@ class FlickViewController: UIViewController {
     }
     
     
-    func getTwitterMedia(){
+    @objc func getTwitterMedia(){
         switch nowQuery {
         case .first:
             print("first")
@@ -97,7 +97,7 @@ class FlickViewController: UIViewController {
         }
     }
     
-    func loadingQuery() {
+    @objc func loadingQuery() {
         let url = "https://api.twitter.com/1.1/search/tweets.json"
         var params = [
             "q": searchText + " filter:images -filter:retweets -filter:faves",
@@ -115,7 +115,9 @@ class FlickViewController: UIViewController {
                 if let error = error {
                     print(error)
                 } else {
-                    let json = JSON(data: data!)
+                    
+                    
+                    let json = try! JSON(data: data!)
                     //Twitterの次回の検索があるか
                     if let nextResults = json["search_metadata"]["next_results"].string {
                         print("nextResults", nextResults)
@@ -152,7 +154,7 @@ class FlickViewController: UIViewController {
         }
     }
     
-    func sorryAlert() {
+    @objc func sorryAlert() {
         let alert = UIAlertController(
             title: "もうないみたい...",
             message: "ごめんね！これ以上は出てこなかったよ",
@@ -161,7 +163,7 @@ class FlickViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    func cropThumbnailImage(_ image :UIImage, w:Int, h:Int) ->UIImage {
+    @objc func cropThumbnailImage(_ image :UIImage, w:Int, h:Int) ->UIImage {
         // リサイズ処理
         let origRef    = image.cgImage;
         let origWidth  = Int((origRef?.width)!)
@@ -203,7 +205,7 @@ class FlickViewController: UIViewController {
 extension FlickViewController: KolodaViewDelegate {
 
     //カードをタップした時
-    public func koloda(_ koloda: KolodaView, didSelectCardAt index: Int) {
+    @objc public func koloda(_ koloda: KolodaView, didSelectCardAt index: Int) {
         print("imagesArraey", imagesArray)
         switch (index + 1) % 8 {
         case 0 :
@@ -258,17 +260,17 @@ extension FlickViewController: KolodaViewDelegate {
         removeGarbageImageArray(index: index)
     }
     
-    public func savedImage(index: Int) {
+    @objc public func savedImage(index: Int) {
         print("saved image.")
         UIImageWriteToSavedPhotosAlbum(imagesArray[index]!, self, nil, nil)
     }
     
-    func removeGarbageImageArray(index : Int) {
+    @objc func removeGarbageImageArray(index : Int) {
         print("imagesArrayのいらないとこ消す")
         imagesArray.removeValue(forKey: index)
     }
     
-    func koloda(kolodaBackgroundCardAnimation koloda: KolodaView) -> POPPropertyAnimation? {
+    @objc func koloda(kolodaBackgroundCardAnimation koloda: KolodaView) -> POPPropertyAnimation? {
         let animation = POPSpringAnimation(propertyNamed: kPOPViewFrame)
         animation?.springBounciness = frameAnimationSpringBounciness
         animation?.springSpeed = frameAnimationSpringSpeed
@@ -281,13 +283,13 @@ extension FlickViewController: KolodaViewDataSource {
         return .moderate
     }
     
-    func kolodaDidRunOutOfCards(_ koloda: KolodaView) {
+    @objc func kolodaDidRunOutOfCards(_ koloda: KolodaView) {
         print("kolodaDidRunOutOfCards")
         getTwitterMedia()
         callRakutenAPI()
     }
     
-    public func kolodaNumberOfCards(_ koloda: KolodaView) -> Int {
+    @objc public func kolodaNumberOfCards(_ koloda: KolodaView) -> Int {
         numberOfCards = images.count
         print("カードのカウント", numberOfCards)
         return numberOfCards
@@ -295,7 +297,7 @@ extension FlickViewController: KolodaViewDataSource {
     
     //新しいカードが現れた時
     //（あとカード３枚になったら裏側でリロード開始）
-    public func koloda(_ koloda: KolodaView, didShowCardAt index: Int) {
+    @objc public func koloda(_ koloda: KolodaView, didShowCardAt index: Int) {
         //        if index == numberOfCards - 1 {
         //            print("カードがない時多分")
         //            print("imagesのカウント", images.count)
@@ -305,7 +307,7 @@ extension FlickViewController: KolodaViewDataSource {
     }
     
     //カードのデータの読み込み
-    public func koloda(_ koloda: KolodaView, viewForCardAt index: Int) -> UIView {
+    @objc public func koloda(_ koloda: KolodaView, viewForCardAt index: Int) -> UIView {
         
         print("index", index)
         var i = arc4random_uniform(4)
@@ -388,7 +390,7 @@ extension FlickViewController: KolodaViewDataSource {
         }
     }
     
-    func koloda(_ koloda: KolodaView, viewForCardOverlayAt index: Int) -> OverlayView? {
+    @objc func koloda(_ koloda: KolodaView, viewForCardOverlayAt index: Int) -> OverlayView? {
         return Bundle.main.loadNibNamed("EffectlayerView", owner: self, options: nil)?[0] as? OverlayView
     }
 }
@@ -407,11 +409,13 @@ extension FlickViewController {
                 "mediumImageUrls": itemJson["Item"]["mediumImageUrls"][0]["imageUrl"].string
             ]
             self.ItemsArray.append(article)
-            print("ItemsArray : ", self.ItemsArray)
+            
+            // デバッグ用（めっちゃ文字出るんでいつもはコメントアウト）
+            // print("ItemsArray : ", self.ItemsArray)
         })
     }
     
-    func callRakutenAPI() {
+    @objc func callRakutenAPI() {
         
         let rakutenUrl = "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20140222?format=json&field=0&sort=standard&hits=30&applicationId=1098197859526591121"
         let parms1 = ["keyword" : searchText, "affiliateId" : "156ea7d0.ed98f7f9.156ea7d1.cd28bb8c", "imageFlag" : 1, "minAffiliateRate" : 5.0, "page" : rakutenNextPage] as [String : Any]

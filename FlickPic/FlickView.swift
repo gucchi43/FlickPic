@@ -20,7 +20,7 @@ class FlickView: UIView {
     @IBOutlet var contentView: UIView!
     @IBOutlet weak var imageView: UIImageView!
     
-    var originalImage: UIImage?
+    @objc var originalImage: UIImage?
     
     override init(frame: CGRect) { // for using CustomView in code
         super.init(frame: frame)
