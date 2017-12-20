@@ -113,10 +113,10 @@ class FlickViewController: UIViewController {
             client.sendTwitterRequest(request, completion: {
                 response, data, error in
                 if let error = error {
-                    print(error)
+                    print("検索エラー", error)
+                    SVProgressHUD.dismiss()
+                    self.searchErrorAlert()
                 } else {
-                    
-                    
                     let json = try! JSON(data: data!)
                     //Twitterの次回の検索があるか
                     if let nextResults = json["search_metadata"]["next_results"].string {
@@ -158,6 +158,15 @@ class FlickViewController: UIViewController {
         let alert = UIAlertController(
             title: "もうないみたい...",
             message: "ごめんね！これ以上は出てこなかったよ",
+            preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func searchErrorAlert() {
+        let alert = UIAlertController(
+            title: "エラーがおきちゃった...",
+            message: "もう1度試してみてね",
             preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         self.present(alert, animated: true, completion: nil)
@@ -376,14 +385,19 @@ extension FlickViewController: KolodaViewDataSource {
             //非同期で変換
             let req = request(callString)
             req.responseData { (response) in
-                if let data = response.result.value {
-                    DispatchQueue.main.async {
-                        view.originalImage = UIImage(data: data)
-                        view.imageView.image = self.cropThumbnailImage(view.originalImage!, w: Int(view.imageView.frame.width), h: Int(view.imageView.frame.height))
-                        self.imagesArray[index] = view.originalImage!
-                        print("imagesArray", self.imagesArray)
-                        print("imagesArray count", self.imagesArray.count)
+                if response.result.isSuccess == true {
+                    if let data = response.result.value {
+                        DispatchQueue.main.async {
+                            view.originalImage = UIImage(data: data)
+                            view.imageView.image = self.cropThumbnailImage(view.originalImage!, w: Int(view.imageView.frame.width), h: Int(view.imageView.frame.height))
+                            self.imagesArray[index] = view.originalImage!
+                            print("imagesArray", self.imagesArray)
+                            print("imagesArray count", self.imagesArray.count)
+                        }
                     }
+                } else {
+                    print("とりまerror")
+                    self.searchErrorAlert()
                 }
             }
             return view
@@ -419,32 +433,47 @@ extension FlickViewController {
         
         let rakutenUrl = "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20140222?format=json&field=0&sort=standard&hits=30&applicationId=1098197859526591121"
         let parms1 = ["keyword" : searchText, "affiliateId" : "156ea7d0.ed98f7f9.156ea7d1.cd28bb8c", "imageFlag" : 1, "minAffiliateRate" : 5.0, "page" : rakutenNextPage] as [String : Any]
-        let parms2 = ["keyword" : searchText, "affiliateId" : "156ea7d0.ed98f7f9.156ea7d1.cd28bb8c", "imageFlag" : 1, "page" : rakutenNextPage] as [String : Any]
         //アフィリ５%以上の商品
         let req1 = request(rakutenUrl, method: HTTPMethod.get, parameters: parms1, encoding: URLEncoding(destination: .methodDependent), headers: nil)
+        req1.responseJSON { (response) in
+            if response.result.isSuccess == true {
+                if let object = response.result.value {
+                    let json = JSON(object)
+                    let itemsJson = json["Items"]
+                    if itemsJson.count < 14 {
+                        self.callSecondRakutenAPI()
+                    }
+                    self.setRakutenData(itemsJson: itemsJson)
+                    self.rakutenNextPage += 1
+                } else {
+                    self.callSecondRakutenAPI()
+                }
+            } else {
+                self.callSecondRakutenAPI()
+            }
+        }
+    }
+    
+    @objc func callSecondRakutenAPI() {
+        let rakutenUrl = "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20140222?format=json&field=0&sort=standard&hits=30&applicationId=1098197859526591121"
+        let parms2 = ["keyword" : searchText, "affiliateId" : "156ea7d0.ed98f7f9.156ea7d1.cd28bb8c", "imageFlag" : 1, "page" : rakutenNextPage] as [String : Any]
         //アフィリエイト制限無し
         let req2 = request(rakutenUrl, method: HTTPMethod.get, parameters: parms2, encoding: URLEncoding(destination: .methodDependent), headers: nil)
-        
-        req1.responseJSON { (response) in
-            if let object = response.result.value {
-                let json = JSON(object)
-                let itemsJson = json["Items"]
-                if itemsJson.count < 14 {
-                    req2.responseJSON { (response) in
-                        if response.result.isSuccess == true {
-                            if let object = response.result.value {
-                                let json = JSON(object)
-                                let itemsJson = json["Items"]
-                                print("itemsJson : ", itemsJson)
-                                self.setRakutenData(itemsJson: itemsJson)
-                            }
-                        }else if response.result.isSuccess == false {
-                            print("商品が見つからない")
-                        }
-                    }
+        req2.responseJSON { (response) in
+            if response.result.isSuccess == true {
+                if let object = response.result.value {
+                    let json = JSON(object)
+                    let itemsJson = json["Items"]
+                    print("itemsJson : ", itemsJson)
+                    self.setRakutenData(itemsJson: itemsJson)
+                    self.rakutenNextPage += 1
+                }else {
+                    SVProgressHUD.dismiss()
+                    self.searchErrorAlert()
                 }
-                self.setRakutenData(itemsJson: itemsJson)
-                self.rakutenNextPage += 1
+            } else {
+                SVProgressHUD.dismiss()
+                self.searchErrorAlert()
             }
         }
     }

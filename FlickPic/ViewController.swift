@@ -29,8 +29,19 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     @objc func alertExplain() {
         let alert = UIAlertController(
-            title: "👼はじめにちょっと使い方👼",
-            message: "探してる画像のキーワードを入れて、ムシメガネボタンをタップしてね🔍画像が出てくるから、いらなかったら👈にスワイプ！欲しかったら👉にスワイプ！👉にスワイプした画像は保存できてるよ✌️",
+            title: "👼探してる画像をケンサク👼",
+            message: "キーワードを入れて、ムシメガネボタンをタップしてね🔍今はTwitterの中からだけ検索できるよ🐣これからもっと増える予定だから待っててね😌",
+            preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "それで", style: UIAlertActionStyle.default, handler: { (UIAlertAction) in
+            self.alertSecondExplain()
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    @objc func alertSecondExplain() {
+        let alert = UIAlertController(
+            title: "👼出てきた画像をホゾン👼",
+            message: "出てきた画像をいらなかったら👈にスワイプ！保存したかったら👉にスワイプ！とっても簡単だね✌️",
             preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "りょ", style: UIAlertActionStyle.default, handler: { (UIAlertAction) in
             self.alertCarefull()
