@@ -9,6 +9,7 @@
 import UIKit
 import Colours
 import TwitterKit
+import SVProgressHUD
 
 class ViewController: UIViewController, UITextFieldDelegate {
     
@@ -18,12 +19,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         textFiled.delegate = self
         textFiled.layer.borderColor = UIColor.clear.cgColor
-
         textFiled.addBorderBottom(height: 1.0, color: ColorManager.sharedSingleton.accsentColor())
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        print("call : viewDidAppear")
         firstAlert()
     }
 
@@ -100,10 +99,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
 
     @objc func twitterLink() {
+        SVProgressHUD.show()
         Twitter.sharedInstance().logIn { (session, error) in
             if let error = error {
-                print(error)
+                SVProgressHUD.showError(withStatus: error.localizedDescription)
+                print(error.localizedDescription)
             }else {
+                SVProgressHUD.dismiss()
                 self.performSegue(withIdentifier: "showFlickViewController", sender: self)
             }
         }
@@ -131,10 +133,4 @@ class ViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
 }

@@ -142,12 +142,12 @@ class FlickViewController: UIViewController {
             print("取ってきたツイートのカウント", json["statuses"].array!.count)
             if let extendedEntities = tweet["extended_entities"]["media"].array {
                 for mediaInfo in extendedEntities {
-                    if let imageUrl = mediaInfo["media_url"].string {
+                    if let imageUrl = mediaInfo["media_url_https"].string {
                         self.images.append(imageUrl)
                     }
                 }
             }else {
-                if let imageURL = tweet["entities"]["media"][0]["media_url"].string {
+                if let imageURL = tweet["entities"]["media"][0]["media_url_https"].string {
                     self.images.append(imageURL)
                 }
             }
@@ -413,22 +413,6 @@ extension FlickViewController: KolodaViewDataSource {
 //楽天API関連
 extension FlickViewController {
     
-    func setRakutenData(itemsJson : JSON) {
-        itemsJson.forEach({ (_ , itemJson) in
-            let article: [String: String?] = [
-                "itemName": itemJson["Item"]["itemName"].string,
-                "itemPrice": String(describing: itemJson["Item"]["itemPrice"].int!),
-                "itemUrl": itemJson["Item"]["itemUrl"].string,
-                "itemCaption": itemJson["Item"]["itemCaption"].string,
-                "mediumImageUrls": itemJson["Item"]["mediumImageUrls"][0]["imageUrl"].string
-            ]
-            self.ItemsArray.append(article)
-            
-            // デバッグ用（めっちゃ文字出るんでいつもはコメントアウト）
-            // print("ItemsArray : ", self.ItemsArray)
-        })
-    }
-    
     @objc func callRakutenAPI() {
         
         let rakutenUrl = "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20140222?format=json&field=0&sort=standard&hits=30&applicationId=1098197859526591121"
@@ -476,5 +460,21 @@ extension FlickViewController {
                 self.searchErrorAlert()
             }
         }
+    }
+    
+    func setRakutenData(itemsJson : JSON) {
+        itemsJson.forEach({ (_ , itemJson) in
+            let article: [String: String?] = [
+                "itemName": itemJson["Item"]["itemName"].string,
+                "itemPrice": String(describing: itemJson["Item"]["itemPrice"].int!),
+                "itemUrl": itemJson["Item"]["itemUrl"].string,
+                "itemCaption": itemJson["Item"]["itemCaption"].string,
+                "mediumImageUrls": itemJson["Item"]["mediumImageUrls"][0]["imageUrl"].string
+            ]
+            self.ItemsArray.append(article)
+            
+            // デバッグ用（めっちゃ文字出るんでいつもはコメントアウト）
+            // print("ItemsArray : ", self.ItemsArray)
+        })
     }
 }

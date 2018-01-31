@@ -62,11 +62,11 @@
 		</array>
 	</dict>
 	<key>LSRequiresIPhoneOS</key>
-	<true/>
+	<false/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
-		<true/>
+		<false/>
 	</dict>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>カメラロールに画像保存するためにアクセスしまーす</string>
