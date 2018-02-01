@@ -19,6 +19,7 @@ class FlickView: UIView {
     */
     @IBOutlet var contentView: UIView!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var loadingLabel: UILabel!
     
     @objc var originalImage: UIImage?
     

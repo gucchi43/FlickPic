@@ -19,9 +19,9 @@ PODS:
   - SDWebImage/Core (4.0.0)
   - SVProgressHUD (2.2.2)
   - SwiftyJSON (4.0.0)
-  - TwitterCore (3.0.3)
-  - TwitterKit (3.2.2):
-    - TwitterCore (>= 3.0.3)
+  - TwitterCore (3.1.0)
+  - TwitterKit (3.3.0):
+    - TwitterCore (>= 3.1.0)
 
 DEPENDENCIES:
   - Alamofire
@@ -47,8 +47,8 @@ SPEC CHECKSUMS:
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   SVProgressHUD: 59b2d3dabacbd051576d21d32293ca7228dc18b0
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
-  TwitterCore: 549c74ed5f3d6134392dc944c6d215e233e50ad8
-  TwitterKit: b9feccfc70bef86fe389c06a63a72fed9f020b9c
+  TwitterCore: 644d59e75abccb26cf0a9050d2c4dea0e5412241
+  TwitterKit: a2e60ddcedbf54091eac6f27685ca7a87681e1d7
 
 PODFILE CHECKSUM: d38f4e10dc6ba80942dc1d67831bafec2a5a3acf
 
