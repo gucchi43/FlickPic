@@ -99,7 +99,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
 
     @objc func twitterLink() {
-        
         let store = TWTRTwitter.sharedInstance().sessionStore
         if let userID = store.session()?.userID {
             self.performSegue(withIdentifier: "showFlickViewController", sender: self)
@@ -109,18 +108,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     func logInAndSearch() {
-        SVProgressHUD.show()
         TWTRTwitter.sharedInstance().logIn { (session, error) in
+            SVProgressHUD.show()
             if let error = error {
                 SVProgressHUD.showError(withStatus: error.localizedDescription)
-                print(error.localizedDescription)
+                print("error : ", error.localizedDescription)
             }else {
                 SVProgressHUD.dismiss()
                 self.performSegue(withIdentifier: "showFlickViewController", sender: self)
             }
         }
     }
-    
 
     @IBAction func tapSearchButton(_ sender: Any) {
         if textFiled.text?.isEmpty == true {

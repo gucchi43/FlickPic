@@ -20,8 +20,6 @@
 	<string>1.0.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>1.0.0</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -31,11 +29,8 @@
 			</array>
 		</dict>
 	</array>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>twitter</string>
-		<string>twitterauth</string>
-	</array>
+	<key>CFBundleVersion</key>
+	<string>1.0.3</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -61,6 +56,11 @@
 			</dict>
 		</array>
 	</dict>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>twitter</string>
+		<string>twitterauth</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<false/>
 	<key>NSAppTransportSecurity</key>
@@ -68,9 +68,9 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<false/>
 	</dict>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>カメラロールに画像保存するためにアクセスしまーす</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>カメラロールに画像保存するためにアクセスしまーす</string>
+	<key>NSPhotoLibraryUsageDescription</key>
 	<string>カメラロールに画像保存するためにアクセスしまーす</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
