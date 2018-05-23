@@ -56,6 +56,7 @@ class FlickViewController: UIViewController {
         kolodaView.dataSource = self
         kolodaView.animator = FlickViewAnimator(koloda: kolodaView)
         leftButton.tintColor = UIColor.warning()
+        
         rightButton.tintColor = UIColor.success()
         targetTextLabel.text = searchText
         
