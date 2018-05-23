@@ -47,20 +47,36 @@
                                 <color key="textColor" red="0.95294117649999999" green="0.1215686275" blue="0.70588235290000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cGC-tk-oXR">
+                                <rect key="frame" x="8" y="611" width="44" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Iph-O4-9WM"/>
+                                    <constraint firstAttribute="width" constant="44" id="OgA-WM-AJh"/>
+                                </constraints>
+                                <state key="normal" title="info">
+                                    <color key="titleColor" red="0.95294117649999999" green="0.1215686275" blue="0.70588235290000001" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="tapInfoButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="agG-ex-a7Q"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.97254901959999995" green="0.90588235289999997" blue="0.10980392160000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Es4-s9-Au3" secondAttribute="trailing" constant="100" id="Az0-sM-xk6"/>
                             <constraint firstItem="Es4-s9-Au3" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="200" id="JPK-Rn-dP5"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="cGC-tk-oXR" secondAttribute="bottom" constant="12" id="X7p-fG-Xva"/>
                             <constraint firstItem="d45-Gb-2Q0" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="100" id="elj-wd-HVq"/>
                             <constraint firstItem="Es4-s9-Au3" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="100" id="jfE-uW-Nc8"/>
                             <constraint firstItem="d45-Gb-2Q0" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ozg-l9-Cwh"/>
                             <constraint firstItem="IR8-Rn-HbR" firstAttribute="top" secondItem="Es4-s9-Au3" secondAttribute="bottom" constant="120" id="qZR-i4-U7L"/>
+                            <constraint firstItem="cGC-tk-oXR" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="8" id="s8E-WX-q3i"/>
                             <constraint firstItem="IR8-Rn-HbR" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="z6X-ME-zxW"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="735-ut-lvA"/>
                     <connections>
+                        <outlet property="infoButton" destination="cGC-tk-oXR" id="hlO-a4-xEk"/>
                         <outlet property="textFiled" destination="Es4-s9-Au3" id="2Me-eA-Yj1"/>
                         <segue destination="8qI-2H-agH" kind="presentation" identifier="showFlickViewController" id="Pqf-Yt-PNe"/>
                     </connections>

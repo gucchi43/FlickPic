@@ -10,40 +10,49 @@ import UIKit
 import Colours
 import TwitterKit
 import SVProgressHUD
+import FontAwesome_swift
+import SafariServices
 
 class ViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var textFiled: UITextField!
+    @IBOutlet weak var infoButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         textFiled.delegate = self
         textFiled.layer.borderColor = UIColor.clear.cgColor
         textFiled.addBorderBottom(height: 1.0, color: ColorManager.sharedSingleton.accsentColor())
+        
+        infoButton.titleLabel?.font = UIFont.fontAwesome(ofSize: 32)
+        infoButton.setTitle(String.fontAwesomeIcon(name: .questionCircleO), for: .normal)
+        
     }
 
     override func viewDidAppear(_ animated: Bool) {
         firstAlert()
     }
 
-    @objc func alertExplain() {
+    @objc func alertExplain(firstFlag: Bool) {
         let alert = UIAlertController(
             title: "👼探してる画像をケンサク👼",
             message: "キーワードを入れて、ムシメガネボタンをタップしてね🔍今はTwitterの中からだけ検索できるよ🐣これからもっと増える予定だから待っててね😌",
             preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "それで", style: UIAlertActionStyle.default, handler: { (UIAlertAction) in
-            self.alertSecondExplain()
+            self.alertSecondExplain(firstFlag: firstFlag)
         }))
         self.present(alert, animated: true, completion: nil)
     }
     
-    @objc func alertSecondExplain() {
+    @objc func alertSecondExplain(firstFlag: Bool) {
         let alert = UIAlertController(
             title: "👼出てきた画像をホゾン👼",
             message: "出てきた画像をいらなかったら👈にスワイプ！保存したかったら👉にスワイプ！とっても簡単だね✌️",
             preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "りょ", style: UIAlertActionStyle.default, handler: { (UIAlertAction) in
-            self.alertCarefull()
+            if firstFlag == true {
+                self.alertCarefull()
+            }
         }))
         self.present(alert, animated: true, completion: nil)
     }
@@ -75,7 +84,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         if ud.bool(forKey: "firstLaunch") {
             // 初回起動時の処理
             print("初回起動")
-            self.alertExplain()
+            self.alertExplain(firstFlag: true)
             // 2回目以降の起動では「firstLaunch」のkeyをfalseに
             ud.set(false, forKey: "firstLaunch")
         }else {
@@ -141,5 +150,24 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 flickViewController.searchText = searchText
             }
         }
+    }
+    
+    @IBAction func tapInfoButton(_ sender: Any) {
+        showInfoActionSheet()
+    }
+    
+    func showInfoActionSheet() {
+        let alert = UIAlertController(title: "👩‍🏫困りごとかい？👨‍🏫", message: nil, preferredStyle: .actionSheet)
+        let help = UIAlertAction(title: "使い方を見る", style: .default) { (action) in
+            self.alertExplain(firstFlag: false)
+        }
+        let goToLine = UIAlertAction(title: "LINEで問い合わせ", style: .default) { (action) in
+            UIApplication.shared.open(URL(string: "http://line.me/ti/p/%40ozx5488u")!)
+        }
+        let cancel = UIAlertAction(title: "キャンセル", style: .cancel, handler: nil)
+        alert.addAction(help)
+        alert.addAction(goToLine)
+        alert.addAction(cancel)
+        self.present(alert, animated: true, completion: nil)
     }
 }

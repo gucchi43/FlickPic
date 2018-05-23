@@ -15,5 +15,6 @@ target 'FlickPic' do
     pod 'IDMPhotoBrowser'
     pod 'Koloda'
     pod 'SVProgressHUD'
+    pod 'FontAwesome.swift'
 
 end

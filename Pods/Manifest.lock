@@ -7,6 +7,7 @@ PODS:
     - Fabric (~> 1.7.5)
   - DACircularProgress (2.3.1)
   - Fabric (1.7.6)
+  - FontAwesome.swift (1.3.2)
   - IDMPhotoBrowser (1.11.3):
     - DACircularProgress
     - pop
@@ -28,6 +29,7 @@ DEPENDENCIES:
   - Colours
   - Crashlytics
   - Fabric
+  - FontAwesome.swift
   - IDMPhotoBrowser
   - Koloda
   - SVProgressHUD
@@ -41,6 +43,7 @@ SPEC CHECKSUMS:
   Crashlytics: aee1a064cbbf99b32efa3f056a5f458d846bc8ff
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   Fabric: f8d42c893bb187326a7968b62abe55c36a987a46
+  FontAwesome.swift: b4e4c8ccbbecb12f9b592bc533ff237af3706667
   IDMPhotoBrowser: b96159fe4adb991a844068eb17dab9c0b7d7e51a
   Koloda: 0d39b2aa188ccd1fac48d752acaf9802e683c625
   pop: 82ca6b068ce9278fd350fd9dd09482a0ce9492e6
@@ -50,6 +53,6 @@ SPEC CHECKSUMS:
   TwitterCore: 644d59e75abccb26cf0a9050d2c4dea0e5412241
   TwitterKit: a2e60ddcedbf54091eac6f27685ca7a87681e1d7
 
-PODFILE CHECKSUM: 40714e2090e25f000e404699aa9025b278a460e6
+PODFILE CHECKSUM: 3a83ba0cc69ad2d6a7d1f745069442137c1bdd5e
 
 COCOAPODS: 1.4.0
