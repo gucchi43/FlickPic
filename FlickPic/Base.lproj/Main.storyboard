@@ -48,7 +48,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cGC-tk-oXR">
-                                <rect key="frame" x="8" y="611" width="44" height="44"/>
+                                <rect key="frame" x="323" y="607" width="44" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="Iph-O4-9WM"/>
                                     <constraint firstAttribute="width" constant="44" id="OgA-WM-AJh"/>
@@ -65,12 +65,12 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Es4-s9-Au3" secondAttribute="trailing" constant="100" id="Az0-sM-xk6"/>
                             <constraint firstItem="Es4-s9-Au3" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="200" id="JPK-Rn-dP5"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="cGC-tk-oXR" secondAttribute="bottom" constant="12" id="X7p-fG-Xva"/>
+                            <constraint firstAttribute="trailing" secondItem="cGC-tk-oXR" secondAttribute="trailing" constant="8" id="NxV-n0-lHq"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="cGC-tk-oXR" secondAttribute="bottom" constant="16" id="X7p-fG-Xva"/>
                             <constraint firstItem="d45-Gb-2Q0" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="100" id="elj-wd-HVq"/>
                             <constraint firstItem="Es4-s9-Au3" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="100" id="jfE-uW-Nc8"/>
                             <constraint firstItem="d45-Gb-2Q0" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ozg-l9-Cwh"/>
                             <constraint firstItem="IR8-Rn-HbR" firstAttribute="top" secondItem="Es4-s9-Au3" secondAttribute="bottom" constant="120" id="qZR-i4-U7L"/>
-                            <constraint firstItem="cGC-tk-oXR" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="8" id="s8E-WX-q3i"/>
                             <constraint firstItem="IR8-Rn-HbR" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="z6X-ME-zxW"/>
                         </constraints>
                     </view>
