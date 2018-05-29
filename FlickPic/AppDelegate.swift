@@ -33,7 +33,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ud.register(defaults: dic)
         
         // RemoteConfigの設定
-        // RemoteConfigのシングルトンインスタンスの取得
         self.remoteConfig = RemoteConfig.remoteConfig()
         // デバッグモードの有効化
 //        let remoteConfigSettings = RemoteConfigSettings(developerModeEnabled: true)
