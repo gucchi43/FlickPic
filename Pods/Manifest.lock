@@ -7,14 +7,50 @@ PODS:
     - Fabric (~> 1.7.5)
   - DACircularProgress (2.3.1)
   - Fabric (1.7.6)
+  - Firebase/Core (5.0.1):
+    - Firebase/CoreOnly
+    - FirebaseAnalytics (= 5.0.0)
+  - Firebase/CoreOnly (5.0.1):
+    - FirebaseCore (= 5.0.1)
+  - Firebase/RemoteConfig (5.0.1):
+    - Firebase/Core
+    - FirebaseRemoteConfig (= 3.0.0)
+  - FirebaseABTesting (2.0.0):
+    - FirebaseCore (~> 5.0)
+    - Protobuf (~> 3.5)
+  - FirebaseAnalytics (5.0.0):
+    - FirebaseCore (~> 5.0)
+    - FirebaseInstanceID (~> 3.0)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+    - nanopb (~> 0.3)
+  - FirebaseCore (5.0.1):
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+  - FirebaseInstanceID (3.0.0):
+    - FirebaseCore (~> 5.0)
+  - FirebaseRemoteConfig (3.0.0):
+    - FirebaseABTesting (~> 2.0)
+    - FirebaseAnalytics (~> 5.0)
+    - FirebaseCore (~> 5.0)
+    - FirebaseInstanceID (~> 3.0)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+    - Protobuf (~> 3.5)
   - FontAwesome.swift (1.3.2)
+  - GoogleToolboxForMac/Defines (2.1.4)
+  - "GoogleToolboxForMac/NSData+zlib (2.1.4)":
+    - GoogleToolboxForMac/Defines (= 2.1.4)
   - IDMPhotoBrowser (1.11.3):
     - DACircularProgress
     - pop
     - SDWebImage (= 4.0.0)
   - Koloda (4.3.1):
     - pop (~> 1.0)
+  - nanopb (0.3.8):
+    - nanopb/decode (= 0.3.8)
+    - nanopb/encode (= 0.3.8)
+  - nanopb/decode (0.3.8)
+  - nanopb/encode (0.3.8)
   - pop (1.0.10)
+  - Protobuf (3.5.0)
   - SDWebImage (4.0.0):
     - SDWebImage/Core (= 4.0.0)
   - SDWebImage/Core (4.0.0)
@@ -29,6 +65,8 @@ DEPENDENCIES:
   - Colours
   - Crashlytics
   - Fabric
+  - Firebase/Core
+  - Firebase/RemoteConfig
   - FontAwesome.swift
   - IDMPhotoBrowser
   - Koloda
@@ -37,22 +75,57 @@ DEPENDENCIES:
   - TwitterCore
   - TwitterKit
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - Colours
+    - Crashlytics
+    - DACircularProgress
+    - Fabric
+    - Firebase
+    - FirebaseABTesting
+    - FirebaseAnalytics
+    - FirebaseCore
+    - FirebaseInstanceID
+    - FirebaseRemoteConfig
+    - FontAwesome.swift
+    - GoogleToolboxForMac
+    - IDMPhotoBrowser
+    - Koloda
+    - nanopb
+    - pop
+    - Protobuf
+    - SDWebImage
+    - SVProgressHUD
+    - SwiftyJSON
+    - TwitterCore
+    - TwitterKit
+
 SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
   Colours: f24220c38f13deac88612667e9b4a7fb96b871d4
   Crashlytics: aee1a064cbbf99b32efa3f056a5f458d846bc8ff
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   Fabric: f8d42c893bb187326a7968b62abe55c36a987a46
+  Firebase: d6861c2059d8c32d1e6dd8932e22ada346d90a3a
+  FirebaseABTesting: 1f50b8d50f5e3469eea54e7463a7b7fe221d1f5e
+  FirebaseAnalytics: 19812b49fa5f283dd6b23edf8a14b5d477029ab8
+  FirebaseCore: cafc814b2d84fc8733f09e653041cc2165332ad7
+  FirebaseInstanceID: 83e0040351565df711a5db3d8ebe5ea21aca998a
+  FirebaseRemoteConfig: 3c57e4644bd6976b671ae0b725cd709f198bd1f5
   FontAwesome.swift: b4e4c8ccbbecb12f9b592bc533ff237af3706667
+  GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
   IDMPhotoBrowser: b96159fe4adb991a844068eb17dab9c0b7d7e51a
   Koloda: 0d39b2aa188ccd1fac48d752acaf9802e683c625
+  nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   pop: 82ca6b068ce9278fd350fd9dd09482a0ce9492e6
+  Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
   TwitterCore: 644d59e75abccb26cf0a9050d2c4dea0e5412241
   TwitterKit: a2e60ddcedbf54091eac6f27685ca7a87681e1d7
 
-PODFILE CHECKSUM: 3a83ba0cc69ad2d6a7d1f745069442137c1bdd5e
+PODFILE CHECKSUM: 316c88d99a0423ad5073b95332a09c640f61de94
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.2

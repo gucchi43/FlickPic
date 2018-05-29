@@ -17,4 +17,7 @@ target 'FlickPic' do
     pod 'SVProgressHUD'
     pod 'FontAwesome.swift'
 
+    pod 'Firebase/Core'
+    pod 'Firebase/RemoteConfig'
+
 end
