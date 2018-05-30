@@ -81,7 +81,6 @@ class FlickViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    
     @objc func getTwitterMedia(){
         switch nowQuery {
         case .first:
