@@ -111,7 +111,7 @@ class FlickViewController: UIViewController {
             "q": searchText + " filter:images -filter:retweets -filter:faves",
 //            "q": searchText + " filter:images",
             "lang": "ja",
-            "count": "100"
+            "count": "50"
 //            "result_type" : "recent"
             ]
         if maxId != "" {
