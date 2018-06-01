@@ -15,6 +15,7 @@ import pop
 import Colours
 import IDMPhotoBrowser
 import SVProgressHUD
+import GoogleMobileAds
 
 private let frameAnimationSpringBounciness: CGFloat = 9
 private let frameAnimationSpringSpeed: CGFloat = 16
@@ -47,9 +48,18 @@ class FlickViewController: UIViewController {
     
     var nowQuery: queryPattern = queryPattern.first
     
+    var adoCount = 0
+    // PROD
+//    let interstitialADTestUnitID = "ca-app-pub-2311091333372031/6603686625"
+    // TEST
+    let interstitialADTestUnitID = "ca-app-pub-3940256099942544/4411468910"
+    
+    fileprivate var interstitial: GADInterstitial!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        interstitial = createAndLoadInterstitial()
         self.nowQuery = queryPattern.first
         
         kolodaView.delegate = self
@@ -271,6 +281,7 @@ extension FlickViewController: KolodaViewDelegate {
             savedImage(index: Int(index))
         }
         removeGarbageImageArray(index: index)
+        presentAdo()
     }
     
     @objc public func savedImage(index: Int) {
@@ -288,6 +299,33 @@ extension FlickViewController: KolodaViewDelegate {
         animation?.springBounciness = frameAnimationSpringBounciness
         animation?.springSpeed = frameAnimationSpringSpeed
         return animation
+    }
+    
+    func createAndLoadInterstitial() -> GADInterstitial {
+        var interstitial = GADInterstitial(adUnitID: interstitialADTestUnitID)
+        interstitial.delegate = self
+        interstitial.load(GADRequest())
+        return interstitial
+    }
+    
+    func interstitialDidDismissScreen(_ ad: GADInterstitial) {
+        interstitial = createAndLoadInterstitial()
+    }
+    
+    func presentAdo() {
+        adoCount += 1
+        print("adoCount : ", adoCount)
+        if adoCount >= 7 {
+            //7回以上フリックした後は5分の１で広告表示
+            if arc4random_uniform(5) == 1 {
+                if interstitial.isReady {
+                    interstitial.present(fromRootViewController: self)
+                } else {
+                    print("Ad wasn't ready")
+                }
+                adoCount = 0
+            }
+        }
     }
 }
 
@@ -357,5 +395,34 @@ extension FlickViewController: KolodaViewDataSource {
     
     @objc func koloda(_ koloda: KolodaView, viewForCardOverlayAt index: Int) -> OverlayView? {
         return Bundle.main.loadNibNamed("EffectlayerView", owner: self, options: nil)?[0] as? OverlayView
+    }
+}
+
+extension FlickViewController: GADInterstitialDelegate {
+    /// Tells the delegate an ad request succeeded.
+    
+    func interstitialDidReceiveAd(_ ad: GADInterstitial) {
+        print("interstitialDidReceiveAd")
+    }
+    
+    /// Tells the delegate an ad request failed.
+    func interstitial(_ ad: GADInterstitial, didFailToReceiveAdWithError error: GADRequestError) {
+        print("interstitial:didFailToReceiveAdWithError: \(error.localizedDescription)")
+    }
+    
+    /// Tells the delegate that an interstitial will be presented.
+    func interstitialWillPresentScreen(_ ad: GADInterstitial) {
+        print("interstitialWillPresentScreen")
+    }
+    
+    /// Tells the delegate the interstitial is to be animated off the screen.
+    func interstitialWillDismissScreen(_ ad: GADInterstitial) {
+        print("interstitialWillDismissScreen")
+    }
+    
+    /// Tells the delegate that a user click will open another app
+    /// (such as the App Store), backgrounding the current app.
+    func interstitialWillLeaveApplication(_ ad: GADInterstitial) {
+        print("interstitialWillLeaveApplication")
     }
 }

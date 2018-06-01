@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0347D81720BD24F3007C6094 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0347D81620BD24F3007C6094 /* GoogleService-Info.plist */; };
+		0365DF8820BF88B3006921E6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0365DF8720BF88B3006921E6 /* GoogleService-Info.plist */; };
 		65C91790BC409EA6B7E6317F /* Pods_FlickPic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10FF24D0C5AC1276BFC5E9E1 /* Pods_FlickPic.framework */; };
 		ED0A833F1E1687D400A5D141 /* FlickViewAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0A833E1E1687D400A5D141 /* FlickViewAnimator.swift */; };
 		ED0A83451E1695D300A5D141 /* EffectlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED0A83441E1695D300A5D141 /* EffectlayerView.xib */; };
@@ -46,7 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0347D81620BD24F3007C6094 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0365DF8720BF88B3006921E6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		10FF24D0C5AC1276BFC5E9E1 /* Pods_FlickPic.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlickPic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C14F22A760FA65F8943EACA /* Pods-FlickPic.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlickPic.release.xcconfig"; path = "Pods/Target Support Files/Pods-FlickPic/Pods-FlickPic.release.xcconfig"; sourceTree = "<group>"; };
 		C01F9D56E71EC1D2CD38801D /* Pods-FlickPic.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlickPic.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FlickPic/Pods-FlickPic.debug.xcconfig"; sourceTree = "<group>"; };
@@ -197,8 +197,8 @@
 				ED6ADA1B1E2930CF00800373 /* FlickEffect */,
 				ED6ADA1A1E2930B200800373 /* Manager */,
 				EFFC846D1D15453600E30A3E /* Assets.xcassets */,
+				0365DF8720BF88B3006921E6 /* GoogleService-Info.plist */,
 				EFFC846F1D15453600E30A3E /* LaunchScreen.storyboard */,
-				0347D81620BD24F3007C6094 /* GoogleService-Info.plist */,
 				EFFC84721D15453600E30A3E /* Info.plist */,
 			);
 			path = FlickPic;
@@ -340,7 +340,7 @@
 				EFFC846E1D15453600E30A3E /* Assets.xcassets in Resources */,
 				ED8A69141E24EF780015C6B4 /* RakutenFlickView.xib in Resources */,
 				EFFC846C1D15453600E30A3E /* Main.storyboard in Resources */,
-				0347D81720BD24F3007C6094 /* GoogleService-Info.plist in Resources */,
+				0365DF8820BF88B3006921E6 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

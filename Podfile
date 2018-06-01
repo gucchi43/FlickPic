@@ -19,5 +19,6 @@ target 'FlickPic' do
 
     pod 'Firebase/Core'
     pod 'Firebase/RemoteConfig'
+    pod ‘Firebase/AdMob’
 
 end

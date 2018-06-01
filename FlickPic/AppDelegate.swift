@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         Fabric.with([Crashlytics.self])
         FirebaseApp.configure()
+        GADMobileAds.configure(withApplicationID: "ca-app-pub-2311091333372031~3773509156")
         TWTRTwitter.sharedInstance().start(withConsumerKey:"r8ELYQHWuQRJl42Is8NmJGbG0", consumerSecret:"N5i9un4GBvjiZbowRZKs0q0oauT5EKQ7Hi2kitYADj4LVMaknx")
 
         // NSUserDefaults のインスタンス取得
@@ -37,8 +38,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // デバッグモードの有効化
 //        let remoteConfigSettings = RemoteConfigSettings(developerModeEnabled: true)
 //        remoteConfig.configSettings = remoteConfigSettings
-        // デフォルト値のセット
         
+        // デフォルト値のセット
         remoteConfig.setDefaults(["must_update_ver": "1.0.0" as NSObject])
         remoteConfig.setDefaults(["must_update_message": "おねがーい" as NSObject])
         
