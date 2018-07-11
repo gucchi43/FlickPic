@@ -425,6 +425,10 @@ extension FlickViewController: KolodaViewDataSource {
     @objc func koloda(_ koloda: KolodaView, viewForCardOverlayAt index: Int) -> OverlayView? {
         return Bundle.main.loadNibNamed("EffectlayerView", owner: self, options: nil)?[0] as? OverlayView
     }
+    
+    func kolodaSwipeThresholdRatioMargin(_ koloda: KolodaView) -> CGFloat? {
+        return 0.35
+    }
 }
 
 extension FlickViewController: GADInterstitialDelegate {
