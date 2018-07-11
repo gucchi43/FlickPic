@@ -12,25 +12,71 @@ import TwitterKit
 import SVProgressHUD
 import FontAwesome_swift
 import SafariServices
+import SwiftyUserDefaults
 
 class ViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var textFiled: UITextField!
     @IBOutlet weak var infoButton: UIButton!
-
+    @IBOutlet weak var rirekiButton: UIButton!
+    @IBOutlet weak var rirekiRightButton: UIButton!
+    @IBOutlet weak var rirekiLeftButton: UIButton!
+    var currentRerekiNum = 0
+    var maxRerekiNum = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         textFiled.delegate = self
         textFiled.layer.borderColor = UIColor.clear.cgColor
         textFiled.addBorderBottom(height: 1.0, color: ColorManager.sharedSingleton.accsentColor())
-        
         infoButton.titleLabel?.font = UIFont.fontAwesome(ofSize: 32)
         infoButton.setTitle(String.fontAwesomeIcon(name: .questionCircleO), for: .normal)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
     }
 
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        loadRereki()
         firstAlert()
+    }
+    
+    func loadRereki() {
+        maxRerekiNum = Defaults[.searchedWords].count
+        currentRerekiNum = 0
+        if maxRerekiNum > 0 {
+            print("Defaults[.searchedWords]",  Defaults[.searchedWords])
+            print("Defaults[.currentRerekiNum]",  Defaults[.searchedWords][currentRerekiNum])
+            setRirekiButtonTitle(with: Defaults[.searchedWords][currentRerekiNum])
+        }
+    }
+    
+    func setRirekiButtonTitle(with title: String) {
+        rirekiButton.setTitle(title, for: UIControlState.normal)
+        rirekiButton.layer.borderColor = UIColor.clear.cgColor
+        rirekiButton.addBorderBottom(height: 1.0, color: ColorManager.sharedSingleton.accsentColor())
+    }
+    
+    func changeRerekiButton(next: Bool) {
+        if next {
+            if currentRerekiNum == maxRerekiNum - 1 {
+                currentRerekiNum = 0
+            } else {
+                currentRerekiNum += 1
+            }
+        } else {
+            if currentRerekiNum == 0 {
+                currentRerekiNum = maxRerekiNum - 1
+            } else {
+                currentRerekiNum -= 1
+            }
+        }
+        setRirekiButtonTitle(with: Defaults[.searchedWords][currentRerekiNum])
     }
 
     @objc func alertExplain(firstFlag: Bool) {
@@ -80,16 +126,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     @objc func firstAlert() {
         //初回起動判定
-        let ud = UserDefaults.standard
-        if ud.bool(forKey: "firstLaunch") {
-            // 初回起動時の処理
-            print("初回起動")
-            self.alertExplain(firstFlag: true)
-            // 2回目以降の起動では「firstLaunch」のkeyをfalseに
-            ud.set(false, forKey: "firstLaunch")
-        }else {
-            print("初回起動じゃない")
-        }
+            if Defaults[.presentExplainView] {
+                print("もう説明してる")
+            } else {
+                // 初回起動時の処理
+                print("初めてなので説明")
+                self.alertExplain(firstFlag: true)
+                // 2回目以降の起動では「firstLaunch」のkeyをfalseに
+                Defaults[.presentExplainView] = true
+            }
     }
 
     //MARK: キーボードが出ている状態で、キーボード以外をタップしたらキーボードを閉じる
@@ -148,10 +193,40 @@ class ViewController: UIViewController, UITextFieldDelegate {
             let flickViewController = segue.destination as! FlickViewController
             if let searchText = textFiled.text {
                 flickViewController.searchText = searchText
+                if Defaults[.searchedWords].index(of: searchText) == nil {
+                    if Defaults[.searchedWords].count <= 5{
+                        Defaults[.searchedWords].insert(searchText, at: 0)
+//                        Defaults[.searchedWords].append(searchText)
+                    } else {
+                        Defaults[.searchedWords].removeLast()
+//                        Defaults[.searchedWords].remove(at: 0)
+                        Defaults[.searchedWords].insert(searchText, at: 0)
+//                        Defaults[.searchedWords].append(searchText)
+                    }
+                } else {
+                    print("searchedWordsの中に" + searchText + "はすでにあった")
+                    Defaults[.searchedWords].remove(at: Defaults[.searchedWords].index(of: searchText)!)
+                    Defaults[.searchedWords].insert(searchText, at: 0)
+//                    Defaults[.searchedWords].append(searchText)
+                }
             }
         }
     }
     
+    @IBAction func tapRirekiButton(_ sender: Any) {
+        let searchText = rirekiButton.titleLabel?.text
+        textFiled.text = searchText!
+        self.twitterLink()
+    }
+    
+    @IBAction func tapRirekiRightButton(_ sender: Any) {
+        changeRerekiButton(next: true)
+    }
+    
+    @IBAction func tapRirekiLeftButton(_ sender: Any) {
+        changeRerekiButton(next: false)
+    }
+
     @IBAction func tapInfoButton(_ sender: Any) {
         showInfoActionSheet()
     }

@@ -16,6 +16,7 @@ import Colours
 import IDMPhotoBrowser
 import SVProgressHUD
 import GoogleMobileAds
+import SwiftyUserDefaults
 
 private let frameAnimationSpringBounciness: CGFloat = 9
 private let frameAnimationSpringSpeed: CGFloat = 16
@@ -287,6 +288,7 @@ extension FlickViewController: KolodaViewDelegate {
     @objc public func savedImage(index: Int) {
         print("saved image.")
         UIImageWriteToSavedPhotosAlbum(imagesArray[index]!, self, nil, nil)
+        Defaults[.saveCount] += 1
     }
     
     @objc func removeGarbageImageArray(index : Int) {
@@ -318,11 +320,19 @@ extension FlickViewController: KolodaViewDelegate {
         if adoCount >= 7 {
             //7回以上フリックした後は5分の１で広告表示
             if arc4random_uniform(5) == 1 {
-                if interstitial.isReady {
-                    interstitial.present(fromRootViewController: self)
+                if Defaults[.presentReaview] {
+                    if interstitial.isReady {
+                        interstitial.present(fromRootViewController: self)
+                    } else {
+                        print("Ad wasn't ready")
+                    }
                 } else {
-                    print("Ad wasn't ready")
+                    // レビュー依頼
+                    
+                    Defaults[.presentReaview] = true
                 }
+                
+                
                 adoCount = 0
             }
         }
