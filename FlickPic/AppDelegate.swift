@@ -13,7 +13,7 @@ import TwitterKit
 import Firebase
 import SwiftyJSON
 import Alamofire
-
+import SwiftyUserDefaults
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -27,11 +27,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GADMobileAds.configure(withApplicationID: "ca-app-pub-2311091333372031~3773509156")
         TWTRTwitter.sharedInstance().start(withConsumerKey:"r8ELYQHWuQRJl42Is8NmJGbG0", consumerSecret:"N5i9un4GBvjiZbowRZKs0q0oauT5EKQ7Hi2kitYADj4LVMaknx")
 
+        Defaults[.launchCount] += 1
+        
         // NSUserDefaults のインスタンス取得
-        let ud = UserDefaults.standard
-        // デフォルト値の設定
-        let dic = ["firstLaunch": true]
-        ud.register(defaults: dic)
+//        if let firstLaunch = Defaults[.firstLaunch] {
+//            print("すでにあるよ firstLaunch")
+//        } else {
+//            Defaults[.firstLaunch] = true
+//        }
+//        
+//        if Defaults[.firstLaunch] {
+//            
+//        } else {
+//            
+//        }
+        
+        
+//        let ud = UserDefaults.standard
+//        // デフォルト値の設定
+//        let dic = ["firstLaunch": true]
+//        ud.register(defaults: dic)
         
         // RemoteConfigの設定
         self.remoteConfig = RemoteConfig.remoteConfig()

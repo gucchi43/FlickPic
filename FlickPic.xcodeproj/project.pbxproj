@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0300F6DE20F2E86C00A687DD /* DefaultsKeys+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0300F6DD20F2E86C00A687DD /* DefaultsKeys+Extension.swift */; };
 		0365DF8820BF88B3006921E6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0365DF8720BF88B3006921E6 /* GoogleService-Info.plist */; };
 		65C91790BC409EA6B7E6317F /* Pods_FlickPic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10FF24D0C5AC1276BFC5E9E1 /* Pods_FlickPic.framework */; };
 		ED0A833F1E1687D400A5D141 /* FlickViewAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0A833E1E1687D400A5D141 /* FlickViewAnimator.swift */; };
@@ -46,6 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0300F6DD20F2E86C00A687DD /* DefaultsKeys+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DefaultsKeys+Extension.swift"; sourceTree = "<group>"; };
 		0365DF8720BF88B3006921E6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		10FF24D0C5AC1276BFC5E9E1 /* Pods_FlickPic.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlickPic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C14F22A760FA65F8943EACA /* Pods-FlickPic.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlickPic.release.xcconfig"; path = "Pods/Target Support Files/Pods-FlickPic/Pods-FlickPic.release.xcconfig"; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 			children = (
 				ED8A69111E239B260015C6B4 /* Extension.swift */,
 				EDC97F821E1F89EE00F9D71D /* ColorManager.swift */,
+				0300F6DD20F2E86C00A687DD /* DefaultsKeys+Extension.swift */,
 			);
 			name = Manager;
 			sourceTree = "<group>";
@@ -379,6 +382,7 @@
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyUserDefaults/SwiftyUserDefaults.framework",
 				"${PODS_ROOT}/TwitterCore/iOS/TwitterCore.framework",
 				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
@@ -397,6 +401,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyUserDefaults.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
@@ -474,6 +479,7 @@
 				ED0A833F1E1687D400A5D141 /* FlickViewAnimator.swift in Sources */,
 				ED6ADA171E2646BC00800373 /* RakutenFlickView.swift in Sources */,
 				ED8A69121E239B260015C6B4 /* Extension.swift in Sources */,
+				0300F6DE20F2E86C00A687DD /* DefaultsKeys+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
