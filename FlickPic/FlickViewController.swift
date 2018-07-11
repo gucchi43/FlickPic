@@ -17,6 +17,7 @@ import IDMPhotoBrowser
 import SVProgressHUD
 import GoogleMobileAds
 import SwiftyUserDefaults
+import StoreKit
 
 private let frameAnimationSpringBounciness: CGFloat = 9
 private let frameAnimationSpringSpeed: CGFloat = 16
@@ -328,11 +329,13 @@ extension FlickViewController: KolodaViewDelegate {
                     }
                 } else {
                     // レビュー依頼
-                    
                     Defaults[.presentReaview] = true
-                }
-                
-                
+                    if #available(iOS 10.3, *) {
+                        SKStoreReviewController.requestReview()
+                    } else {
+                        // Fallback on earlier versions
+                    }
+                }       
                 adoCount = 0
             }
         }
