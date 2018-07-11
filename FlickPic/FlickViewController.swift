@@ -213,6 +213,20 @@ class FlickViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
+    func reccomendLineAlert() {
+        let alert = UIAlertController(
+            title: "サンキュー！これで39回目の画像保存だよ！",
+            message: "よかったらLINEで感想を教えてね！",
+            preferredStyle: .alert)
+        let goToLine = UIAlertAction(title: "LINEへ", style: .default) { (action) in
+            UIApplication.shared.open(URL(string: "http://line.me/ti/p/%40ozx5488u")!)
+        }
+        let cancel = UIAlertAction(title: "キャンセル", style: .cancel, handler: nil)
+        alert.addAction(cancel)
+        alert.addAction(goToLine)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     @objc func cropThumbnailImage(_ image :UIImage, w:Int, h:Int) ->UIImage {
         // リサイズ処理
         let origRef    = image.cgImage;
@@ -253,7 +267,6 @@ class FlickViewController: UIViewController {
 }
 
 extension FlickViewController: KolodaViewDelegate {
-
     //カードをタップした時
     @objc public func koloda(_ koloda: KolodaView, didSelectCardAt index: Int) {
         print("imagesArraey", imagesArray)
@@ -290,6 +303,9 @@ extension FlickViewController: KolodaViewDelegate {
         print("saved image.")
         UIImageWriteToSavedPhotosAlbum(imagesArray[index]!, self, nil, nil)
         Defaults[.saveCount] += 1
+        if Defaults[.saveCount] == 39 {
+            self.reccomendLineAlert ()
+        }
     }
     
     @objc func removeGarbageImageArray(index : Int) {
