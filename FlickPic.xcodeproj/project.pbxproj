@@ -8,7 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		0300F6DE20F2E86C00A687DD /* DefaultsKeys+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0300F6DD20F2E86C00A687DD /* DefaultsKeys+Extension.swift */; };
-		0365DF8820BF88B3006921E6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0365DF8720BF88B3006921E6 /* GoogleService-Info.plist */; };
+		037052AC20F89702001ADC2C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 037052AB20F89702001ADC2C /* GoogleService-Info.plist */; };
+		037052AF20F89CD3001ADC2C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037052AE20F89CD3001ADC2C /* User.swift */; };
+		037052B120F8AAC8001ADC2C /* HotWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037052B020F8AAC8001ADC2C /* HotWord.swift */; };
+		037052B320F8AE91001ADC2C /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037052B220F8AE91001ADC2C /* AccountManager.swift */; };
 		65C91790BC409EA6B7E6317F /* Pods_FlickPic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10FF24D0C5AC1276BFC5E9E1 /* Pods_FlickPic.framework */; };
 		ED0A833F1E1687D400A5D141 /* FlickViewAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0A833E1E1687D400A5D141 /* FlickViewAnimator.swift */; };
 		ED0A83451E1695D300A5D141 /* EffectlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED0A83441E1695D300A5D141 /* EffectlayerView.xib */; };
@@ -48,7 +51,11 @@
 
 /* Begin PBXFileReference section */
 		0300F6DD20F2E86C00A687DD /* DefaultsKeys+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DefaultsKeys+Extension.swift"; sourceTree = "<group>"; };
-		0365DF8720BF88B3006921E6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		037052AB20F89702001ADC2C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		037052AE20F89CD3001ADC2C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		037052B020F8AAC8001ADC2C /* HotWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotWord.swift; sourceTree = "<group>"; };
+		037052B220F8AE91001ADC2C /* AccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
+		037052B420F8CDE2001ADC2C /* FlickPic.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FlickPic.entitlements; sourceTree = "<group>"; };
 		10FF24D0C5AC1276BFC5E9E1 /* Pods_FlickPic.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlickPic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C14F22A760FA65F8943EACA /* Pods-FlickPic.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlickPic.release.xcconfig"; path = "Pods/Target Support Files/Pods-FlickPic/Pods-FlickPic.release.xcconfig"; sourceTree = "<group>"; };
 		C01F9D56E71EC1D2CD38801D /* Pods-FlickPic.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlickPic.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FlickPic/Pods-FlickPic.debug.xcconfig"; sourceTree = "<group>"; };
@@ -103,6 +110,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		037052AD20F89CA6001ADC2C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				037052AE20F89CD3001ADC2C /* User.swift */,
+				037052B020F8AAC8001ADC2C /* HotWord.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		8A0D62199F9F4E93E61100F6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -144,6 +160,7 @@
 				ED8A69111E239B260015C6B4 /* Extension.swift */,
 				EDC97F821E1F89EE00F9D71D /* ColorManager.swift */,
 				0300F6DD20F2E86C00A687DD /* DefaultsKeys+Extension.swift */,
+				037052B220F8AE91001ADC2C /* AccountManager.swift */,
 			);
 			name = Manager;
 			sourceTree = "<group>";
@@ -193,14 +210,16 @@
 		EFFC84651D15453600E30A3E /* FlickPic */ = {
 			isa = PBXGroup;
 			children = (
+				037052B420F8CDE2001ADC2C /* FlickPic.entitlements */,
 				EFFC84661D15453600E30A3E /* AppDelegate.swift */,
+				037052AD20F89CA6001ADC2C /* Models */,
 				ED6ADA1C1E2930F900800373 /* Main */,
 				ED6ADA181E29306F00800373 /* FlickView */,
 				ED6ADA191E29308800800373 /* RakutenFlickView */,
 				ED6ADA1B1E2930CF00800373 /* FlickEffect */,
 				ED6ADA1A1E2930B200800373 /* Manager */,
 				EFFC846D1D15453600E30A3E /* Assets.xcassets */,
-				0365DF8720BF88B3006921E6 /* GoogleService-Info.plist */,
+				037052AB20F89702001ADC2C /* GoogleService-Info.plist */,
 				EFFC846F1D15453600E30A3E /* LaunchScreen.storyboard */,
 				EFFC84721D15453600E30A3E /* Info.plist */,
 			);
@@ -299,6 +318,11 @@
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = 48KBV2T232;
 						LastSwiftMigration = 0910;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					EFFC84761D15453600E30A3E = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -343,7 +367,7 @@
 				EFFC846E1D15453600E30A3E /* Assets.xcassets in Resources */,
 				ED8A69141E24EF780015C6B4 /* RakutenFlickView.xib in Resources */,
 				EFFC846C1D15453600E30A3E /* Main.storyboard in Resources */,
-				0365DF8820BF88B3006921E6 /* GoogleService-Info.plist in Resources */,
+				037052AC20F89702001ADC2C /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,9 +396,11 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-FlickPic/Pods-FlickPic-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
 				"${BUILT_PRODUCTS_DIR}/Colours/Colours.framework",
 				"${BUILT_PRODUCTS_DIR}/DACircularProgress/DACircularProgress.framework",
 				"${BUILT_PRODUCTS_DIR}/FontAwesome.swift/FontAwesome_swift.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/IDMPhotoBrowser/IDMPhotoBrowser.framework",
 				"${BUILT_PRODUCTS_DIR}/Koloda/Koloda.framework",
@@ -385,15 +411,22 @@
 				"${BUILT_PRODUCTS_DIR}/SwiftyUserDefaults/SwiftyUserDefaults.framework",
 				"${PODS_ROOT}/TwitterCore/iOS/TwitterCore.framework",
 				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-RxLibrary/RxLibrary.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 				"${BUILT_PRODUCTS_DIR}/pop/pop.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Colours.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DACircularProgress.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FontAwesome_swift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IDMPhotoBrowser.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Koloda.framework",
@@ -404,6 +437,11 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyUserDefaults.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxLibrary.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/pop.framework",
 			);
@@ -477,9 +515,12 @@
 				ED0A83471E1695EE00A5D141 /* EffectlayerView.swift in Sources */,
 				EFFC84671D15453600E30A3E /* AppDelegate.swift in Sources */,
 				ED0A833F1E1687D400A5D141 /* FlickViewAnimator.swift in Sources */,
+				037052B120F8AAC8001ADC2C /* HotWord.swift in Sources */,
+				037052B320F8AE91001ADC2C /* AccountManager.swift in Sources */,
 				ED6ADA171E2646BC00800373 /* RakutenFlickView.swift in Sources */,
 				ED8A69121E239B260015C6B4 /* Extension.swift in Sources */,
 				0300F6DE20F2E86C00A687DD /* DefaultsKeys+Extension.swift in Sources */,
+				037052AF20F89CD3001ADC2C /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -631,6 +672,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = FlickPic/FlickPic.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 48KBV2T232;
@@ -654,6 +696,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = FlickPic/FlickPic.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 48KBV2T232;
