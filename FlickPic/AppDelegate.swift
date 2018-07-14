@@ -11,9 +11,13 @@ import Fabric
 import Crashlytics
 import TwitterKit
 import Firebase
+import FirebaseAuth
+import FirebaseMessaging
 import SwiftyJSON
 import Alamofire
 import SwiftyUserDefaults
+import UserNotifications
+import Pring
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,12 +26,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var remoteConfig: RemoteConfig!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        Fabric.with([Crashlytics.self])
         FirebaseApp.configure()
-        GADMobileAds.configure(withApplicationID: "ca-app-pub-2311091333372031~3773509156")
+        Fabric.with([Crashlytics.self])
         TWTRTwitter.sharedInstance().start(withConsumerKey:"r8ELYQHWuQRJl42Is8NmJGbG0", consumerSecret:"N5i9un4GBvjiZbowRZKs0q0oauT5EKQ7Hi2kitYADj4LVMaknx")
-
+        GADMobileAds.configure(withApplicationID: "ca-app-pub-2311091333372031~3773509156")
         Defaults[.launchCount] += 1
+        UNUserNotificationCenter.current().delegate = self
+//        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge], completionHandler: { (granted, error) in
+//            if let error = error {
+//                print(error.localizedDescription)
+//            }
+//            if granted {
+//                print("プッシュ通知ダイアログ 許可")
+//                UIApplication.shared.registerForRemoteNotifications()
+//            } else {
+//                print("プッシュ通知ダイアログ 拒否")
+//            }
+//        })
         
         // NSUserDefaults のインスタンス取得
 //        if let firstLaunch = Defaults[.firstLaunch] {
@@ -57,8 +72,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // デフォルト値のセット
         remoteConfig.setDefaults(["must_update_ver": "1.0.0" as NSObject])
         remoteConfig.setDefaults(["must_update_message": "おねがーい" as NSObject])
-        
         checkAppVersion()
+        if let user = AccountManager.shared.currentUser {
+            print("ログイン済み: ", user)
+        } else {
+            self.setUpUser()
+        }
         return true
     }
     
@@ -67,6 +86,59 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return true
         }
         return true
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
+        print("userInfo : ", userInfo)
+        // アプリが起動している間に通知を受け取った場合の処理を行う。
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
+                     fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        // アプリがバックグラウンド状態の時に通知を受け取った場合の処理を行う。
+        print("userInfo : ", userInfo)
+        completionHandler(UIBackgroundFetchResult.newData)
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("プッシュ通知登録失敗 : ", error)
+        // システムへのプッシュ通知の登録が失敗した時の処理を行う。
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        // Device Token を取得した時の処理を行う。
+        print("APNs token retrieved: \(deviceToken)")
+    }
+    
+    func setUpUser() {
+        Auth.auth().signInAnonymously() { (authUser, error) in
+            if let error = error {
+                print("atuth error: ", error)
+            } else {
+                print("auth user: ", authUser)
+                User.get((authUser!.user.uid), block: { (user, error) in
+                    if let error = error {
+                        print("atuth error: ", error)
+                    } else {
+                        if let user = user {
+                            AccountManager.shared.currentUser = user
+                        } else {
+                            let newUser = User(id: authUser!.user.uid)
+                            newUser.fcmToken = Messaging.messaging().fcmToken!
+                            newUser.save({ (ref, error) in
+                                if let error = error {
+                                    print(error.localizedDescription)
+                                } else if let ref = ref {
+                                    print(ref)
+                                    AccountManager.shared.currentUser = newUser
+                                }
+                            })
+                        }
+                        
+                    }
+                })
+            }
+        }
     }
     
     func checkAppVersion() {
@@ -167,3 +239,51 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
+extension AppDelegate : UNUserNotificationCenterDelegate {
+    // iOS 10 以降では通知を受け取るとこちらのデリゲートメソッドが呼ばれる。
+    // foreground で受信
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
+        let content = notification.request.content
+        // Push Notifications のmessageを取得
+        let badge = content.badge
+        let body = notification.request.content.body
+        print("userNotificationCenterのwillPresentから: \(body), \(badge)")
+        print("content : ", content)
+        //　iphone7 haptic feedback
+        let feedbackGenerator = UINotificationFeedbackGenerator()
+        feedbackGenerator.notificationOccurred(.success)
+        // audio & vibrater
+        AudioServicesPlayAlertSoundWithCompletion(SystemSoundID(kSystemSoundID_Vibrate), nil)
+        
+        let userInfo = ["word": body, "status": "FG"]
+        let center = NotificationCenter.default
+        center.post(name: .receiveHotwordNotification, object: nil, userInfo: userInfo)
+        completionHandler([])
+    
+    }
+    
+    // background で受信してアプリを起動
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                didReceive response: UNNotificationResponse,
+                                withCompletionHandler completionHandler: @escaping () -> Void) {
+        // Push Notifications のmessageを取得
+        let content = response.notification.request.content
+        let badge = content.badge
+        let body = response.notification.request.content.body
+        print("userNotificationCenterのdidReceiveから: \(body), \(badge)")
+        print("content : ", content)
+        let userInfo = ["word": body, "status": "BG"]
+        let center = NotificationCenter.default
+        center.post(name: .receiveHotwordNotification, object: nil, userInfo: userInfo)
+        completionHandler()
+    }
+}
+
+extension AppDelegate: MessagingDelegate {
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
+        print("Firebase registration token: \(fcmToken)")
+    }
+}

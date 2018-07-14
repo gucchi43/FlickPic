@@ -1,5 +1,11 @@
 PODS:
   - Alamofire (4.7.2)
+  - BoringSSL (10.0.3):
+    - BoringSSL/Implementation (= 10.0.3)
+    - BoringSSL/Interface (= 10.0.3)
+  - BoringSSL/Implementation (10.0.3):
+    - BoringSSL/Interface (= 10.0.3)
+  - BoringSSL/Interface (10.0.3)
   - Colours (5.13.0):
     - Colours/ObjC (= 5.13.0)
   - Colours/ObjC (5.13.0)
@@ -10,14 +16,26 @@ PODS:
   - Firebase/AdMob (5.0.1):
     - Firebase/Core
     - Google-Mobile-Ads-SDK (= 7.30.0)
+  - Firebase/Auth (5.0.1):
+    - Firebase/CoreOnly
+    - FirebaseAuth (= 5.0.0)
   - Firebase/Core (5.0.1):
     - Firebase/CoreOnly
     - FirebaseAnalytics (= 5.0.0)
   - Firebase/CoreOnly (5.0.1):
     - FirebaseCore (= 5.0.1)
+  - Firebase/Firestore (5.0.1):
+    - Firebase/CoreOnly
+    - FirebaseFirestore (= 0.12.1)
+  - Firebase/Messaging (5.0.1):
+    - Firebase/CoreOnly
+    - FirebaseMessaging (= 3.0.0)
   - Firebase/RemoteConfig (5.0.1):
     - Firebase/Core
     - FirebaseRemoteConfig (= 3.0.0)
+  - Firebase/Storage (5.0.1):
+    - Firebase/CoreOnly
+    - FirebaseStorage (= 3.0.0)
   - FirebaseABTesting (2.0.0):
     - FirebaseCore (~> 5.0)
     - Protobuf (~> 3.5)
@@ -26,10 +44,29 @@ PODS:
     - FirebaseInstanceID (~> 3.0)
     - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
     - nanopb (~> 0.3)
+  - FirebaseAuth (5.0.0):
+    - FirebaseCore (~> 5.0)
+    - GTMSessionFetcher/Core (~> 1.1)
   - FirebaseCore (5.0.1):
     - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+  - FirebaseFirestore (0.12.1):
+    - FirebaseCore (~> 5.0)
+    - FirebaseFirestore/abseil-cpp (= 0.12.1)
+    - gRPC-ProtoRPC (~> 1.0)
+    - leveldb-library (~> 1.18)
+    - Protobuf (~> 3.1)
+  - FirebaseFirestore/abseil-cpp (0.12.1):
+    - FirebaseCore (~> 5.0)
+    - gRPC-ProtoRPC (~> 1.0)
+    - leveldb-library (~> 1.18)
+    - Protobuf (~> 3.1)
   - FirebaseInstanceID (3.0.0):
     - FirebaseCore (~> 5.0)
+  - FirebaseMessaging (3.0.0):
+    - FirebaseCore (~> 5.0)
+    - FirebaseInstanceID (~> 3.0)
+    - GoogleToolboxForMac/Logger (~> 2.1)
+    - Protobuf (~> 3.1)
   - FirebaseRemoteConfig (3.0.0):
     - FirebaseABTesting (~> 2.0)
     - FirebaseAnalytics (~> 5.0)
@@ -37,23 +74,53 @@ PODS:
     - FirebaseInstanceID (~> 3.0)
     - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
     - Protobuf (~> 3.5)
+  - FirebaseStorage (3.0.0):
+    - FirebaseCore (~> 5.0)
+    - GTMSessionFetcher/Core (~> 1.1)
   - FontAwesome.swift (1.3.2)
   - Google-Mobile-Ads-SDK (7.30.0)
   - GoogleToolboxForMac/Defines (2.1.4)
+  - GoogleToolboxForMac/Logger (2.1.4):
+    - GoogleToolboxForMac/Defines (= 2.1.4)
   - "GoogleToolboxForMac/NSData+zlib (2.1.4)":
     - GoogleToolboxForMac/Defines (= 2.1.4)
+  - gRPC (1.12.0):
+    - gRPC-RxLibrary (= 1.12.0)
+    - gRPC/Main (= 1.12.0)
+  - gRPC-Core (1.12.0):
+    - gRPC-Core/Implementation (= 1.12.0)
+    - gRPC-Core/Interface (= 1.12.0)
+  - gRPC-Core/Implementation (1.12.0):
+    - BoringSSL (~> 10.0)
+    - gRPC-Core/Interface (= 1.12.0)
+    - nanopb (~> 0.3)
+  - gRPC-Core/Interface (1.12.0)
+  - gRPC-ProtoRPC (1.12.0):
+    - gRPC (= 1.12.0)
+    - gRPC-RxLibrary (= 1.12.0)
+    - Protobuf (~> 3.0)
+  - gRPC-RxLibrary (1.12.0)
+  - gRPC/Main (1.12.0):
+    - gRPC-Core (= 1.12.0)
+    - gRPC-RxLibrary (= 1.12.0)
+  - GTMSessionFetcher/Core (1.1.15)
   - IDMPhotoBrowser (1.11.3):
     - DACircularProgress
     - pop
     - SDWebImage (= 4.0.0)
   - Koloda (4.3.1):
     - pop (~> 1.0)
+  - leveldb-library (1.20)
   - nanopb (0.3.8):
     - nanopb/decode (= 0.3.8)
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
   - pop (1.0.10)
+  - Pring (0.9.2):
+    - Firebase/Core
+    - Firebase/Firestore
+    - Firebase/Storage
   - Protobuf (3.5.0)
   - SDWebImage (4.0.0):
     - SDWebImage/Core (= 4.0.0)
@@ -71,11 +138,14 @@ DEPENDENCIES:
   - Crashlytics
   - Fabric
   - Firebase/AdMob
+  - Firebase/Auth
   - Firebase/Core
+  - Firebase/Messaging
   - Firebase/RemoteConfig
   - FontAwesome.swift
   - IDMPhotoBrowser
   - Koloda
+  - Pring
   - SVProgressHUD
   - SwiftyJSON
   - SwiftyUserDefaults (= 4.0.0-alpha.1)
@@ -85,6 +155,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - BoringSSL
     - Colours
     - Crashlytics
     - DACircularProgress
@@ -92,16 +163,27 @@ SPEC REPOS:
     - Firebase
     - FirebaseABTesting
     - FirebaseAnalytics
+    - FirebaseAuth
     - FirebaseCore
+    - FirebaseFirestore
     - FirebaseInstanceID
+    - FirebaseMessaging
     - FirebaseRemoteConfig
+    - FirebaseStorage
     - FontAwesome.swift
     - Google-Mobile-Ads-SDK
     - GoogleToolboxForMac
+    - gRPC
+    - gRPC-Core
+    - gRPC-ProtoRPC
+    - gRPC-RxLibrary
+    - GTMSessionFetcher
     - IDMPhotoBrowser
     - Koloda
+    - leveldb-library
     - nanopb
     - pop
+    - Pring
     - Protobuf
     - SDWebImage
     - SVProgressHUD
@@ -112,6 +194,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
+  BoringSSL: c46efb47593135382bc0934196f16d2f726f5f36
   Colours: f24220c38f13deac88612667e9b4a7fb96b871d4
   Crashlytics: aee1a064cbbf99b32efa3f056a5f458d846bc8ff
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
@@ -119,16 +202,27 @@ SPEC CHECKSUMS:
   Firebase: d6861c2059d8c32d1e6dd8932e22ada346d90a3a
   FirebaseABTesting: 1f50b8d50f5e3469eea54e7463a7b7fe221d1f5e
   FirebaseAnalytics: 19812b49fa5f283dd6b23edf8a14b5d477029ab8
+  FirebaseAuth: acbeef02fe7c3a26624e309849f3fe30c84115af
   FirebaseCore: cafc814b2d84fc8733f09e653041cc2165332ad7
+  FirebaseFirestore: f686b8e83f3cf8bbc37db6e98e01029a14f01f55
   FirebaseInstanceID: 83e0040351565df711a5db3d8ebe5ea21aca998a
+  FirebaseMessaging: f2360a966ecfb0d14facf0fbdf306efc2df0ddbe
   FirebaseRemoteConfig: 3c57e4644bd6976b671ae0b725cd709f198bd1f5
+  FirebaseStorage: 7ca4bb7b58a25fa647b04f524033fc7cb7eb272b
   FontAwesome.swift: b4e4c8ccbbecb12f9b592bc533ff237af3706667
   Google-Mobile-Ads-SDK: 7404f68120ae8682afeb5af001fbf4aad731c78e
   GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
+  gRPC: 9362451032695e2dfb7bafcd3740e3a27939e4ff
+  gRPC-Core: 9696b220565b283e021cf2722d473a4a74b7622a
+  gRPC-ProtoRPC: a1bd56fb1991a8dae4581250d7259eddabb66779
+  gRPC-RxLibrary: 1ed5314e8b38cd6e55c9bfa048387136ae925ce9
+  GTMSessionFetcher: 5fa5b80fd20e439ef5f545fb2cb3ca6c6714caa2
   IDMPhotoBrowser: b96159fe4adb991a844068eb17dab9c0b7d7e51a
   Koloda: 0d39b2aa188ccd1fac48d752acaf9802e683c625
+  leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   pop: 82ca6b068ce9278fd350fd9dd09482a0ce9492e6
+  Pring: f19fea218069951baf45858effee0acfffe229f9
   Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
@@ -137,6 +231,6 @@ SPEC CHECKSUMS:
   TwitterCore: 644d59e75abccb26cf0a9050d2c4dea0e5412241
   TwitterKit: a2e60ddcedbf54091eac6f27685ca7a87681e1d7
 
-PODFILE CHECKSUM: 4780aad50294a167ad30d14495e5ff9e5a78488b
+PODFILE CHECKSUM: 30cf25c8b757fa99af51f69845089d7df0a5d770
 
 COCOAPODS: 1.5.2

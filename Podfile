@@ -22,6 +22,9 @@ target 'FlickPic' do
     pod 'Firebase/Core'
     pod 'Firebase/RemoteConfig'
     pod ‘Firebase/AdMob’
+    pod 'Firebase/Messaging'
+    pod 'Firebase/Auth'
 
+    pod 'Pring'
 
 end
