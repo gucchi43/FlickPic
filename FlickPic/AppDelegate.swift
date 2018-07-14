@@ -32,36 +32,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GADMobileAds.configure(withApplicationID: "ca-app-pub-2311091333372031~3773509156")
         Defaults[.launchCount] += 1
         UNUserNotificationCenter.current().delegate = self
-//        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge], completionHandler: { (granted, error) in
-//            if let error = error {
-//                print(error.localizedDescription)
-//            }
-//            if granted {
-//                print("プッシュ通知ダイアログ 許可")
-//                UIApplication.shared.registerForRemoteNotifications()
-//            } else {
-//                print("プッシュ通知ダイアログ 拒否")
-//            }
-//        })
-        
-        // NSUserDefaults のインスタンス取得
-//        if let firstLaunch = Defaults[.firstLaunch] {
-//            print("すでにあるよ firstLaunch")
-//        } else {
-//            Defaults[.firstLaunch] = true
-//        }
-//        
-//        if Defaults[.firstLaunch] {
-//            
-//        } else {
-//            
-//        }
-        
-        
-//        let ud = UserDefaults.standard
-//        // デフォルト値の設定
-//        let dic = ["firstLaunch": true]
-//        ud.register(defaults: dic)
         
         // RemoteConfigの設定
         self.remoteConfig = RemoteConfig.remoteConfig()
@@ -134,7 +104,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                 }
                             })
                         }
-                        
                     }
                 })
             }
