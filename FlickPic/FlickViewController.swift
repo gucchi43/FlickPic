@@ -398,7 +398,7 @@ extension FlickViewController: KolodaViewDataSource {
             print("imagesがない、次の画像データゲット")
         }
         let view = FlickView.init(frame: CGRect.zero)
-        view.layer.cornerRadius = 5.0
+        view.layer.cornerRadius =  10.0
         view.layer.masksToBounds = true
         //非同期で変換
         let req = request(callString)
