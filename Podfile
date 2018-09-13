@@ -16,7 +16,7 @@ target 'FlickPic' do
     pod 'Koloda'
     pod 'SVProgressHUD'
     pod 'FontAwesome.swift'
-
+    pod 'SwiftDate'
     pod 'SwiftyUserDefaults', '4.0.0-alpha.1'
 
     pod 'Firebase/Core'

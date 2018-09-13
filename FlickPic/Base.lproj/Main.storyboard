@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -33,7 +33,7 @@
                                 <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IR8-Rn-HbR">
-                                <rect key="frame" x="139.5" y="330" width="96" height="96"/>
+                                <rect key="frame" x="140" y="330" width="96" height="96"/>
                                 <state key="normal" image="twitterSearch">
                                     <color key="titleColor" red="0.95294117649999999" green="0.1215686275" blue="0.70588235290000001" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -42,7 +42,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Qupick" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d45-Gb-2Q0">
-                                <rect key="frame" x="109" y="100" width="157.5" height="65.5"/>
+                                <rect key="frame" x="109" y="100" width="158" height="66"/>
                                 <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="60"/>
                                 <color key="textColor" red="0.95294117649999999" green="0.1215686275" blue="0.70588235290000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -61,7 +61,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ul9-45-z7t">
-                                <rect key="frame" x="127" y="510.5" width="120" height="34"/>
+                                <rect key="frame" x="127" y="561" width="120" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="ApY-Ex-ls5"/>
                                 </constraints>
@@ -74,7 +74,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CsU-fg-H9J">
-                                <rect key="frame" x="271" y="507" width="30" height="41"/>
+                                <rect key="frame" x="271" y="557" width="30" height="41"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <state key="normal" title="&gt;">
                                     <color key="titleColor" red="0.95294117649999999" green="0.1215686275" blue="0.70588235290000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -84,7 +84,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IxF-b4-eXj">
-                                <rect key="frame" x="73" y="507" width="30" height="41"/>
+                                <rect key="frame" x="73" y="557" width="30" height="41"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <state key="normal" title="&lt;">
                                     <color key="titleColor" red="0.95294117649999999" green="0.1215686275" blue="0.70588235290000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -93,40 +93,67 @@
                                     <action selector="tapRirekiLeftButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RV7-Pf-NRD"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="📓" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bdN-as-zdy">
-                                <rect key="frame" x="174" y="474" width="27" height="29"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <color key="textColor" red="0.95294117649999999" green="0.1215686275" blue="0.70588235290000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Poy-UT-YLI">
+                                <rect key="frame" x="218" y="477" width="62" height="65"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="44"/>
+                                <state key="normal" title="hot">
+                                    <color key="titleColor" red="0.95294117649999999" green="0.1215686275" blue="0.70588235290000001" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="tapHotButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="apG-ES-nWr"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🌛" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ute-R8-tI2">
+                                <rect key="frame" x="170" y="490" width="36" height="39"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Civ-ji-mvA">
+                                <rect key="frame" x="55" y="477" width="103" height="65"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="44"/>
+                                <state key="normal" title="rereki">
+                                    <color key="titleColor" red="0.95294117649999999" green="0.1215686275" blue="0.70588235290000001" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="tapRerekiButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hGY-L6-inf"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.97254901959999995" green="0.90588235289999997" blue="0.10980392160000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="CsU-fg-H9J" firstAttribute="leading" secondItem="ul9-45-z7t" secondAttribute="trailing" constant="24" id="1XT-a8-fd8"/>
+                            <constraint firstItem="Poy-UT-YLI" firstAttribute="centerY" secondItem="ute-R8-tI2" secondAttribute="centerY" id="32P-CZ-Ecd"/>
+                            <constraint firstItem="ute-R8-tI2" firstAttribute="leading" secondItem="Civ-ji-mvA" secondAttribute="trailing" constant="12" id="3VB-qq-Srl"/>
+                            <constraint firstItem="ute-R8-tI2" firstAttribute="top" secondItem="IR8-Rn-HbR" secondAttribute="bottom" constant="64" id="9Sg-Ch-B66"/>
                             <constraint firstAttribute="trailing" secondItem="Es4-s9-Au3" secondAttribute="trailing" constant="100" id="Az0-sM-xk6"/>
                             <constraint firstItem="Es4-s9-Au3" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="200" id="JPK-Rn-dP5"/>
                             <constraint firstItem="CsU-fg-H9J" firstAttribute="centerY" secondItem="ul9-45-z7t" secondAttribute="centerY" id="MTC-NR-22m"/>
                             <constraint firstAttribute="trailing" secondItem="cGC-tk-oXR" secondAttribute="trailing" constant="8" id="NxV-n0-lHq"/>
-                            <constraint firstItem="ul9-45-z7t" firstAttribute="top" secondItem="bdN-as-zdy" secondAttribute="bottom" constant="8" id="Uib-HK-rbd"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="cGC-tk-oXR" secondAttribute="bottom" constant="16" id="X7p-fG-Xva"/>
-                            <constraint firstItem="bdN-as-zdy" firstAttribute="top" secondItem="IR8-Rn-HbR" secondAttribute="bottom" constant="48" id="bj3-XP-Uag"/>
                             <constraint firstItem="d45-Gb-2Q0" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="100" id="elj-wd-HVq"/>
                             <constraint firstItem="ul9-45-z7t" firstAttribute="leading" secondItem="IxF-b4-eXj" secondAttribute="trailing" constant="24" id="g83-Gu-J7F"/>
+                            <constraint firstItem="ute-R8-tI2" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="gQv-ki-eJb"/>
                             <constraint firstItem="ul9-45-z7t" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="i1X-bo-36L"/>
                             <constraint firstItem="Es4-s9-Au3" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="100" id="jfE-uW-Nc8"/>
+                            <constraint firstItem="ul9-45-z7t" firstAttribute="top" secondItem="ute-R8-tI2" secondAttribute="bottom" constant="32" id="jsy-J2-mvf"/>
                             <constraint firstItem="IxF-b4-eXj" firstAttribute="centerY" secondItem="ul9-45-z7t" secondAttribute="centerY" id="ocK-hj-YAz"/>
                             <constraint firstItem="d45-Gb-2Q0" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ozg-l9-Cwh"/>
                             <constraint firstItem="IR8-Rn-HbR" firstAttribute="top" secondItem="Es4-s9-Au3" secondAttribute="bottom" constant="80" id="qZR-i4-U7L"/>
-                            <constraint firstItem="bdN-as-zdy" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="xjT-EN-Et6"/>
+                            <constraint firstItem="Poy-UT-YLI" firstAttribute="leading" secondItem="ute-R8-tI2" secondAttribute="trailing" constant="12" id="tyx-U2-qSi"/>
+                            <constraint firstItem="Civ-ji-mvA" firstAttribute="centerY" secondItem="ute-R8-tI2" secondAttribute="centerY" id="u2s-Ef-qcE"/>
                             <constraint firstItem="IR8-Rn-HbR" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="z6X-ME-zxW"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="735-ut-lvA"/>
                     <connections>
+                        <outlet property="hotButton" destination="Poy-UT-YLI" id="jg6-HO-PJO"/>
                         <outlet property="infoButton" destination="cGC-tk-oXR" id="hlO-a4-xEk"/>
+                        <outlet property="rerekiButton" destination="Civ-ji-mvA" id="s1B-Qp-lOv"/>
                         <outlet property="rirekiButton" destination="ul9-45-z7t" id="O58-P6-qYK"/>
                         <outlet property="rirekiLeftButton" destination="IxF-b4-eXj" id="ou6-VV-UAM"/>
                         <outlet property="rirekiRightButton" destination="CsU-fg-H9J" id="6ce-Q3-TB2"/>
+                        <outlet property="selectStateLabel" destination="ute-R8-tI2" id="dh1-8f-EE0"/>
                         <outlet property="textFiled" destination="Es4-s9-Au3" id="2Me-eA-Yj1"/>
                         <segue destination="8qI-2H-agH" kind="presentation" identifier="showFlickViewController" id="Pqf-Yt-PNe"/>
                     </connections>

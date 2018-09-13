@@ -215,6 +215,9 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         
+        //TODO: keyに関連するデータを検索ワードに使用。
+        //現在はmessageを使ってる
+        
         let content = notification.request.content
         // Push Notifications のmessageを取得
         let badge = content.badge
