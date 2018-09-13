@@ -12,5 +12,7 @@ import Pring
 
 @objcMembers
 class HotWord : Object{
-    dynamic var hotWordArray: [String]?
+    dynamic var word: String = ""
+    dynamic var num: Int = 0
 }
+

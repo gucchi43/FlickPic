@@ -8,10 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		0300F6DE20F2E86C00A687DD /* DefaultsKeys+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0300F6DD20F2E86C00A687DD /* DefaultsKeys+Extension.swift */; };
-		037052AC20F89702001ADC2C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 037052AB20F89702001ADC2C /* GoogleService-Info.plist */; };
 		037052AF20F89CD3001ADC2C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037052AE20F89CD3001ADC2C /* User.swift */; };
 		037052B120F8AAC8001ADC2C /* HotWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037052B020F8AAC8001ADC2C /* HotWord.swift */; };
 		037052B320F8AE91001ADC2C /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037052B220F8AE91001ADC2C /* AccountManager.swift */; };
+		03B470F7214A4FDA00F9B5CA /* HotWeekly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B470F6214A4FDA00F9B5CA /* HotWeekly.swift */; };
+		03C22E3621464B770093BD96 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 03C22E3521464B770093BD96 /* GoogleService-Info.plist */; };
 		65C91790BC409EA6B7E6317F /* Pods_FlickPic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10FF24D0C5AC1276BFC5E9E1 /* Pods_FlickPic.framework */; };
 		ED0A833F1E1687D400A5D141 /* FlickViewAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0A833E1E1687D400A5D141 /* FlickViewAnimator.swift */; };
 		ED0A83451E1695D300A5D141 /* EffectlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED0A83441E1695D300A5D141 /* EffectlayerView.xib */; };
@@ -51,11 +52,12 @@
 
 /* Begin PBXFileReference section */
 		0300F6DD20F2E86C00A687DD /* DefaultsKeys+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DefaultsKeys+Extension.swift"; sourceTree = "<group>"; };
-		037052AB20F89702001ADC2C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		037052AE20F89CD3001ADC2C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		037052B020F8AAC8001ADC2C /* HotWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotWord.swift; sourceTree = "<group>"; };
 		037052B220F8AE91001ADC2C /* AccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		037052B420F8CDE2001ADC2C /* FlickPic.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FlickPic.entitlements; sourceTree = "<group>"; };
+		03B470F6214A4FDA00F9B5CA /* HotWeekly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotWeekly.swift; sourceTree = "<group>"; };
+		03C22E3521464B770093BD96 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		10FF24D0C5AC1276BFC5E9E1 /* Pods_FlickPic.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlickPic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C14F22A760FA65F8943EACA /* Pods-FlickPic.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlickPic.release.xcconfig"; path = "Pods/Target Support Files/Pods-FlickPic/Pods-FlickPic.release.xcconfig"; sourceTree = "<group>"; };
 		C01F9D56E71EC1D2CD38801D /* Pods-FlickPic.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlickPic.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FlickPic/Pods-FlickPic.debug.xcconfig"; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				037052AE20F89CD3001ADC2C /* User.swift */,
+				03B470F6214A4FDA00F9B5CA /* HotWeekly.swift */,
 				037052B020F8AAC8001ADC2C /* HotWord.swift */,
 			);
 			name = Models;
@@ -219,7 +222,7 @@
 				ED6ADA1B1E2930CF00800373 /* FlickEffect */,
 				ED6ADA1A1E2930B200800373 /* Manager */,
 				EFFC846D1D15453600E30A3E /* Assets.xcassets */,
-				037052AB20F89702001ADC2C /* GoogleService-Info.plist */,
+				03C22E3521464B770093BD96 /* GoogleService-Info.plist */,
 				EFFC846F1D15453600E30A3E /* LaunchScreen.storyboard */,
 				EFFC84721D15453600E30A3E /* Info.plist */,
 			);
@@ -362,12 +365,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				EF79FD911D157AAC002CA4BA /* FlickView.xib in Resources */,
+				03C22E3621464B770093BD96 /* GoogleService-Info.plist in Resources */,
 				EFFC84711D15453600E30A3E /* LaunchScreen.storyboard in Resources */,
 				ED0A83451E1695D300A5D141 /* EffectlayerView.xib in Resources */,
 				EFFC846E1D15453600E30A3E /* Assets.xcassets in Resources */,
 				ED8A69141E24EF780015C6B4 /* RakutenFlickView.xib in Resources */,
 				EFFC846C1D15453600E30A3E /* Main.storyboard in Resources */,
-				037052AC20F89702001ADC2C /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,12 +404,13 @@
 				"${BUILT_PRODUCTS_DIR}/DACircularProgress/DACircularProgress.framework",
 				"${BUILT_PRODUCTS_DIR}/FontAwesome.swift/FontAwesome_swift.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/IDMPhotoBrowser/IDMPhotoBrowser.framework",
 				"${BUILT_PRODUCTS_DIR}/Koloda/Koloda.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyUserDefaults/SwiftyUserDefaults.framework",
 				"${PODS_ROOT}/TwitterCore/iOS/TwitterCore.framework",
@@ -427,12 +431,13 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DACircularProgress.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FontAwesome_swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IDMPhotoBrowser.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Koloda.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyUserDefaults.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterCore.framework",
@@ -476,12 +481,10 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-FlickPic/Pods-FlickPic-resources.sh",
 				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
-				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterShareExtensionUIResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TwitterKitResources.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TwitterShareExtensionUIResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -514,6 +517,7 @@
 				EFFC849E1D154D8F00E30A3E /* FlickViewController.swift in Sources */,
 				ED0A83471E1695EE00A5D141 /* EffectlayerView.swift in Sources */,
 				EFFC84671D15453600E30A3E /* AppDelegate.swift in Sources */,
+				03B470F7214A4FDA00F9B5CA /* HotWeekly.swift in Sources */,
 				ED0A833F1E1687D400A5D141 /* FlickViewAnimator.swift in Sources */,
 				037052B120F8AAC8001ADC2C /* HotWord.swift in Sources */,
 				037052B320F8AE91001ADC2C /* AccountManager.swift in Sources */,

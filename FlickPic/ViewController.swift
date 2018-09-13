@@ -14,6 +14,9 @@ import FontAwesome_swift
 import SafariServices
 import SwiftyUserDefaults
 import UserNotifications
+import Pring
+import Firebase
+import SwiftDate
 
 class ViewController: UIViewController, UITextFieldDelegate {
     
@@ -22,8 +25,20 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var rirekiButton: UIButton!
     @IBOutlet weak var rirekiRightButton: UIButton!
     @IBOutlet weak var rirekiLeftButton: UIButton!
+    
+    @IBOutlet weak var hotButton: UIButton!
+    @IBOutlet weak var rerekiButton: UIButton!
+    @IBOutlet weak var selectStateLabel: UILabel!
+
     var currentRerekiNum = 0
     var maxRerekiNum = 0
+    var currentHotNum = 0
+    var maxHotNum = 0
+    
+    var rerekiFlag = true
+    
+    var hotDataSourse: DataSource<HotWord>?
+    var sortedHotArray: [HotWord] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,40 +46,77 @@ class ViewController: UIViewController, UITextFieldDelegate {
         textFiled.delegate = self
         textFiled.layer.borderColor = UIColor.clear.cgColor
         textFiled.addBorderBottom(height: 1.0, color: ColorManager.sharedSingleton.accsentColor())
-        infoButton.titleLabel?.font = UIFont.fontAwesome(ofSize: 32)
-        infoButton.setTitle(String.fontAwesomeIcon(name: .questionCircleO), for: .normal)
+        infoButton.titleLabel?.font = UIFont.fontAwesome(ofSize: 32, style: .regular)
+        infoButton.setTitle(String.fontAwesomeIcon(name: .questionCircle), for: .normal)
+        subConfigure()
         addObserver()
+    }
+    
+    func subConfigure() {
+        selectStateLabel.text = "🌛"
+        rerekiButton.setTitle("📓", for: .normal)
+        hotButton.setTitle("🔥", for: .normal)
+        hotButton.alpha = 0.5
+        rerekiButton.alpha = 1.0
+        rerekiButton.titleLabel?.font = UIFont.systemFont(ofSize: 44)
+        hotButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        loadRereki()
         firstAlert()
+        loadRereki()
+        getHotArray()
     }
     
     func loadRereki() {
         maxRerekiNum = Defaults[.searchedWords].count
-        currentRerekiNum = 0
         if maxRerekiNum > 0 {
-            print("Defaults[.searchedWords]",  Defaults[.searchedWords])
-            print("Defaults[.currentRerekiNum]",  Defaults[.searchedWords][currentRerekiNum])
             setRirekiButtonTitle(with: Defaults[.searchedWords][currentRerekiNum])
+        } else {
+            
         }
     }
     
-    func setRirekiButtonTitle(with title: String) {
-        rirekiButton.setTitle(title, for: UIControlState.normal)
+    func setRerekiEmptyButton() {
+        rirekiButton.isEnabled = false
+        rirekiButton.setTitle("まだ履歴がないよ", for: UIControlState.normal)
         rirekiButton.layer.borderColor = UIColor.clear.cgColor
         rirekiButton.addBorderBottom(height: 1.0, color: ColorManager.sharedSingleton.accsentColor())
     }
     
+    func setRirekiButtonTitle(with title: String) {
+        rirekiButton.isEnabled = true
+        rirekiButton.layer.borderColor = UIColor.clear.cgColor
+        rirekiButton.addBorderBottom(height: 1.0, color: ColorManager.sharedSingleton.accsentColor())
+        if rerekiFlag {
+            rirekiButton.setTitle(title, for: UIControlState.normal)
+        } else {
+            var numEmoji = ""
+            switch currentHotNum{
+            case 0:
+                numEmoji = "🥇 "
+            case 1:
+                numEmoji = "🥈 "
+            case 2:
+                numEmoji = "🥉 "
+            case 3:
+                numEmoji = "4️⃣ "
+            case 4:
+                numEmoji = "5️⃣ "
+            default:
+                numEmoji = ""
+            }
+            rirekiButton.setTitle(numEmoji + title, for: UIControlState.normal)
+        }
+    }
+    
     func changeRerekiButton(next: Bool) {
+        guard maxRerekiNum > 0 else { return }
         if next {
             if currentRerekiNum == maxRerekiNum - 1 {
                 currentRerekiNum = 0
@@ -79,6 +131,87 @@ class ViewController: UIViewController, UITextFieldDelegate {
             }
         }
         setRirekiButtonTitle(with: Defaults[.searchedWords][currentRerekiNum])
+    }
+    
+    func getHotArray() {
+        let firstWeekDay = Date().dateAt(.startOfWeek)
+        print("firstWeekDay : ", firstWeekDay)
+        HotWeekly.get(firstWeekDay.toString()) { (hotWeekly, error) in
+            guard let hotWeekly = hotWeekly else { return }
+            self.hotDataSourse = hotWeekly.hotWords
+                .order(by: \HotWord.updatedAt, descending: true)
+                .dataSource()
+                .onCompleted({ (snapshot, hotWords) in
+                    let a = NSSortDescriptor(key: "num", ascending: false)
+                    let result = hotWords.sort(sortDescriptors: [a])
+                    self.sortedHotArray = Array(result.prefix(5))
+                    print("sortedHotArray : ", self.sortedHotArray)
+                    self.loadHotArray()
+                }).get()
+        }
+    }
+    
+    func loadHotArray() {
+        maxHotNum = sortedHotArray.count
+        if maxHotNum > 0 {
+            let hot: HotWord = sortedHotArray[currentHotNum]
+            setRirekiButtonTitle(with: hot.word)
+        } else {
+            setHotEmptyButton()
+        }
+    }
+    
+    func changeHotButton(next: Bool) {
+        guard maxHotNum > 0 else { return }
+        if next {
+            if currentHotNum == maxHotNum - 1 {
+                currentHotNum = 0
+            } else {
+                currentHotNum += 1
+            }
+        } else {
+            if currentHotNum == 0 {
+                currentHotNum = maxHotNum - 1
+            } else {
+                currentHotNum -= 1
+            }
+        }
+        let currentHot:HotWord = sortedHotArray[currentHotNum]
+        setRirekiButtonTitle(with: currentHot.word)
+    }
+    
+    func setHotEmptyButton() {
+        rirekiButton.isEnabled = false
+        rirekiButton.setTitle("ホットワードが無いよ", for: UIControlState.normal)
+        rirekiButton.layer.borderColor = UIColor.clear.cgColor
+        rirekiButton.addBorderBottom(height: 1.0, color: ColorManager.sharedSingleton.accsentColor())
+    }
+    
+    func setHotButtonTitle(with title: String) {
+        hotButton.isEnabled = true
+        hotButton.setTitle(title, for: UIControlState.normal)
+        hotButton.layer.borderColor = UIColor.clear.cgColor
+        hotButton.addBorderBottom(height: 1.0, color: ColorManager.sharedSingleton.accsentColor())
+    }
+ 
+    @IBAction func tapHotButton(_ sender: Any) {
+        selectStateLabel.text = "🌜"
+        hotButton.alpha = 1.0
+        rerekiButton.alpha = 0.5
+        rerekiButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+        hotButton.titleLabel?.font = UIFont.systemFont(ofSize: 44)
+        rerekiFlag = false
+        loadHotArray()
+    }
+    
+    @IBAction func tapRerekiButton(_ sender: Any) {
+        selectStateLabel.text = "🌛"
+        hotButton.alpha = 0.5
+        rerekiButton.alpha = 1.0
+        rerekiButton.titleLabel?.font = UIFont.systemFont(ofSize: 44)
+        hotButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+        rerekiFlag = true
+        loadRereki()
     }
     
     @objc func firstAlert() {
@@ -174,6 +307,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
         } else {
             self.logInAndSearch()
         }
+        if let text = self.textFiled.text {
+            self.updateUserRirekiData(with: text)
+            self.checkHotWeekly(with: text)
+        }
     }
     
     func logInAndSearch() {
@@ -208,29 +345,16 @@ class ViewController: UIViewController, UITextFieldDelegate {
             let flickViewController = segue.destination as! FlickViewController
             if let searchText = textFiled.text {
                 flickViewController.searchText = searchText
-                if Defaults[.searchedWords].index(of: searchText) == nil {
-                    if Defaults[.searchedWords].count <= 5{
-                        Defaults[.searchedWords].insert(searchText, at: 0)
-                    } else {
-                        Defaults[.searchedWords].removeLast()
-                        Defaults[.searchedWords].insert(searchText, at: 0)
-                    }
-                } else {
-                    print("searchedWordsの中に" + searchText + "はすでにあった")
-                    Defaults[.searchedWords].remove(at: Defaults[.searchedWords].index(of: searchText)!)
-                    Defaults[.searchedWords].insert(searchText, at: 0)
-                }
             }
         }
     }
-    
+
     func addObserver() {
         let center = NotificationCenter.default
         center.addObserver(self, selector: #selector(autoSearchWord(notification:)), name: .receiveHotwordNotification, object: nil)
     }
     
     @objc func autoSearchWord(notification: Notification) {
-        print("呼ばれた(　´･‿･｀): \(notification)")
         guard let word = notification.userInfo?["word"] as? String else { return }
             if let status = notification.userInfo!["status"] as? String {
                 if status == "FG" {
@@ -246,16 +370,28 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func tapRirekiButton(_ sender: Any) {
         let searchText = rirekiButton.titleLabel?.text
-        textFiled.text = searchText!
+        if rerekiFlag {
+            textFiled.text = searchText!
+        } else {
+            textFiled.text = sortedHotArray[currentHotNum].word
+        }
         self.twitterLink()
     }
     
     @IBAction func tapRirekiRightButton(_ sender: Any) {
-        changeRerekiButton(next: true)
+        if rerekiFlag {
+            changeRerekiButton(next: true)
+        } else {
+            changeHotButton(next: true)
+        }
     }
     
     @IBAction func tapRirekiLeftButton(_ sender: Any) {
-        changeRerekiButton(next: false)
+        if rerekiFlag {
+            changeRerekiButton(next: false)
+        } else {
+            changeHotButton(next: false)
+        }
     }
 
     @IBAction func tapInfoButton(_ sender: Any) {
@@ -287,5 +423,112 @@ class ViewController: UIViewController, UITextFieldDelegate {
         alert.addAction(goToLine)
         alert.addAction(cancel)
         self.present(alert, animated: true, completion: nil)
+    }
+}
+
+// HotWordのsave,update関連
+extension ViewController {
+    func checkHotWeekly(with searchText: String) {
+        HotWeekly.get(Date().dateAt(.startOfWeek).toString()) { (hotWeekly, error) in
+            if let hotWeekly = hotWeekly {
+                self.checkHotWordData(with: searchText, hotWeekly: hotWeekly)
+            } else {
+                let hotWeekly = HotWeekly(id: Date().dateAt(.startOfWeek).toString())
+                hotWeekly.dataTitle = Date().dateAt(.startOfWeek).toString()
+                hotWeekly.save({ (ref, error) in
+                    if let error = error {
+                        print(error)
+                    } else {
+                        print("checkHotWeekly save 成功")
+                        self.checkHotWordData(with: searchText, hotWeekly: hotWeekly)
+                    }
+                })
+            }
+        }
+    }
+    
+    func checkHotWordData(with searchText: String, hotWeekly: HotWeekly) {
+        HotWord.where(\HotWord.word, isEqualTo: searchText).get { (snapshot, error) in
+            guard let snapshot = snapshot else { return self.createHotWordData(with: searchText, hotWeekly: hotWeekly) }
+            guard let document = snapshot.documents.first else { return self.createHotWordData(with: searchText, hotWeekly: hotWeekly) }
+            let hotWordData = document.data()
+            let updateDate = (hotWordData["updatedAt"] as! Timestamp).dateValue()
+            print(updateDate)
+            var resetFlag = true
+            if updateDate.compare(.isThisWeek) {
+                //前回のデータは今週中にupdateされたもの→numを+1で更新する
+                resetFlag = false
+            } else {
+                //前回のデータは今週より前にupdateされたもの→numを=1で更新する
+                resetFlag = true
+            }
+            self.updateHotWordData(with: document.documentID, data: hotWordData, resetFlag: resetFlag, hotWeekly: hotWeekly)
+        }
+    }
+    
+    func updateHotWordData(with id: String, data: [String: Any], resetFlag: Bool, hotWeekly: HotWeekly){
+        let hotWord = HotWord(id: id)
+        hotWord.word = data["word"] as! String
+        if resetFlag {
+            hotWord.num = 1
+        } else {
+            hotWord.num = (data["num"] as! Int) + 1
+        }
+        hotWord.update({ (error) in
+            if let error = error {
+                print(error)
+            } else {
+                print("hotword update まで成功 : ", data["word"] as! String)
+                hotWeekly.hotWords.insert(hotWord)
+                hotWeekly.update({ (error) in
+                    if let error = error {
+                        print(error)
+                    } else {
+                        print("hotWeekly も成功")
+                    }
+                })
+            }
+        })
+    }
+    
+    func createHotWordData(with searchText: String, hotWeekly: HotWeekly) {
+        let hotWord = HotWord()
+        hotWord.word = searchText
+        hotWord.num = 1
+        hotWord.save { (ref, error) in
+            if let error = error {
+                print(error)
+            } else {
+                print("hotword update まで成功 : ", searchText)
+                hotWeekly.hotWords.insert(hotWord)
+                hotWeekly.update({ (error) in
+                    if let error = error {
+                        print(error)
+                    } else {
+                        print("hotWeekly も成功")
+                    }
+                })
+            }
+        }
+    }
+    
+    func updateUserRirekiData(with searchText: String) {
+        
+        if Defaults[.searchedWords].index(of: searchText) == nil {
+            if Defaults[.searchedWords].count <= 5{
+                Defaults[.searchedWords].insert(searchText, at: 0)
+            } else {
+                Defaults[.searchedWords].removeLast()
+                Defaults[.searchedWords].insert(searchText, at: 0)
+            }
+        } else {
+            print("searchedWordsの中に" + searchText + "はすでにあった")
+            Defaults[.searchedWords].remove(at: Defaults[.searchedWords].index(of: searchText)!)
+            Defaults[.searchedWords].insert(searchText, at: 0)
+        }
+        
+        guard let user = AccountManager.shared.currentUser else { return }
+        user.wordArray = Defaults[.searchedWords]
+        user.update()
     }
 }

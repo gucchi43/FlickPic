@@ -215,6 +215,9 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         
+        //TODO: keyに関連するデータを検索ワードに使用。
+        //現在はmessageを使ってる
+        
         let content = notification.request.content
         // Push Notifications のmessageを取得
         let badge = content.badge
@@ -226,8 +229,11 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         feedbackGenerator.notificationOccurred(.success)
         // audio & vibrater
         AudioServicesPlayAlertSoundWithCompletion(SystemSoundID(kSystemSoundID_Vibrate), nil)
-        
-        let userInfo = ["word": body, "status": "FG"]
+        guard let word = content.userInfo["word"] else { return }
+        print("＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝")
+        print("word", word)
+        print("＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝")
+        let userInfo = ["word": word, "status": "FG"]
         let center = NotificationCenter.default
         center.post(name: .receiveHotwordNotification, object: nil, userInfo: userInfo)
         completionHandler([])
@@ -238,13 +244,18 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
+        
         // Push Notifications のmessageを取得
         let content = response.notification.request.content
         let badge = content.badge
         let body = response.notification.request.content.body
         print("userNotificationCenterのdidReceiveから: \(body), \(badge)")
         print("content : ", content)
-        let userInfo = ["word": body, "status": "BG"]
+        guard let word = content.userInfo["word"] else { return }
+        print("＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝")
+        print("word", word)
+        print("＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝")
+        let userInfo = ["word": word, "status": "BG"]
         let center = NotificationCenter.default
         center.post(name: .receiveHotwordNotification, object: nil, userInfo: userInfo)
         completionHandler()
