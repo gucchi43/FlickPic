@@ -46,6 +46,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         textFiled.delegate = self
         textFiled.layer.borderColor = UIColor.clear.cgColor
         textFiled.addBorderBottom(height: 1.0, color: ColorManager.sharedSingleton.accsentColor())
+        textFiled.adjustsFontSizeToFitWidth = true
         infoButton.titleLabel?.font = UIFont.fontAwesome(ofSize: 32, style: .regular)
         infoButton.setTitle(String.fontAwesomeIcon(name: .questionCircle), for: .normal)
         subConfigure()
@@ -53,6 +54,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     func subConfigure() {
+//        rirekiButton.adjustsImageWhenDisabled
+        rirekiButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        rirekiButton.layer.borderColor = UIColor.clear.cgColor
+        rirekiButton.addBorderBottom(height: 1.0, color: ColorManager.sharedSingleton.accsentColor())
+        
         selectStateLabel.text = "🌛"
         rerekiButton.setTitle("📓", for: .normal)
         hotButton.setTitle("🔥", for: .normal)
@@ -85,14 +91,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
     func setRerekiEmptyButton() {
         rirekiButton.isEnabled = false
         rirekiButton.setTitle("まだ履歴がないよ", for: UIControlState.normal)
-        rirekiButton.layer.borderColor = UIColor.clear.cgColor
-        rirekiButton.addBorderBottom(height: 1.0, color: ColorManager.sharedSingleton.accsentColor())
+//        rirekiButton.layer.borderColor = UIColor.clear.cgColor
+//        rirekiButton.addBorderBottom(height: 1.0, color: ColorManager.sharedSingleton.accsentColor())
     }
     
     func setRirekiButtonTitle(with title: String) {
         rirekiButton.isEnabled = true
-        rirekiButton.layer.borderColor = UIColor.clear.cgColor
-        rirekiButton.addBorderBottom(height: 1.0, color: ColorManager.sharedSingleton.accsentColor())
+//        rirekiButton.layer.borderColor = UIColor.clear.cgColor
+//        rirekiButton.addBorderBottom(height: 1.0, color: ColorManager.sharedSingleton.accsentColor())
         if rerekiFlag {
             rirekiButton.setTitle(title, for: UIControlState.normal)
         } else {
@@ -183,15 +189,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
     func setHotEmptyButton() {
         rirekiButton.isEnabled = false
         rirekiButton.setTitle("ホットワードが無いよ", for: UIControlState.normal)
-        rirekiButton.layer.borderColor = UIColor.clear.cgColor
-        rirekiButton.addBorderBottom(height: 1.0, color: ColorManager.sharedSingleton.accsentColor())
+//        rirekiButton.layer.borderColor = UIColor.clear.cgColor
+//        rirekiButton.addBorderBottom(height: 1.0, color: ColorManager.sharedSingleton.accsentColor())
     }
     
     func setHotButtonTitle(with title: String) {
         hotButton.isEnabled = true
         hotButton.setTitle(title, for: UIControlState.normal)
-        hotButton.layer.borderColor = UIColor.clear.cgColor
-        hotButton.addBorderBottom(height: 1.0, color: ColorManager.sharedSingleton.accsentColor())
+//        hotButton.layer.borderColor = UIColor.clear.cgColor
+//        hotButton.addBorderBottom(height: 1.0, color: ColorManager.sharedSingleton.accsentColor())
     }
  
     @IBAction func tapHotButton(_ sender: Any) {
