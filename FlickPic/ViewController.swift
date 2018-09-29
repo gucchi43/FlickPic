@@ -248,7 +248,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             title: "👼おすすめからケンサク👼",
             message: "今までの検索履歴 → 📓！　最近のホットワード → 🔥",
             preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "りょ", style: UIAlertActionStyle.default, handler: { (UIAlertAction) in
+        alert.addAction(UIAlertAction(title: "おけまる", style: UIAlertActionStyle.default, handler: { (UIAlertAction) in
             if firstFlag == true {
                 self.alertCarefull()
             }
