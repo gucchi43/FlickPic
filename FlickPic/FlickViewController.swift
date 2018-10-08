@@ -52,9 +52,9 @@ class FlickViewController: UIViewController {
     
     var adoCount = 0
     // PROD
-//    let interstitialADTestUnitID = "ca-app-pub-2311091333372031/6603686625"
+    let interstitialADTestUnitID = "ca-app-pub-2311091333372031/6603686625"
     // TEST
-    let interstitialADTestUnitID = "ca-app-pub-3940256099942544/4411468910"
+//    let interstitialADTestUnitID = "ca-app-pub-3940256099942544/4411468910"
     
     fileprivate var interstitial: GADInterstitial!
     
@@ -215,10 +215,10 @@ class FlickViewController: UIViewController {
     
     func reccomendLineAlert() {
         let alert = UIAlertController(
-            title: "サンキュー！これで39回目の画像保存だよ！",
+            title: "サンキュー！これで10回目の画像保存だよ！",
             message: "よかったらLINEで感想を教えてね！",
             preferredStyle: .alert)
-        let goToLine = UIAlertAction(title: "LINEへ", style: .default) { (action) in
+        let goToLine = UIAlertAction(title: "LINEへGO", style: .default) { (action) in
             UIApplication.shared.open(URL(string: "http://line.me/ti/p/%40ozx5488u")!)
         }
         let cancel = UIAlertAction(title: "キャンセル", style: .cancel, handler: nil)
@@ -303,7 +303,7 @@ extension FlickViewController: KolodaViewDelegate {
         print("saved image.")
         UIImageWriteToSavedPhotosAlbum(imagesArray[index]!, self, nil, nil)
         Defaults[.saveCount] += 1
-        if Defaults[.saveCount] == 39 {
+        if Defaults[.saveCount] == 10 {
             self.reccomendLineAlert ()
         }
     }
