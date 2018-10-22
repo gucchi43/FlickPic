@@ -84,11 +84,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Auth.auth().signInAnonymously() { (authUser, error) in
             if let error = error {
                 print("atuth error: ", error)
+                self.showErrorAlert(message: "電波のいいところでもう一度試してね")
             } else {
                 print("auth user: ", authUser)
                 User.get((authUser!.user.uid), block: { (user, error) in
                     if let error = error {
                         print("atuth error: ", error)
+                        self.showErrorAlert(message: "電波のいいところでもう一度試してね")
                     } else {
                         if let user = user {
                             AccountManager.shared.currentUser = user
@@ -98,6 +100,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             newUser.save({ (ref, error) in
                                 if let error = error {
                                     print(error.localizedDescription)
+                                    self.showErrorAlert(message: "電波のいいところでもう一度試してね")
                                 } else if let ref = ref {
                                     print(ref)
                                     AccountManager.shared.currentUser = newUser
@@ -202,6 +205,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let updateAction = UIAlertAction(title: "アプデする", style: .default) {
             action in
             UIApplication.shared.open(URL(string: "itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftwareUpdate?id=1281328373")!)
+        }
+        alert.addAction(updateAction)
+        self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+    }
+    
+    func showErrorAlert(message: String) {
+        let alert = UIAlertController(
+            title: "エラーだよ",
+            message: message,
+            preferredStyle: .alert)
+        let updateAction = UIAlertAction(title: "OK", style: .default) {
+            action in
         }
         alert.addAction(updateAction)
         self.window?.rootViewController?.present(alert, animated: true, completion: nil)

@@ -521,7 +521,6 @@ extension ViewController {
     }
     
     func updateUserRirekiData(with searchText: String) {
-        
         if Defaults[.searchedWords].index(of: searchText) == nil {
             if Defaults[.searchedWords].count <= 5{
                 Defaults[.searchedWords].insert(searchText, at: 0)
@@ -534,7 +533,6 @@ extension ViewController {
             Defaults[.searchedWords].remove(at: Defaults[.searchedWords].index(of: searchText)!)
             Defaults[.searchedWords].insert(searchText, at: 0)
         }
-        
         guard let user = AccountManager.shared.currentUser else { return }
         user.wordArray = Defaults[.searchedWords]
         user.update()
