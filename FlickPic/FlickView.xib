@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FlickView" customModule="FlickPic" customModuleProvider="target">
             <connections>
+                <outlet property="bgImageView" destination="5C3-Uq-b1I" id="cLm-wd-l2p"/>
                 <outlet property="contentView" destination="iN0-l3-epB" id="cYB-D8-byh"/>
                 <outlet property="imageView" destination="nhp-2x-9h0" id="iaU-2u-GMH"/>
                 <outlet property="loadingLabel" destination="4G1-fU-o8X" id="lac-q3-pAi"/>
@@ -21,9 +22,11 @@
             <rect key="frame" x="0.0" y="0.0" width="421" height="565"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5C3-Uq-b1I">
+                    <rect key="frame" x="0.0" y="0.0" width="421" height="565"/>
+                </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nhp-2x-9h0">
                     <rect key="frame" x="0.0" y="0.0" width="421" height="565"/>
-                    <color key="backgroundColor" red="0.95294117649999999" green="0.1215686275" blue="0.70588235290000001" alpha="1" colorSpace="calibratedRGB"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4G1-fU-o8X">
                     <rect key="frame" x="159" y="268" width="103" height="29"/>
@@ -36,14 +39,18 @@
             <constraints>
                 <constraint firstItem="nhp-2x-9h0" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="7Xj-Hv-KOz"/>
                 <constraint firstAttribute="bottom" secondItem="nhp-2x-9h0" secondAttribute="bottom" id="AHO-Uq-v7y"/>
+                <constraint firstItem="5C3-Uq-b1I" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Ai1-x8-gqg"/>
+                <constraint firstAttribute="bottom" secondItem="5C3-Uq-b1I" secondAttribute="bottom" id="E4E-nc-EYw"/>
+                <constraint firstItem="5C3-Uq-b1I" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="LsI-Ko-0JQ"/>
                 <constraint firstItem="nhp-2x-9h0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Rff-OE-wzw"/>
+                <constraint firstAttribute="trailing" secondItem="5C3-Uq-b1I" secondAttribute="trailing" id="SIM-3K-L2n"/>
                 <constraint firstAttribute="trailing" secondItem="nhp-2x-9h0" secondAttribute="trailing" id="SNZ-il-UH6"/>
                 <constraint firstItem="4G1-fU-o8X" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Tad-uG-wi0"/>
                 <constraint firstItem="4G1-fU-o8X" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="lUq-oR-r38"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="326.5" y="376.5"/>
+            <point key="canvasLocation" x="325.60000000000002" y="376.46176911544228"/>
         </view>
     </objects>
 </document>

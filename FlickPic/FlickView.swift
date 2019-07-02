@@ -18,6 +18,7 @@ class FlickView: UIView {
     }
     */
     @IBOutlet var contentView: UIView!
+    @IBOutlet weak var bgImageView: UIImageView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var loadingLabel: UILabel!
     
@@ -32,7 +33,7 @@ class FlickView: UIView {
         super.init(coder: aDecoder)
         self.commonInit()
     }
-    
+
     fileprivate func commonInit() {
         Bundle.main.loadNibNamed("FlickView", owner: self, options: nil)
         guard let content = contentView else { return }
@@ -40,5 +41,35 @@ class FlickView: UIView {
         content.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         self.addSubview(content)
     }
-
+    
+    func configure(image: UIImage) {
+        originalImage = image
+        
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = image
+        
+        bgImageView.contentMode = .scaleAspectFill
+        bgImageView.clipsToBounds = true
+        bgImageView.image = blurEffect(originImage: image)
+        
+        loadingLabel.isHidden = true
+    }
+    
+    func blurEffect(originImage: UIImage) -> UIImage {
+        var context = CIContext(options: nil)
+        
+        let currentFilter = CIFilter(name: "CIGaussianBlur")
+        let beginImage = CIImage(image: originImage)
+        currentFilter!.setValue(beginImage, forKey: kCIInputImageKey)
+        currentFilter!.setValue(10, forKey: kCIInputRadiusKey)
+        
+        let cropFilter = CIFilter(name: "CICrop")
+        cropFilter!.setValue(currentFilter!.outputImage, forKey: kCIInputImageKey)
+        cropFilter!.setValue(CIVector(cgRect: beginImage!.extent), forKey: "inputRectangle")
+        
+        let output = cropFilter!.outputImage
+        let cgimg = context.createCGImage(output!, from: output!.extent)
+        let processedImage = UIImage(cgImage: cgimg!)
+        return processedImage
+    }
 }

@@ -17,7 +17,7 @@ import SwiftyJSON
 import Alamofire
 import SwiftyUserDefaults
 import UserNotifications
-import Pring
+import Ballcap
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -27,11 +27,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
+        
+        
         Fabric.with([Crashlytics.self])
         TWTRTwitter.sharedInstance().start(withConsumerKey:"r8ELYQHWuQRJl42Is8NmJGbG0", consumerSecret:"N5i9un4GBvjiZbowRZKs0q0oauT5EKQ7Hi2kitYADj4LVMaknx")
-        GADMobileAds.configure(withApplicationID: "ca-app-pub-2311091333372031~3773509156")
+        
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
+        
+//        GADMobileAds.configure(withApplicationID: "ca-app-pub-2311091333372031~3773509156")
+        
         Defaults[.launchCount] += 1
         UNUserNotificationCenter.current().delegate = self
+//        BallcapApp.configure(Firestore.firestore().document("version/1"))
         
         // RemoteConfigの設定
         self.remoteConfig = RemoteConfig.remoteConfig()
@@ -87,28 +94,54 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self.showErrorAlert(message: "電波のいいところでもう一度試してね")
             } else {
                 print("auth user: ", authUser)
-                User.get((authUser!.user.uid), block: { (user, error) in
+                
+                
+                Document<User>.get(id: authUser!.user.uid, completion: { (doc, error) in
                     if let error = error {
                         print("atuth error: ", error)
                         self.showErrorAlert(message: "電波のいいところでもう一度試してね")
                     } else {
-                        if let user = user {
-                            AccountManager.shared.currentUser = user
+                        if let doc = doc {
+                            AccountManager.shared.currentUser = doc
                         } else {
-                            let newUser = User(id: authUser!.user.uid)
-                            newUser.fcmToken = Messaging.messaging().fcmToken!
-                            newUser.save({ (ref, error) in
+                            let newUser = Document<User>.init(id: authUser!.user.uid)
+                            newUser.data?.fcmToken = Messaging.messaging().fcmToken!
+                            newUser.save(completion: { (error) in
                                 if let error = error {
                                     print(error.localizedDescription)
                                     self.showErrorAlert(message: "電波のいいところでもう一度試してね")
-                                } else if let ref = ref {
-                                    print(ref)
+                                } else {
                                     AccountManager.shared.currentUser = newUser
                                 }
                             })
                         }
                     }
                 })
+                
+//
+//
+//                User.get((authUser!.user.uid), block: { (user, error) in
+//                    if let error = error {
+//                        print("atuth error: ", error)
+//                        self.showErrorAlert(message: "電波のいいところでもう一度試してね")
+//                    } else {
+//                        if let user = user {
+//                            AccountManager.shared.currentUser = user
+//                        } else {
+//                            let newUser = User(id: authUser!.user.uid)
+//                            newUser.fcmToken = Messaging.messaging().fcmToken!
+//                            newUser.save({ (ref, error) in
+//                                if let error = error {
+//                                    print(error.localizedDescription)
+//                                    self.showErrorAlert(message: "電波のいいところでもう一度試してね")
+//                                } else if let ref = ref {
+//                                    print(ref)
+//                                    AccountManager.shared.currentUser = newUser
+//                                }
+//                            })
+//                        }
+//                    }
+//                })
             }
         }
     }

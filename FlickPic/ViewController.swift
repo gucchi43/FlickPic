@@ -14,9 +14,27 @@ import FontAwesome_swift
 import SafariServices
 import SwiftyUserDefaults
 import UserNotifications
-import Pring
 import Firebase
 import SwiftDate
+import Ballcap
+
+import SVProgressHUD
+
+public extension SVProgressHUD {
+    
+    struct qp {
+        public static func show(maskType: SVProgressHUDMaskType = .clear) {
+            SVProgressHUD.setDefaultStyle(.custom)
+            SVProgressHUD.setFont(UIFont.boldSystemFont(ofSize: 14.0))
+            SVProgressHUD.setRingThickness(6.0)
+            SVProgressHUD.setForegroundColor(ColorManager.sharedSingleton.accsentColor())
+            SVProgressHUD.setBackgroundColor(UIColor.clear)
+            SVProgressHUD.setMinimumDismissTimeInterval(2.0)
+            SVProgressHUD.setDefaultMaskType(maskType)
+            SVProgressHUD.show()
+        }
+    }
+}
 
 class ViewController: UIViewController, UITextFieldDelegate {
     
@@ -36,17 +54,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
     var maxHotNum = 0
     
     var rerekiFlag = true
-    
-    var hotDataSourse: DataSource<HotWord>?
     var sortedHotArray: [HotWord] = []
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         textFiled.delegate = self
         textFiled.layer.borderColor = UIColor.clear.cgColor
         textFiled.addBorderBottom(height: 1.0, color: ColorManager.sharedSingleton.accsentColor())
-        textFiled.adjustsFontSizeToFitWidth = true
+        textFiled.fitTextToBounds()
         infoButton.titleLabel?.font = UIFont.fontAwesome(ofSize: 32, style: .regular)
         infoButton.setTitle(String.fontAwesomeIcon(name: .questionCircle), for: .normal)
         subConfigure()
@@ -69,13 +85,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        loadRereki()
+        getHotArray()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         firstAlert()
-        loadRereki()
-        getHotArray()
     }
     
     func loadRereki() {
@@ -137,18 +153,18 @@ class ViewController: UIViewController, UITextFieldDelegate {
     func getHotArray() {
         let firstWeekDay = Date().dateAt(.startOfWeek)
         print("firstWeekDay : ", firstWeekDay)
-        HotWeekly.get(firstWeekDay.toString()) { (hotWeekly, error) in
-            guard let hotWeekly = hotWeekly else { return }
-            self.hotDataSourse = hotWeekly.hotWords
-                .order(by: \HotWord.updatedAt, descending: true)
-                .dataSource()
-                .onCompleted({ (snapshot, hotWords) in
-                    let a = NSSortDescriptor(key: "num", ascending: false)
-                    let result = hotWords.sort(sortDescriptors: [a])
-                    self.sortedHotArray = Array(result.prefix(5))
-                    print("sortedHotArray : ", self.sortedHotArray)
-                    self.loadHotArray()
-                }).get()
+        Document<HotWeekly>.get(id: firstWeekDay.toString()) { (doc, error) in
+            if let error = error {
+                print(error)
+            } else {
+                guard let doc = doc else { return }
+                let hotWordsData = doc.data!.hotWords
+                print("hotWordsData : ", hotWordsData)
+                let result = hotWordsData.sorted(by: { $0.num > $1.num })
+                self.sortedHotArray = Array(result.prefix(5))
+                print("sortedHotArray : ", self.sortedHotArray)
+                self.loadHotArray()
+            }
         }
     }
     
@@ -316,6 +332,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             self.logInAndSearch()
         }
         if let text = self.textFiled.text {
+            // DEBUG
             self.updateUserRirekiData(with: text)
             self.checkHotWeekly(with: text)
         }
@@ -323,11 +340,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     func logInAndSearch() {
         TWTRTwitter.sharedInstance().logIn { (session, error) in
-            SVProgressHUD.show()
+            SVProgressHUD.qp.show()
             if let error = error {
                 SVProgressHUD.showError(withStatus: error.localizedDescription)
                 print("error : ", error.localizedDescription)
             }else {
+                
                 SVProgressHUD.dismiss()
                 self.performSegue(withIdentifier: "showFlickViewController", sender: self)
             }
@@ -436,90 +454,121 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
 // HotWordのsave,update関連
 extension ViewController {
+
+    // HotWeeklyがすでにあるかチェック
+    // ある -> checkHotWordData へ
+    // ない -> HotWeekly を新規作成 -> checkHotWordData へ
     func checkHotWeekly(with searchText: String) {
-        HotWeekly.get(Date().dateAt(.startOfWeek).toString()) { (hotWeekly, error) in
-            if let hotWeekly = hotWeekly {
-                self.checkHotWordData(with: searchText, hotWeekly: hotWeekly)
+        Document<HotWeekly>.get(id: Date().dateAt(.startOfWeek).toString()) { (doc, error) in
+            if let error = error {
+                print(error)
             } else {
-                let hotWeekly = HotWeekly(id: Date().dateAt(.startOfWeek).toString())
-                hotWeekly.dataTitle = Date().dateAt(.startOfWeek).toString()
-                hotWeekly.save({ (ref, error) in
-                    if let error = error {
-                        print(error)
-                    } else {
-                        print("checkHotWeekly save 成功")
-                        self.checkHotWordData(with: searchText, hotWeekly: hotWeekly)
-                    }
-                })
+                if let doc = doc {
+                    self.checkHotWordData(with: searchText, hotWeekly: doc)
+                } else {
+                    let newHotWeekly = Document<HotWeekly>.init(id: Date().dateAt(.startOfWeek).toString())
+                    newHotWeekly.data?.dataTitle = Date().dateAt(.startOfWeek).toString()
+                    newHotWeekly.save(completion: { (error) in
+                        if let error = error {
+                            print(error)
+                        } else {
+                            print("checkHotWeekly save 成功")
+                            self.checkHotWordData(with: searchText, hotWeekly: newHotWeekly)
+                        }
+                    })
+                }
+
             }
         }
     }
-    
-    func checkHotWordData(with searchText: String, hotWeekly: HotWeekly) {
-        HotWord.where(\HotWord.word, isEqualTo: searchText).get { (snapshot, error) in
-            guard let snapshot = snapshot else { return self.createHotWordData(with: searchText, hotWeekly: hotWeekly) }
-            guard let document = snapshot.documents.first else { return self.createHotWordData(with: searchText, hotWeekly: hotWeekly) }
-            let hotWordData = document.data()
-            let updateDate = (hotWordData["updatedAt"] as! Timestamp).dateValue()
-            print(updateDate)
-            var resetFlag = true
-            if updateDate.compare(.isThisWeek) {
-                //前回のデータは今週中にupdateされたもの→numを+1で更新する
-                resetFlag = false
+
+    // HotWordのDataを更新する(set役)
+    // HotWordがある -> setして、updateHotWordData へ
+    // HotWordがない -> setして、createHotWordData へ
+    func checkHotWordData(with searchText: String, hotWeekly: Document<HotWeekly>) {
+        Document<HotWord>.where("word", isEqualTo: searchText).get { (snapshot, errpr) in
+            snapshot?.documents.first?.data()
+            if let doc = snapshot?.documents.first {
+                let hotWordData = doc.data()
+                let updateDate = (hotWordData["updatedAt"] as! Timestamp).dateValue()
+                print(updateDate)
+                var resetFlag = true
+                if updateDate.compare(.isThisWeek) {
+                    //前回のデータは今週中にupdateされたもの→numを+1で更新する
+                    resetFlag = false
+                } else {
+                    //前回のデータは今週より前にupdateされたもの→numを=1で更新する
+                    resetFlag = true
+                }
+                self.updateHotWordData(with: doc.documentID, data: hotWordData, resetFlag: resetFlag, hotWeekly: hotWeekly)
             } else {
-                //前回のデータは今週より前にupdateされたもの→numを=1で更新する
-                resetFlag = true
+                self.createHotWordData(with: searchText, hotWeekly: hotWeekly)
             }
-            self.updateHotWordData(with: document.documentID, data: hotWordData, resetFlag: resetFlag, hotWeekly: hotWeekly)
         }
     }
-    
-    func updateHotWordData(with id: String, data: [String: Any], resetFlag: Bool, hotWeekly: HotWeekly){
-        let hotWord = HotWord(id: id)
-        hotWord.word = data["word"] as! String
+
+    // HotWordのでDataを更新する
+    // -> 既存のHotWordのnumを更新する
+    // -> HotWeeklyのデータを更新する(save役)
+    // -> Done!
+    func updateHotWordData(with id: String, data: [String: Any], resetFlag: Bool, hotWeekly: Document<HotWeekly>){
+        
+        let hotWord: Document<HotWord> = Document(id: id)
+        hotWord.data!.word = data["word"] as! String
         if resetFlag {
-            hotWord.num = 1
+            hotWord.data!.num = 1
         } else {
-            hotWord.num = (data["num"] as! Int) + 1
+            hotWord.data!.num = (data["num"] as! Int) + 1
         }
-        hotWord.update({ (error) in
+        hotWord.update { (error) in
             if let error = error {
                 print(error)
             } else {
                 print("hotword update まで成功 : ", data["word"] as! String)
-                hotWeekly.hotWords.insert(hotWord)
-                hotWeekly.update({ (error) in
-                    if let error = error {
-                        print(error)
-                    } else {
-                        print("hotWeekly も成功")
+                let targetArray = hotWeekly.data?.hotWords.filter{$0.word == hotWord.data!.word}
+                if let target = targetArray?.first {
+                    if let index = hotWeekly.data?.hotWords.index(of: target) {
+                        hotWeekly.data?.hotWords.remove(at: index)
+                        hotWeekly.data?.hotWords.append(hotWord.data!)
                     }
-                })
-            }
-        })
-    }
-    
-    func createHotWordData(with searchText: String, hotWeekly: HotWeekly) {
-        let hotWord = HotWord()
-        hotWord.word = searchText
-        hotWord.num = 1
-        hotWord.save { (ref, error) in
-            if let error = error {
-                print(error)
-            } else {
-                print("hotword update まで成功 : ", searchText)
-                hotWeekly.hotWords.insert(hotWord)
-                hotWeekly.update({ (error) in
+                } else {
+                    hotWeekly.data?.hotWords.append(hotWord.data!)
+                }
+                print("test 後: ", hotWeekly.data?.hotWords)
+                hotWeekly.update(completion: { (error) in
                     if let error = error {
                         print(error)
                     } else {
-                        print("hotWeekly も成功")
+                        print("horWord cycle done!! current ver")
                     }
                 })
             }
         }
     }
-    
+
+    // HotWord新規作成 & HotWeeklyに追加
+    func createHotWordData(with searchText: String, hotWeekly: Document<HotWeekly>) {
+
+        let hotWord: Document<HotWord> = Document()
+        hotWord.data?.word = searchText
+        hotWord.data?.num = 1
+        hotWord.save { (error) in
+            if let error = error {
+                print(error)
+            } else {
+                print("hotword update まで成功 : ", searchText)
+                hotWeekly.data?.hotWords.append(hotWord.data!)
+                hotWeekly.update(completion: { (error) in
+                    if let error = error {
+                        print(error)
+                    } else {
+                        print("horWord cycle done!! new ver")
+                    }
+                })
+            }
+        }
+    }
+
     func updateUserRirekiData(with searchText: String) {
         if Defaults[.searchedWords].index(of: searchText) == nil {
             if Defaults[.searchedWords].count <= 5{
@@ -534,7 +583,10 @@ extension ViewController {
             Defaults[.searchedWords].insert(searchText, at: 0)
         }
         guard let user = AccountManager.shared.currentUser else { return }
-        user.wordArray = Defaults[.searchedWords]
+        user.data?.wordArray = Defaults[.searchedWords]
         user.update()
     }
 }
+
+
+

@@ -26,5 +26,7 @@ target 'FlickPic' do
     pod 'Firebase/Auth'
 
     pod 'Pring'
-
+    pod 'Ballcap'
+ 
+    pod 'Google-Mobile-Ads-SDK' 
 end

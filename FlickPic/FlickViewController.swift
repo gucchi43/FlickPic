@@ -51,6 +51,7 @@ class FlickViewController: UIViewController {
     var nowQuery: queryPattern = queryPattern.first
     
     var adoCount = 0
+    
     // PROD
     let interstitialADTestUnitID = "ca-app-pub-2311091333372031/6603686625"
     // TEST
@@ -66,15 +67,15 @@ class FlickViewController: UIViewController {
         
         kolodaView.delegate = self
         kolodaView.dataSource = self
+        
         kolodaView.animator = FlickViewAnimator(koloda: kolodaView)
         leftButton.tintColor = UIColor.warning()
-        
         rightButton.tintColor = UIColor.success()
+        targetTextLabel.adjustsFontSizeToFitWidth = true
         targetTextLabel.text = searchText
         
         getTwitterMedia()
         imageExistFlag = true
-        
     }
     
     @IBAction func tappedLeftButton(_ sender: AnyObject) {
@@ -125,7 +126,7 @@ class FlickViewController: UIViewController {
             print(userID)
             let client = TWTRAPIClient(userID: userID)
             var request = client.urlRequest(withMethod: "GET", urlString: url + self.nextQuery, parameters: params, error: nil)
-            SVProgressHUD.show()
+            SVProgressHUD.qp.show()
             client.sendTwitterRequest(request, completion: {
                 response, data, error in
                 if let error = error {
@@ -406,9 +407,24 @@ extension FlickViewController: KolodaViewDataSource {
             if response.result.isSuccess == true {
                 if let data = response.result.value {
                     DispatchQueue.main.async {
-                        view.originalImage = UIImage(data: data)
-                        view.imageView.image = self.cropThumbnailImage(view.originalImage!, w: Int(view.imageView.frame.width), h: Int(view.imageView.frame.height))
-                        view.loadingLabel.isHidden = true
+                        
+                        view.configure(image: UIImage(data: data)!)
+//                        view.originalImage = UIImage(data: data)
+                        
+//                        view.imageView.contentMode = .scaleAspectFit
+//                        view.imageView.image = view.originalImage
+                        
+//                        view.imageView.contentMode = .scaleAspectFill
+//                        view.imageView.clipsToBounds = true
+//                        view.imageView.image = view.originalImage
+                        
+//                        view.bgImageView.contentMode = .scaleAspectFill
+//                        view.bgImageView.clipsToBounds = true
+//                        view.bgImageView.image = view.originalImage
+//                        view.imageView.image = self.cropThumbnailImage(view.originalImage!, w: Int(view.imageView.frame.width), h: Int(view.imageView.frame.height))
+                        
+//                        view.bgImageView.image = self.cropThumbnailImage(view.originalImage!, w: Int(view.imageView.frame.width), h: Int(view.imageView.frame.height))
+//                        view.loadingLabel.isHidden = true
                         self.imagesArray[index] = view.originalImage!
                         print("imagesArray", self.imagesArray)
                         print("imagesArray count", self.imagesArray.count)

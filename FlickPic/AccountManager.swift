@@ -8,8 +8,9 @@
 //
 
 import UIKit
+import Ballcap
 
 class AccountManager: NSObject {
     static let shared = AccountManager()
-    var currentUser: User?
+    var currentUser: Document<User>?
 }

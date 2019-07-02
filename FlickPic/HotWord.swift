@@ -8,11 +8,25 @@
 
 import Foundation
 import Firebase
-import Pring
+import Ballcap
 
-@objcMembers
-class HotWord : Object{
-    dynamic var word: String = ""
-    dynamic var num: Int = 0
+//@objcMembers
+//class HotWord : Object{
+//    dynamic var word: String = ""
+//    dynamic var num: Int = 0
+//}
+
+struct HotWord: Codable, Equatable, Modelable {
+    var word: String = ""
+    var num: Int = 0
 }
-
+//
+//class HotWord: Object, DataRepresentable {
+//    
+//    var data: Model?
+//    
+//    struct Model: Modelable & Codable {
+//        var word: String = ""
+//        var num: Int = 0
+//    }
+//}

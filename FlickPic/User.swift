@@ -8,13 +8,26 @@
 
 import Foundation
 import Firebase
-import Pring
+import Ballcap
 
-@objcMembers
-class User : Object{
-    dynamic var originId: String = ""
-    dynamic var kaisu: Int = 0
-    dynamic var wordArray: [String]?
-    dynamic var fcmToken: String = ""
-    dynamic var badgeNum: Int = 0
+struct User: Codable, Equatable, Modelable {
+    var originId: String = ""
+    var kaisu: Int = 0
+    var wordArray: [String]?
+    var fcmToken: String = ""
+    var badgeNum: Int = 0
 }
+
+
+//class User: Object, DataRepresentable {
+//    
+//    var data: Model?
+//
+//    struct Model: Modelable & Codable {
+//        var originId: String = ""
+//        var kaisu: Int = 0
+//        var wordArray: [String]?
+//        var fcmToken: String = ""
+//        var badgeNum: Int = 0
+//    }
+//}
