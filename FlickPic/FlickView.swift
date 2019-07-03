@@ -45,7 +45,16 @@ class FlickView: UIView {
     func configure(image: UIImage) {
         originalImage = image
         
-        imageView.contentMode = .scaleAspectFit
+        let w = image.size.width
+        let h = image.size.height
+        
+        // タテヨコ比が4:5よりも縦の方が長い時
+        if w * 1.25 < h {
+            imageView.contentMode = .scaleAspectFill
+            imageView.clipsToBounds = true
+        } else {
+            imageView.contentMode = .scaleAspectFit
+        }
         imageView.image = image
         
         bgImageView.contentMode = .scaleAspectFill
