@@ -26,8 +26,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var remoteConfig: RemoteConfig!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        FirebaseApp.configure()
         
+        FirebaseApp.configure()
+//        BallcapApp.configure(Firestore.firestore().document("version/1"))
         
         Fabric.with([Crashlytics.self])
         TWTRTwitter.sharedInstance().start(withConsumerKey:"r8ELYQHWuQRJl42Is8NmJGbG0", consumerSecret:"N5i9un4GBvjiZbowRZKs0q0oauT5EKQ7Hi2kitYADj4LVMaknx")
@@ -38,7 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Defaults[.launchCount] += 1
         UNUserNotificationCenter.current().delegate = self
-//        BallcapApp.configure(Firestore.firestore().document("version/1"))
         
         // RemoteConfigの設定
         self.remoteConfig = RemoteConfig.remoteConfig()
