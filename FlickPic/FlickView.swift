@@ -39,6 +39,7 @@ class FlickView: UIView {
         guard let content = contentView else { return }
         content.frame = self.bounds
         content.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        loadingLabel.textColor = ColorManager.sharedSingleton.accsentColor()
         self.addSubview(content)
     }
     
