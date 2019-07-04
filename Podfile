@@ -1,5 +1,5 @@
-platform :ios, '10.0'
-swift_version= '3.0'
+platform :ios, '11.0'
+swift_version= '5.0'
 use_frameworks!
 
 target 'FlickPic' do

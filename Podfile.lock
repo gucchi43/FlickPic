@@ -1,6 +1,6 @@
 PODS:
   - Alamofire (4.8.2)
-  - Ballcap (0.6.0):
+  - Ballcap (0.8.1):
     - Firebase
     - Firebase/Firestore
     - Firebase/Storage
@@ -245,7 +245,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
-  Ballcap: 567b92e53506bac8e129f0aaa764ce12af17fcf4
+  Ballcap: 541ae3a464ace98ac5720b65314cb55b81ec6e9b
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
   Colours: f24220c38f13deac88612667e9b4a7fb96b871d4
   Crashlytics: 611738c7847f8291a1a51084e35987b86ba6b3ee
@@ -285,6 +285,6 @@ SPEC CHECKSUMS:
   TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
   TwitterKit: 5e4f41d70b9abdb41df5467f52d7aa2c0fd26ebb
 
-PODFILE CHECKSUM: 3d0c0d128d3844e42592e50e6c1bac49be3340ae
+PODFILE CHECKSUM: 433b913a0b419d4b105df6e4a5ef9343210e13a2
 
 COCOAPODS: 1.6.1
