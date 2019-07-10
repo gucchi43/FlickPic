@@ -11,6 +11,7 @@ import Fabric
 import Crashlytics
 import TwitterKit
 import Firebase
+import FirebaseFirestore
 import FirebaseAuth
 import FirebaseMessaging
 import SwiftyJSON

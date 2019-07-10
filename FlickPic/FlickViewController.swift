@@ -198,8 +198,8 @@ class FlickViewController: UIViewController {
     
     @objc func sorryAlert() {
         let alert = UIAlertController(
-            title: "もうないみたい...",
-            message: "ごめんね！これ以上は出てこなかったよ",
+            title: LocalizeKey.notFouondAleartTitle.localizedString(),
+            message: LocalizeKey.notFouondAleartMessage.localizedString(),
             preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         self.present(alert, animated: true, completion: nil)
@@ -207,17 +207,46 @@ class FlickViewController: UIViewController {
     
     func searchErrorAlert() {
         let alert = UIAlertController(
-            title: "エラーがおきちゃった...",
-            message: "もう1度試してみてね",
+            title: LocalizeKey.errorAleartTitle.localizedString(),
+            message: LocalizeKey.errorAleartMessage.localizedString(),
             preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        alert.addAction(UIAlertAction(title: LocalizeKey.ok.localizedString(), style: .default))
         self.present(alert, animated: true, completion: nil)
     }
     
+    func firstSaveAlert() {
+        let alert = UIAlertController(
+            title: LocalizeKey.firstSaveAleartTitle.localizedString(),
+            message: LocalizeKey.firstSaveAleartMessage.localizedString(),
+            preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: LocalizeKey.ok.localizedString(), style: .default))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func reccomendReviwAlert() {
+        let alert = UIAlertController(
+            title: LocalizeKey.reviewAleartTitle.localizedString(),
+            message: LocalizeKey.reviewAleartMessage.localizedString(),
+            preferredStyle: .alert)
+        let goToReviw = UIAlertAction(title: LocalizeKey.ok.localizedString(), style: .default) { (action) in
+            // レビュー依頼
+            Defaults[.presentReaview] = true
+            if #available(iOS 10.3, *) {
+                SKStoreReviewController.requestReview()
+            } else {
+                // Fallback on earlier versions
+            }
+        }
+        let cancel = UIAlertAction(title: LocalizeKey.cancel.localizedString(), style: .cancel, handler: nil)
+        alert.addAction(cancel)
+        alert.addAction(goToReviw)
+        self.present(alert, animated: true, completion: nil)
+    }
+
     func reccomendLineAlert() {
         let alert = UIAlertController(
-            title: "サンキュー！これで10回目の画像保存だよ！",
-            message: "よかったらLINEで感想を教えてね！",
+            title: LocalizeKey.reviewAleartTitle.localizedString(),
+            message: LocalizeKey.reviewAleartMessage.localizedString(),
             preferredStyle: .alert)
         let goToLine = UIAlertAction(title: "LINEへGO", style: .default) { (action) in
             UIApplication.shared.open(URL(string: "http://line.me/ti/p/%40ozx5488u")!)
@@ -304,7 +333,21 @@ extension FlickViewController: KolodaViewDelegate {
         print("saved image.")
         UIImageWriteToSavedPhotosAlbum(imagesArray[index]!, self, nil, nil)
         Defaults[.saveCount] += 1
-        if Defaults[.saveCount] == 10 {
+        if Defaults[.saveCount] == 1 {
+            
+        }
+        if Defaults[.saveCount] == 5 {
+            if Defaults[.presentReaview] {
+                // レビュー依頼
+                Defaults[.presentReaview] = true
+                if #available(iOS 10.3, *) {
+                    SKStoreReviewController.requestReview()
+                } else {
+                    // Fallback on earlier versions
+                }
+            }
+        }
+        if Defaults[.saveCount] == 15 {
             self.reccomendLineAlert ()
         }
     }
