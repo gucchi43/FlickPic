@@ -216,7 +216,7 @@ class FlickViewController: UIViewController {
     
     func firstSaveAlert() {
         let alert = UIAlertController(
-            title: LocalizeKey.firstSaveAleartTitle.localizedString(),
+            title: "🎉" + LocalizeKey.firstSaveAleartTitle.localizedString() + "🎉",
             message: LocalizeKey.firstSaveAleartMessage.localizedString(),
             preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: LocalizeKey.ok.localizedString(), style: .default))
@@ -245,13 +245,14 @@ class FlickViewController: UIViewController {
     
     func reccomendSnsShare() {
         let alert = UIAlertController(
-            title: "Twitterシェアテスト",
-            message: "テストなんですよ〜〜",
+            title: "Twitterでシェアしてほしいな！🐤",
+            message: "いっぱいいっぱい保存してくれてすっごい嬉しいよ！シェアしてくれたら中の人がウキウキ気分でリプするからね！❤️",
+            
 //            title: LocalizeKey.reviewAleartTitle.localizedString(),
 //            message: LocalizeKey.reviewAleartMessage.localizedString(),
             preferredStyle: .alert)
-        let goToTwitter = UIAlertAction(title: "Twitterでシェア", style: .default) { (action) in
-            let text = "Qupick https://itunes.apple.com/jp/app/id1281328373?mt=8".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let goToTwitter = UIAlertAction(title: "Twitterで応援！📣", style: .default) { (action) in
+            let text = "@Qupick_46 https://itunes.apple.com/jp/app/id1281328373?mt=8".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
             var url = URL(string: "twitter://post?message=\(text)")!
             if UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url)
@@ -266,20 +267,6 @@ class FlickViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
 
-    func reccomendLineAlert() {
-        let alert = UIAlertController(
-            title: LocalizeKey.reviewAleartTitle.localizedString(),
-            message: LocalizeKey.reviewAleartMessage.localizedString(),
-            preferredStyle: .alert)
-        let goToLine = UIAlertAction(title: "LINEへGO", style: .default) { (action) in
-            UIApplication.shared.open(URL(string: "http://line.me/ti/p/%40ozx5488u")!)
-        }
-        let cancel = UIAlertAction(title: "キャンセル", style: .cancel, handler: nil)
-        alert.addAction(cancel)
-        alert.addAction(goToLine)
-        self.present(alert, animated: true, completion: nil)
-    }
-    
     @objc func cropThumbnailImage(_ image :UIImage, w:Int, h:Int) ->UIImage {
         // リサイズ処理
         let origRef    = image.cgImage;
@@ -356,25 +343,25 @@ extension FlickViewController: KolodaViewDelegate {
         print("saved image.")
         UIImageWriteToSavedPhotosAlbum(imagesArray[index]!, self, nil, nil)
         
-        self.reccomendSnsShare()
-        
-//        Defaults[.saveCount] += 1
-//        if Defaults[.saveCount] == 1 {
-//            // ほ画像保存できたことを伝える
-//        } else if Defaults[.saveCount] == 5 {
-//            if Defaults[.presentReaview] {
-//                // レビュー依頼
-//                Defaults[.presentReaview] = true
-//                if #available(iOS 10.3, *) {
-//                    SKStoreReviewController.requestReview()
-//                } else {
-//                    // Fallback on earlier versions
-//                }
-//            }
-//        } else if Defaults[.saveCount] == 10 {
-//            //SNSシェア依頼(Twitter)
-//            self.reccomendSnsShare()
-//        }
+        self.firstSaveAlert()
+        Defaults[.saveCount] += 1
+        if Defaults[.saveCount] == 1 {
+            // 初めて画像保存できたことを伝える
+            self.firstSaveAlert()
+        } else if Defaults[.saveCount] == 5 {
+            if Defaults[.presentReaview] {
+                // レビュー依頼
+                Defaults[.presentReaview] = true
+                if #available(iOS 10.3, *) {
+                    SKStoreReviewController.requestReview()
+                } else {
+                    // Fallback on earlier versions
+                }
+            }
+        } else if Defaults[.saveCount] == 10 {
+            //SNSシェア依頼(Twitter)
+            self.reccomendSnsShare()
+        }
     }
     
     @objc func removeGarbageImageArray(index : Int) {
