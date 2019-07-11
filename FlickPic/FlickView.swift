@@ -38,6 +38,7 @@ class FlickView: UIView {
         Bundle.main.loadNibNamed("FlickView", owner: self, options: nil)
         guard let content = contentView else { return }
         content.frame = self.bounds
+        content.backgroundColor = ColorManager.sharedSingleton.mainColor()
         content.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         loadingLabel.textColor = ColorManager.sharedSingleton.accsentColor()
         self.addSubview(content)
