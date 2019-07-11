@@ -242,6 +242,29 @@ class FlickViewController: UIViewController {
         alert.addAction(goToReviw)
         self.present(alert, animated: true, completion: nil)
     }
+    
+    func reccomendSnsShare() {
+        let alert = UIAlertController(
+            title: "Twitterシェアテスト",
+            message: "テストなんですよ〜〜",
+//            title: LocalizeKey.reviewAleartTitle.localizedString(),
+//            message: LocalizeKey.reviewAleartMessage.localizedString(),
+            preferredStyle: .alert)
+        let goToTwitter = UIAlertAction(title: "Twitterでシェア", style: .default) { (action) in
+            let text = "Qupick https://itunes.apple.com/jp/app/id1281328373?mt=8".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+            var url = URL(string: "twitter://post?message=\(text)")!
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url)
+            } else {
+                url = URL(string: "https://twitter.com/intent/tweet?text=\(text)")!
+                UIApplication.shared.open(url)
+            }
+        }
+        let cancel = UIAlertAction(title: LocalizeKey.cancel.localizedString(), style: .cancel, handler: nil)
+        alert.addAction(cancel)
+        alert.addAction(goToTwitter)
+        self.present(alert, animated: true, completion: nil)
+    }
 
     func reccomendLineAlert() {
         let alert = UIAlertController(
@@ -332,24 +355,26 @@ extension FlickViewController: KolodaViewDelegate {
     @objc public func savedImage(index: Int) {
         print("saved image.")
         UIImageWriteToSavedPhotosAlbum(imagesArray[index]!, self, nil, nil)
-        Defaults[.saveCount] += 1
-        if Defaults[.saveCount] == 1 {
-            
-        }
-        if Defaults[.saveCount] == 5 {
-            if Defaults[.presentReaview] {
-                // レビュー依頼
-                Defaults[.presentReaview] = true
-                if #available(iOS 10.3, *) {
-                    SKStoreReviewController.requestReview()
-                } else {
-                    // Fallback on earlier versions
-                }
-            }
-        }
-        if Defaults[.saveCount] == 15 {
-            self.reccomendLineAlert ()
-        }
+        
+        self.reccomendSnsShare()
+        
+//        Defaults[.saveCount] += 1
+//        if Defaults[.saveCount] == 1 {
+//            // ほ画像保存できたことを伝える
+//        } else if Defaults[.saveCount] == 5 {
+//            if Defaults[.presentReaview] {
+//                // レビュー依頼
+//                Defaults[.presentReaview] = true
+//                if #available(iOS 10.3, *) {
+//                    SKStoreReviewController.requestReview()
+//                } else {
+//                    // Fallback on earlier versions
+//                }
+//            }
+//        } else if Defaults[.saveCount] == 10 {
+//            //SNSシェア依頼(Twitter)
+//            self.reccomendSnsShare()
+//        }
     }
     
     @objc func removeGarbageImageArray(index : Int) {

@@ -397,7 +397,7 @@ extension ViewController {
     // HotWordのDataを更新する(set役)
     // HotWordがある -> setして、updateHotWordData へ
     // HotWordがない -> setして、createHotWordData へ
-    func checkHotWordData(with searchText: String, hotWeekly: Document<HotWeekly>) {
+    func checkHotWordData(with searchText: String, hotWeekly: Document< HotWeekly>) {
         Document<HotWord>.where("word", isEqualTo: searchText).get { (snapshot, errpr) in
             snapshot?.documents.first?.data()
             if let doc = snapshot?.documents.first {

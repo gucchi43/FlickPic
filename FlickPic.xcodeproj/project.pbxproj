@@ -16,6 +16,7 @@
 		65C91790BC409EA6B7E6317F /* Pods_FlickPic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10FF24D0C5AC1276BFC5E9E1 /* Pods_FlickPic.framework */; };
 		8235933322D02D9A003B3100 /* LocalizeKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8235933222D02D9A003B3100 /* LocalizeKey.swift */; };
 		8239386422CED2620025900E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8239386622CED2620025900E /* Localizable.strings */; };
+		82C3CBC822D611C1008D6DF4 /* LanguageCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C3CBC722D611C0008D6DF4 /* LanguageCheck.swift */; };
 		ED0A833F1E1687D400A5D141 /* FlickViewAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0A833E1E1687D400A5D141 /* FlickViewAnimator.swift */; };
 		ED0A83451E1695D300A5D141 /* EffectlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED0A83441E1695D300A5D141 /* EffectlayerView.xib */; };
 		ED0A83471E1695EE00A5D141 /* EffectlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0A83461E1695EE00A5D141 /* EffectlayerView.swift */; };
@@ -94,6 +95,7 @@
 		82C3CBC422D0A12A008D6DF4 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		82C3CBC522D0A12B008D6DF4 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		82C3CBC622D127B0008D6DF4 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		82C3CBC722D611C0008D6DF4 /* LanguageCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageCheck.swift; sourceTree = "<group>"; };
 		C01F9D56E71EC1D2CD38801D /* Pods-FlickPic.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlickPic.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FlickPic/Pods-FlickPic.debug.xcconfig"; sourceTree = "<group>"; };
 		ED0A833E1E1687D400A5D141 /* FlickViewAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickViewAnimator.swift; sourceTree = "<group>"; };
 		ED0A83441E1695D300A5D141 /* EffectlayerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EffectlayerView.xib; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 		ED6ADA1A1E2930B200800373 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				82C3CBC722D611C0008D6DF4 /* LanguageCheck.swift */,
 				ED8A69111E239B260015C6B4 /* Extension.swift */,
 				EDC97F821E1F89EE00F9D71D /* ColorManager.swift */,
 				0300F6DD20F2E86C00A687DD /* DefaultsKeys+Extension.swift */,
@@ -554,6 +557,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82C3CBC822D611C1008D6DF4 /* LanguageCheck.swift in Sources */,
 				EDC97F831E1F89EF00F9D71D /* ColorManager.swift in Sources */,
 				EFFC84691D15453600E30A3E /* ViewController.swift in Sources */,
 				EF79FD931D157BFE002CA4BA /* FlickView.swift in Sources */,

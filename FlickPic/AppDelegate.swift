@@ -29,7 +29,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         FirebaseApp.configure()
-        BallcapApp.configure(Firestore.firestore().document("version/1"))
+        
+        let lcheck = LanguageCheck()
+        let rootKey = lcheck.checkLanguage()
+        print("rootKey : ", rootKey)
+        
+        BallcapApp.configure(Firestore.firestore().document(rootKey + "/1"))
         
         Fabric.with([Crashlytics.self])
         TWTRTwitter.sharedInstance().start(withConsumerKey:"r8ELYQHWuQRJl42Is8NmJGbG0", consumerSecret:"N5i9un4GBvjiZbowRZKs0q0oauT5EKQ7Hi2kitYADj4LVMaknx")
