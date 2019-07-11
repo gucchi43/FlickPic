@@ -375,15 +375,7 @@ extension FlickViewController: KolodaViewDelegate {
                     } else {
                         print("Ad wasn't ready")
                     }
-                } else {
-                    // レビュー依頼
-                    Defaults[.presentReaview] = true
-                    if #available(iOS 10.3, *) {
-                        SKStoreReviewController.requestReview()
-                    } else {
-                        // Fallback on earlier versions
-                    }
-                }       
+                }
                 adoCount = 0
             }
         }
