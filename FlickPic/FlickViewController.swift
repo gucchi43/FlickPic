@@ -223,35 +223,12 @@ class FlickViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    func reccomendReviwAlert() {
+    func snsShareAlert() {
         let alert = UIAlertController(
-            title: LocalizeKey.reviewAleartTitle.localizedString(),
-            message: LocalizeKey.reviewAleartMessage.localizedString(),
+            title: LocalizeKey.snsShareAleartButton.localizedString() + "🐤",
+            message:LocalizeKey.snsShareAleartMessage.localizedString() + "❤️",
             preferredStyle: .alert)
-        let goToReviw = UIAlertAction(title: LocalizeKey.ok.localizedString(), style: .default) { (action) in
-            // レビュー依頼
-            Defaults[.presentReaview] = true
-            if #available(iOS 10.3, *) {
-                SKStoreReviewController.requestReview()
-            } else {
-                // Fallback on earlier versions
-            }
-        }
-        let cancel = UIAlertAction(title: LocalizeKey.cancel.localizedString(), style: .cancel, handler: nil)
-        alert.addAction(cancel)
-        alert.addAction(goToReviw)
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    func reccomendSnsShare() {
-        let alert = UIAlertController(
-            title: "Twitterでシェアしてほしいな！🐤",
-            message: "いっぱいいっぱい保存してくれてすっごい嬉しいよ！シェアしてくれたら中の人がウキウキ気分でリプするからね！❤️",
-            
-//            title: LocalizeKey.reviewAleartTitle.localizedString(),
-//            message: LocalizeKey.reviewAleartMessage.localizedString(),
-            preferredStyle: .alert)
-        let goToTwitter = UIAlertAction(title: "Twitterで応援！📣", style: .default) { (action) in
+        let goToTwitter = UIAlertAction(title: LocalizeKey.snsShareAleartButton.localizedString() + "📢", style: .default) { (action) in
             let text = "@Qupick_46 https://itunes.apple.com/jp/app/id1281328373?mt=8".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
             var url = URL(string: "twitter://post?message=\(text)")!
             if UIApplication.shared.canOpenURL(url) {
@@ -342,8 +319,7 @@ extension FlickViewController: KolodaViewDelegate {
     @objc public func savedImage(index: Int) {
         print("saved image.")
         UIImageWriteToSavedPhotosAlbum(imagesArray[index]!, self, nil, nil)
-        
-        self.firstSaveAlert()
+
         Defaults[.saveCount] += 1
         if Defaults[.saveCount] == 1 {
             // 初めて画像保存できたことを伝える
@@ -360,7 +336,7 @@ extension FlickViewController: KolodaViewDelegate {
             }
         } else if Defaults[.saveCount] == 10 {
             //SNSシェア依頼(Twitter)
-            self.reccomendSnsShare()
+            self.snsShareAlert()
         }
     }
     

@@ -43,6 +43,9 @@ enum LocalizeKey: String {
     case termsAleartTitle
     case termsAleartMessage
     case cancel
+    case snsShareAleartTitle
+    case snsShareAleartMessage
+    case snsShareAleartButton
     
     // selfの値をローカライズして返す
     func localizedString() -> String {
