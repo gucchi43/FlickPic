@@ -398,7 +398,7 @@ extension ViewController {
     // HotWordがある -> setして、updateHotWordData へ
     // HotWordがない -> setして、createHotWordData へ
     func checkHotWordData(with searchText: String, hotWeekly: Document< HotWeekly>) {
-        Document<HotWord>.where("word", isEqualTo: searchText).get { (snapshot, errpr) in
+        Document<HotWord>.where("word", isEqualTo: searchText).get { (snapshot, error) in
             snapshot?.documents.first?.data()
             if let doc = snapshot?.documents.first {
                 let hotWordData = doc.data()
@@ -419,7 +419,7 @@ extension ViewController {
         }
     }
 
-    // HotWordのでDataを更新する
+    // HotWordのDataを更新する
     // -> 既存のHotWordのnumを更新する
     // -> HotWeeklyのデータを更新する(save役)
     // -> Done!
@@ -461,7 +461,12 @@ extension ViewController {
     // HotWord新規作成 & HotWeeklyに追加
     func createHotWordData(with searchText: String, hotWeekly: Document<HotWeekly>) {
 
-        let hotWord: Document<HotWord> = Document()
+         //TODO
+//        let hotWord: Document<HotWord> = Document()
+        let uuid = NSUUID().uuidString
+        print("uuid: \(uuid)")
+        let hotWord: Document<HotWord> = Document<HotWord>.init(id: uuid)
+//        let hotWord: Document<HotWord> = Document<HotWord>.init(id: "testetest")
         hotWord.data?.word = searchText
         hotWord.data?.num = 1
         hotWord.save { (error) in
@@ -596,6 +601,3 @@ extension ViewController {
         self.present(alert, animated: true, completion: nil)
     }
 }
-
-
-
