@@ -18,16 +18,11 @@ struct User: Codable, Equatable, Modelable {
     var badgeNum: Int = 0
 }
 
-
-//class User: Object, DataRepresentable {
-//    
-//    var data: Model?
-//
-//    struct Model: Modelable & Codable {
-//        var originId: String = ""
-//        var kaisu: Int = 0
-//        var wordArray: [String]?
-//        var fcmToken: String = ""
-//        var badgeNum: Int = 0
-//    }
+//// デバッグの時たまにつかう
+//struct TestUser: Codable, Equatable, Modelable {
+//    var originId: String = ""
+//    var kaisu: Int = 0
+//    var wordArray: [String]?
+//    var fcmToken: String = ""
+//    var badgeNum: Int = 0
 //}

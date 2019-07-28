@@ -241,7 +241,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
             }
             if granted {
                 print("プッシュ通知ダイアログ 許可")
-                UIApplication.shared.registerForRemoteNotifications()
+                DispatchQueue.main.async {
+                    UIApplication.shared.registerForRemoteNotifications()
+                }
             } else {
                 print("プッシュ通知ダイアログ 拒否")
             }
@@ -284,7 +286,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 SVProgressHUD.showError(withStatus: error.localizedDescription)
                 print("error : ", error.localizedDescription)
             }else {
-                
                 SVProgressHUD.dismiss()
                 self.performSegue(withIdentifier: "showFlickViewController", sender: self)
             }
@@ -461,12 +462,14 @@ extension ViewController {
     // HotWord新規作成 & HotWeeklyに追加
     func createHotWordData(with searchText: String, hotWeekly: Document<HotWeekly>) {
 
-         //TODO
-//        let hotWord: Document<HotWord> = Document()
-        let uuid = NSUUID().uuidString
-        print("uuid: \(uuid)")
-        let hotWord: Document<HotWord> = Document<HotWord>.init(id: uuid)
-//        let hotWord: Document<HotWord> = Document<HotWord>.init(id: "testetest")
+        //documentIdをUUID生成して独自で作る場合
+        // 一応残しとく
+        // let hotWord: Document<HotWord> = Document()
+        // let uuid = NSUUID().uuidString
+        // print("uuid: \(uuid)")
+        // let hotWord: Document<HotWord> = Document<HotWord>.init(id: uuid)
+        
+        let hotWord: Document<HotWord> = Document()
         hotWord.data?.word = searchText
         hotWord.data?.num = 1
         hotWord.save { (error) in

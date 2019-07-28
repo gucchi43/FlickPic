@@ -237,6 +237,7 @@ class FlickViewController: UIViewController {
                 url = URL(string: "https://twitter.com/intent/tweet?text=\(text)")!
                 UIApplication.shared.open(url)
             }
+            Defaults[.snsShare] = true
         }
         let cancel = UIAlertAction(title: LocalizeKey.cancel.localizedString(), style: .cancel, handler: nil)
         alert.addAction(cancel)
@@ -325,7 +326,7 @@ extension FlickViewController: KolodaViewDelegate {
             // 初めて画像保存できたことを伝える
             self.firstSaveAlert()
         } else if Defaults[.saveCount] == 5 {
-            if Defaults[.presentReaview] {
+            if Defaults[.presentReaview] == false {
                 // レビュー依頼
                 Defaults[.presentReaview] = true
                 if #available(iOS 10.3, *) {
@@ -334,9 +335,11 @@ extension FlickViewController: KolodaViewDelegate {
                     // Fallback on earlier versions
                 }
             }
-        } else if Defaults[.saveCount] == 10 {
-            //SNSシェア依頼(Twitter)
-            self.snsShareAlert()
+        } else if Defaults[.saveCount] == 10 || Defaults[.saveCount] == 25 ||  Defaults[.saveCount] == 50{
+            if Defaults[.snsShare] == false {
+                //SNSシェア依頼(Twitter)
+                self.snsShareAlert()
+            }
         }
     }
     

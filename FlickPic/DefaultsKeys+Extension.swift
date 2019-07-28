@@ -15,4 +15,5 @@ extension DefaultsKeys {
     static let presentReaview = DefaultsKey<Bool>("presentReaview")
     static let saveCount = DefaultsKey<Int>("saveCount")
     static let searchedWords = DefaultsKey<[String]>("searchedWords")
+    static let snsShare = DefaultsKey<Bool>("snsShare")
 }

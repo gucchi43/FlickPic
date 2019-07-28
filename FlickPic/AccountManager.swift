@@ -14,3 +14,8 @@ class AccountManager: NSObject {
     static let shared = AccountManager()
     var currentUser: Document<User>?
 }
+
+//class TestManager: NSObject {
+//    static let shared = TestManager()
+//    var currentUser: Document<TestUser>?
+//}

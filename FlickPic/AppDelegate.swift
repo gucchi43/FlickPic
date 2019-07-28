@@ -30,10 +30,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
+        // 言語ごとにfirestoreのDBのルートを分ける
         let lcheck = LanguageCheck()
         let rootKey = lcheck.checkLanguage()
         print("rootKey : ", rootKey)
-        
         BallcapApp.configure(Firestore.firestore().document(rootKey + "/1"))
         
         Fabric.with([Crashlytics.self])
@@ -56,6 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         remoteConfig.setDefaults(["must_update_ver": "1.0.0" as NSObject])
         remoteConfig.setDefaults(["must_update_message": "おねがーい" as NSObject])
         checkAppVersion()
+        // Userデータ生成
         if let user = AccountManager.shared.currentUser {
             print("ログイン済み: ", user)
         } else {
@@ -97,57 +98,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Auth.auth().signInAnonymously() { (authUser, error) in
             if let error = error {
                 print("atuth error: ", error)
-                self.showErrorAlert(message: "電波のいいところでもう一度試してね")
+                self.showSetUpUserErrorAlert(message: "電波のいいところでもう一度試してね")
             } else {
                 print("auth user: ", authUser)
-                
-                
                 Document<User>.get(id: authUser!.user.uid, completion: { (doc, error) in
                     if let error = error {
                         print("atuth error: ", error)
-                        self.showErrorAlert(message: "電波のいいところでもう一度試してね")
+                        self.showSetUpUserErrorAlert(message: "電波のいいところでもう一度試してね")
                     } else {
                         if let doc = doc {
+                            print("==========")
+                            print("User get成功! user:", doc)
+                            print("User 生成開始!")
+                            print("==========")
                             AccountManager.shared.currentUser = doc
                         } else {
+                            print("==========")
+                            print("User get成功! testUserなし！")
+                            print("User 生成開始!")
+                            print("==========")
                             let newUser = Document<User>.init(id: authUser!.user.uid)
                             newUser.data?.fcmToken = Messaging.messaging().fcmToken!
                             newUser.save(completion: { (error) in
                                 if let error = error {
                                     print(error.localizedDescription)
-                                    self.showErrorAlert(message: "電波のいいところでもう一度試してね")
+                                    self.showSetUpUserErrorAlert(message: "電波のいいところでもう一度試してね")
                                 } else {
+                                    print("==========")
+                                    print("User 生成成功!")
+                                    print("==========")
                                     AccountManager.shared.currentUser = newUser
                                 }
                             })
                         }
                     }
                 })
-                
-//
-//
-//                User.get((authUser!.user.uid), block: { (user, error) in
-//                    if let error = error {
-//                        print("atuth error: ", error)
-//                        self.showErrorAlert(message: "電波のいいところでもう一度試してね")
-//                    } else {
-//                        if let user = user {
-//                            AccountManager.shared.currentUser = user
-//                        } else {
-//                            let newUser = User(id: authUser!.user.uid)
-//                            newUser.fcmToken = Messaging.messaging().fcmToken!
-//                            newUser.save({ (ref, error) in
-//                                if let error = error {
-//                                    print(error.localizedDescription)
-//                                    self.showErrorAlert(message: "電波のいいところでもう一度試してね")
-//                                } else if let ref = ref {
-//                                    print(ref)
-//                                    AccountManager.shared.currentUser = newUser
-//                                }
-//                            })
-//                        }
-//                    }
-//                })
             }
         }
     }
@@ -249,13 +234,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.rootViewController?.present(alert, animated: true, completion: nil)
     }
     
-    func showErrorAlert(message: String) {
+    func showSetUpUserErrorAlert(message: String) {
         let alert = UIAlertController(
             title: "エラーだよ",
             message: message,
             preferredStyle: .alert)
-        let updateAction = UIAlertAction(title: "OK", style: .default) {
+        let updateAction = UIAlertAction(title: "リトライする", style: .default) {
             action in
+            self.setUpUser()
         }
         alert.addAction(updateAction)
         self.window?.rootViewController?.present(alert, animated: true, completion: nil)
